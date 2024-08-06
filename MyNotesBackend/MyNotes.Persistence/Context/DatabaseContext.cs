@@ -10,15 +10,15 @@ namespace MyNotes.Infrastructure.Persistence
         public DbSet<User> Users { get; set; }
         public DatabaseContext(DbContextOptions options) : base(options)
         {
-
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            DbPath = System.IO.Path.Join(path, "MyNotes.db");
         }
         public string DbPath { get; }
 
         public DatabaseContext()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "MyNotes.db");
+           
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

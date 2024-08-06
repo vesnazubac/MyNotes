@@ -30,4 +30,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.7.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MyNotes.Persistence\MyNotes.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
