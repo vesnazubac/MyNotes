@@ -2,8 +2,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { provideRouter, RouterModule, Route } from '@angular/router';
 import { AppComponent } from './app/app.component';
-import { HomeComponent } from './app/home/home.component';
-import { NoteComponent } from './app/note/note.component';
+import { HomeComponent } from './app/components/home/home.component';
+import { NoteComponent } from './app/components/note/note.component';
 
 const routes: Route[] = [
   { path: 'home', component: HomeComponent },
