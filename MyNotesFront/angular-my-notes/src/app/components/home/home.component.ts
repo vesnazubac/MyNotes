@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NoteComponent } from '../note/note.component';
+
+import { NoteComponent } from '../../note/note.component';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';

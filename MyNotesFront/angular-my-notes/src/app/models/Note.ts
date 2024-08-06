@@ -1,0 +1,12 @@
+export interface Note {
+  id:number;
+  title: string;
+  content: string;
+  color: string;
+  createdDate: Date;
+  editedDate: Date;
+  isPinned: boolean;
+  isArchived: boolean;
+  userId: number;
+  groupId: number;
+}
