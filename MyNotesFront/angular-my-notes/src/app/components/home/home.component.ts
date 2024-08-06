@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-
-import { NoteComponent } from '../../note/note.component';
-
+import { NoteComponent } from '../note/note.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +18,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+onSearchChange() {
+throw new Error('Method not implemented.');
+}
   searchTerm: string = '';
 
 }
