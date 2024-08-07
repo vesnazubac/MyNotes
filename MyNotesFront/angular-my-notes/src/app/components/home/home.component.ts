@@ -18,9 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-clickedMenuIcon() {
-console.log("Menu clicked")
-}
+
 onSearchChange() {
 throw new Error('Method not implemented.');
 }
