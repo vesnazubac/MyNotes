@@ -1,13 +1,13 @@
 
 import { Component } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatToolbar } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,MatToolbar,NavBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

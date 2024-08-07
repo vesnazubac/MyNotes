@@ -3,7 +3,7 @@ import {
   ScrollDispatcher,
   ScrollingModule,
   ViewportRuler
-} from "./chunk-SRYOBSZ5.js";
+} from "./chunk-OKVEJZHQ.js";
 import "./chunk-7ZSK6LDV.js";
 import {
   animate,
@@ -37,7 +37,7 @@ import {
   isFakeTouchstartFromScreenReader,
   normalizePassiveListenerOptions,
   supportsScrollBehavior
-} from "./chunk-RZJH2WN3.js";
+} from "./chunk-5D3IHFST.js";
 import {
   CommonModule,
   DOCUMENT,
