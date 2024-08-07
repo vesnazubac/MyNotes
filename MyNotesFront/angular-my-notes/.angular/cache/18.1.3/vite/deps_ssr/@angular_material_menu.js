@@ -4,7 +4,8 @@ import {
   ScrollDispatcher,
   ScrollingModule,
   ViewportRuler
-} from "./chunk-IQJM6LXL.js";
+} from "./chunk-MCHDTYW6.js";
+import "./chunk-6T55LVFY.js";
 import {
   animate,
   state,
@@ -12,7 +13,6 @@ import {
   transition,
   trigger
 } from "./chunk-PQBSBCHQ.js";
-import "./chunk-6T55LVFY.js";
 import {
   BidiModule,
   DOWN_ARROW,
@@ -38,7 +38,7 @@ import {
   isFakeTouchstartFromScreenReader,
   normalizePassiveListenerOptions,
   supportsScrollBehavior
-} from "./chunk-3G4JILG7.js";
+} from "./chunk-I5FQAVE6.js";
 import {
   CommonModule,
   DOCUMENT,

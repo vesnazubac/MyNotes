@@ -35,7 +35,7 @@ button {
   display: block;
   width: 80%;
   padding: 10px;
-  background-color: #ffab00;
+  background-color:  #89CFF0;
   border: none;
   border-radius: 4px;
   font-size: 16px;
@@ -45,7 +45,7 @@ button {
 }
 
 button:hover {
-  background-color: #ffb700;
+  background-color:#009dff;
 }
 
 .pinned-icon {
@@ -53,6 +53,6 @@ button:hover {
   top: 12px;
   right: 13px;
   font-size: 24px;
-  color: #ffab00;
+  color:#F089A5;
   cursor: pointer;
 }

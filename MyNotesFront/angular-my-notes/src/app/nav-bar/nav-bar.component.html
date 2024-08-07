@@ -1,0 +1,33 @@
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mooli:wght@400;500&display=swap" rel="stylesheet">
+
+</head>
+<mat-toolbar>
+  <div class="toolbar-left">
+    <span class="motivational-text">Stay organized, stay productive!</span>
+  </div>
+  <div>
+    <button mat-button [routerLink]="['notes']">
+      <mat-icon>notes</mat-icon>
+      Notes
+    </button>
+    <button mat-button [routerLink]="['reminders']">
+      <mat-icon>alarm</mat-icon>
+      Reminders
+    </button>
+    <button mat-button [routerLink]="['edit-labels']">
+      <mat-icon>label</mat-icon>
+      Edit Labels
+    </button>
+    <button mat-button [routerLink]="['archive']">
+      <mat-icon>archive</mat-icon>
+      Archive
+    </button>
+    <button mat-button [routerLink]="['trash']">
+      <mat-icon>delete</mat-icon>
+      Trash
+    </button>
+  </div>
+</mat-toolbar>

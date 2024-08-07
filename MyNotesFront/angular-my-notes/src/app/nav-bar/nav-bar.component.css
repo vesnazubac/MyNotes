@@ -1,0 +1,59 @@
+/* mat-toolbar {
+  background-color: #89CFF0;
+  width: 100%;
+}
+
+mat-toolbar div {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+mat-toolbar button {
+  color: white;
+  margin-right: 10px;
+}
+
+mat-toolbar mat-icon {
+  color:#F089A5;
+} */
+
+
+
+
+
+mat-toolbar {
+  background-color: #89CFF0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+}
+.motivational-text {
+  color: whitesmoke;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Mooli', sans-serif;
+  font-weight: bold;
+}
+.toolbar-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.toolbar-right button {
+  color: white;
+  margin-right: 10px;
+}
+
+mat-toolbar mat-icon {
+  /* color: #F089A5; */
+  color:	black;
+}
