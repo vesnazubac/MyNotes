@@ -34,15 +34,13 @@ mat-toolbar {
   display: flex;
   align-items: center;
 }
-
 .motivational-text {
-  color:  	#aa51e6;
+  color: whitesmoke;
   font-size: 18px;
   font-weight: 500;
-  font-family: 'Pacifico', cursive;
-
+  font-family: 'Mooli', sans-serif;
+  font-weight: bold;
 }
-
 .toolbar-right {
   display: flex;
   justify-content: flex-end;
@@ -57,5 +55,5 @@ mat-toolbar {
 
 mat-toolbar mat-icon {
   /* color: #F089A5; */
-  color:	#aa51e6;
+  color:	black;
 }
