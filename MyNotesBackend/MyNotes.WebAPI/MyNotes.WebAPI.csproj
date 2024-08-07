@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyNotes.Application\MyNotes.Application.csproj" />
     <ProjectReference Include="..\MyNotes.Domain\MyNotes.Domain.csproj" />
     <ProjectReference Include="..\MyNotes.Persistence\MyNotes.Persistence.csproj" />
   </ItemGroup>

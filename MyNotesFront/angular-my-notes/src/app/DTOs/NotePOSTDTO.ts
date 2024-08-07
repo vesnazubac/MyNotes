@@ -1,4 +1,4 @@
-// src/app/models/post-dto.ts
+
 
 export interface NotePostDTO {
   title: string;

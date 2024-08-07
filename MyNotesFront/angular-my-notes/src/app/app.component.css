@@ -20,6 +20,17 @@ h1 {
     background-position: center;
     background-repeat: repeat;
   }
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('assets/images/ThreeMaterial.jpg');
+    background-size: contain
+    ;
+    background-position: center;
+    background-repeat: repeat;
+  }
   body, input[type="text"], button {
     color: #333;
     font-family: Cambria, Georgia, serif;
