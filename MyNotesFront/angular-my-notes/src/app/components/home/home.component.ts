@@ -18,6 +18,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+clickedMenuIcon() {
+console.log("Menu is clicked")
+}
 onSearchChange() {
 throw new Error('Method not implemented.');
 }
