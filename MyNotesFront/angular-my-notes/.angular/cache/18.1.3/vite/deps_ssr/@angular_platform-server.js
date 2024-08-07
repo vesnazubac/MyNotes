@@ -4,10 +4,12 @@ import {
   BrowserModule,
   DomRendererFactory2,
   EVENT_MANAGER_PLUGINS,
-  EventManagerPlugin,
+  EventManagerPlugin
+} from "./chunk-A6DKC7IR.js";
+import {
   HTTP_ROOT_INTERCEPTOR_FNS,
   HttpClientModule
-} from "./chunk-5VNTVUZM.js";
+} from "./chunk-D6OVEV4X.js";
 import {
   AUTO_STYLE,
   AnimationGroupPlayer,

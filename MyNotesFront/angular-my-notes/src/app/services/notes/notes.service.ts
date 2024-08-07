@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -11,7 +10,7 @@ import {Note} from '../../models/Note';
   providedIn: 'root'
 })
 export class NoteService {
-  private usersList: NoteGetDTO[] = [];
+  private notesList: NoteGetDTO[] = [];
 
   constructor(private httpClient: HttpClient) {
   }
