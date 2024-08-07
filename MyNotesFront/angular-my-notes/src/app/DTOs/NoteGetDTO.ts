@@ -1,0 +1,13 @@
+// src/app/models/post-dto.ts
+
+export interface NoteGetDTO {
+  title: string;
+  content: string;
+  color: string;
+  createdDate: Date;
+  editedDate: Date;
+  isPinned: boolean;
+  isArchived: boolean;
+  userId: number;
+  groupId: number;
+}
