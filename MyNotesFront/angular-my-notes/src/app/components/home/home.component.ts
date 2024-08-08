@@ -47,7 +47,4 @@ export class HomeComponent {
     // Implement your search functionality here
     console.log('Search value:', searchValue);
   }
-
-
 }
-
