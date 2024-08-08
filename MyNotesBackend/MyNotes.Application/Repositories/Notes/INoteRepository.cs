@@ -10,7 +10,7 @@ namespace MyNotes.Application.Repositories.Notes
      public interface INoteRepository
     {
         List<Note> GetNotes();
-        Note GetNoteById(long id);
+        Note GetNoteById(Guid id);
 
         Note CreateNote(Note note);
 

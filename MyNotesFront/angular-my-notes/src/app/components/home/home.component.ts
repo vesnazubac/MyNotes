@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
+  imports: [MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -46,5 +46,13 @@ export class HomeComponent {
   onSearchChange(searchValue: string) {
     // Implement your search functionality here
     console.log('Search value:', searchValue);
+  }
+
+  handleNoteSaved() {
+    this.noteService.getAll().subscribe(notes => {
+      this.notes = notes;
+      this.items=notes;
+      console.log(notes)
+    });
   }
 }

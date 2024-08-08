@@ -8,6 +8,6 @@ export interface NoteGetDTO {
   EditedDate: Date;
   IsPinned: boolean;
   IsArchived: boolean;
-  UserId: number;
-  GroupId: number;
+  UserId: string;
+  GroupId: string;
 }

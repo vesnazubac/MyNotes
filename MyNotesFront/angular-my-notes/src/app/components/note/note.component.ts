@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -17,7 +17,7 @@ export class NoteComponent {
   title: string = '';
   content: string = '';
   isPinned: boolean = false;
-
+  @Output() noteSaved = new EventEmitter<void>();
   constructor(private noteService: NoteService, public snackBar: MatSnackBar) {}
 
   saveNote() {
@@ -25,12 +25,9 @@ export class NoteComponent {
       title: this.title,
       content: this.content,
       color: '#FFFFFF',
-      createdDate: new Date(),
-      editedDate: new Date(),
       isPinned: this.isPinned,
-      isArchived: false,
-      userId: 1,
-      groupId: 1,
+      userId: '00000000-0000-0000-0000-000000000001',
+      groupId: '00000000-0000-0000-0000-000000000001'
     };
 
     this.noteService.create(newNote).subscribe(
@@ -40,6 +37,7 @@ export class NoteComponent {
           duration: 3000,
         });
         console.log('Note saved:', response);
+        this.noteSaved.emit();
       },
       (error) => {
         this.snackBar.open('Error saving note', 'Close', {
@@ -49,6 +47,7 @@ export class NoteComponent {
         console.error('Error saving note:', error);
       }
     );
+
   }
 
   togglePin() {

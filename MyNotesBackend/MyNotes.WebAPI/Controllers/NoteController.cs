@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyNotes.Domain.Entities;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using MyNotes.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Routing;
 using MyNotes.Application.Features.Add;
 
 
