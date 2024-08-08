@@ -21,11 +21,10 @@ namespace MyNotes.Application.Features.Add
         public async Task<Note> Create(Note noteToCreate)
         {
      
-
-            // Use the repository to add the note
+            noteToCreate.CreatedDate = DateTime.Now;
+            noteToCreate.EditedDate = DateTime.Now;
+            noteToCreate.IsArchived = false;
             var createdNote = _noteRepository.CreateNote(noteToCreate);
-
-            // Save changes to persist the note
             _noteRepository.SaveChanges();
 
             return createdNote;

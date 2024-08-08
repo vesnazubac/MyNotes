@@ -1,13 +1,11 @@
-
-
 export interface NotePostDTO {
   title: string;
   content: string;
   color: string;
-  createdDate: Date;
-  editedDate: Date;
+  // createdDate: Date;
+  // editedDate: Date;
   isPinned: boolean;
-  isArchived: boolean;
-  userId: number;
-  groupId: number;
+  // isArchived: boolean;
+  userId:string;
+  groupId: string;
 }

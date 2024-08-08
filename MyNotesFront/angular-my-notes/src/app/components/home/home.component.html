@@ -11,7 +11,7 @@
       <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
       <input type="search" matInput class="search-text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
     </mat-form-field>
-    <app-note></app-note>
+    <app-note  (noteSaved)="handleNoteSaved()"></app-note>
     <!-- <div class="note-grid">
       <div *ngFor="let note of notes" class="note-card" cdkDrag>
         <mat-icon class="pinned-icon" [ngClass]="{'pinned': note.isPinned}">push_pin</mat-icon>
@@ -31,9 +31,10 @@
     </div> -->
     <div cdkDropList cdkDropListOrientation="mixed" class="example-list" (cdkDropListDropped)="drop($event)">
       <div *ngFor="let item of items" cdkDrag class="example-box">
-        <mat-card class="example-card" appearance="outlined">
+        <mat-card class="example-card" >
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
+            <mat-icon *ngIf="item.IsPinned" class="pinned-icon">push_pin</mat-icon>
             <mat-card-title>{{ item.Title }}</mat-card-title>
             <!-- <mat-card-subtitle>Note</mat-card-subtitle> -->
           </mat-card-header>

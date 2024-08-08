@@ -29,7 +29,7 @@ namespace MyNotes.Application.Repositories.Notes
             throw new NotImplementedException();
         }
 
-        public Note GetNoteById(long id)
+        public Note GetNoteById(Guid id)
         {
             throw new NotImplementedException();
         }
