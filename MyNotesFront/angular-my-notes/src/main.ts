@@ -13,7 +13,4 @@ const routes: Route[] = [
 bootstrapApplication(AppComponent, appConfig)
 
 .catch((err) => console.error(err));
-// bootstrapApplication(AppComponent, {providers: [
-//   provideHttpClient(),
-// ]});
 

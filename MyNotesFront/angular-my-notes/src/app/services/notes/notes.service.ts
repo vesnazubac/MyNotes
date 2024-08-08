@@ -10,7 +10,7 @@ import {Note} from '../../models/Note';
   providedIn: 'root'
 })
 export class NoteService {
-  private notesList: NoteGetDTO[] = [];
+  public notes: NoteGetDTO[] = [];
 
   constructor(private httpClient: HttpClient) {
   }
@@ -18,8 +18,6 @@ export class NoteService {
   getAll(): Observable<NoteGetDTO[]> {
     return this.httpClient.get<NoteGetDTO[]>(environment.apiHost + 'api/notes')
   }
-
-
   create(note: NotePostDTO): Observable<NotePostDTO> {
     return this.httpClient.post<NotePostDTO>(environment.apiHost + 'api/notes', note)
   }
