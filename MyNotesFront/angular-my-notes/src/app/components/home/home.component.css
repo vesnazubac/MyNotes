@@ -175,7 +175,8 @@ h2 {padding: 1rem;}
 .example-list {
   display: flex;
   flex-wrap: wrap;
-  width: 505px;
+  flex-direction: row;
+  width: 95%;
   max-width: 100%;
   gap: 15px;
   padding: 15px;
@@ -183,6 +184,7 @@ h2 {padding: 1rem;}
   min-height: 60px;
   border-radius: 4px;
   overflow: hidden;
+  margin-top: 100px;
 }
 
 .example-box {
@@ -190,7 +192,9 @@ h2 {padding: 1rem;}
   border: solid 1px #ccc;
   border-radius: 4px;
   color: rgba(0, 0, 0, 0.87);
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  flex-direction: row;
   box-sizing: border-box;
   cursor: move;
   background: white;
@@ -222,9 +226,28 @@ h1{
 }
 .example-card {
   max-width: 400px;
+  width: 300px;
 }
 
 .example-header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
+}
+.baby-blue-button {
+  background-color: #89CFF0; /* Baby blue color */
+  color: white;
+  border-radius: 25px; /* Makes the button rounded */
+  padding: 10px 20px; /* Adds some padding */
+}
+
+.baby-blue-button:hover {
+  background-color: #87CEFA; /* A lighter shade of blue on hover */
+}
+
+.note-icons{
+  color: pink;
+  margin-right: 10px;
+}
+.ikonice{
+  margin-left: 40px;
 }
