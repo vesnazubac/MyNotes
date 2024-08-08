@@ -157,8 +157,28 @@ h2 {padding: 1rem;}
   min-height: 60px;
   border-radius: 4px;
   overflow: hidden;
-  margin-top: 100px;
+  /* margin-top: 30px; */
+  margin-left: 150px;
 }
+
+
+
+.example-listNotPinned {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 95%;
+  max-width: 100%;
+  gap: 15px;
+  padding: 15px;
+  border: solid 1px #ccc;
+  min-height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-left: 150px;
+}
+
 
 .example-box {
   padding: 20px 10px;
@@ -224,6 +244,10 @@ h1{
   color: pink;
   margin-right: 10px;
 }
+.note-icons:hover{
+  scale: 1.2;
+  color:rgb(185, 8, 91);
+}
 .ikonice{
   margin-left: 40px;
 }
@@ -240,4 +264,10 @@ h1{
 .example-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.heading3{
+  margin-top: 30px;
+  color:rgb(185, 8, 91) ;
+  margin-right: 10px;
+  font-style: italic;
 }

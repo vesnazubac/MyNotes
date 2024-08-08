@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column; /* Stack inputs vertically */
   gap: 16px; /* Space between inputs */
+  padding: 20px;
 }
 
 /* Styling for dialog actions */
@@ -20,27 +21,29 @@
   margin-top: 20px; /* Space above buttons */
 }
 
-/* Custom styling for buttons */
 .custom-button {
-  background-color: #e0f7fa; /* Baby blue color */
-  color: #00796b; /* Darker teal color for text */
-  font-size: 16px; /* Larger font size */
-  padding: 12px 24px; /* Increase padding for larger buttons */
-  border-radius: 20px; /* Rounded corners */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions for background color and hover effect */
+  background-color: #00796b;
+  color: whitesmoke;
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 20px;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 /* Hover effect */
 .custom-button:hover {
-  background-color: #b2ebf2; /* Lighter baby blue on hover */
-  transform: scale(1.05); /* Slightly enlarge button on hover */
+  transform: scale(1.05);
 }
 
-/* Specific styles for cancel and save buttons if needed */
+
 .cancel-button {
-  border: 1px solid #00796b; /* Optional: Border for cancel button */
+  border: 1px solid #00796b;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .save-button {
-  border: 1px solid #004d40; /* Optional: Darker border for save button */
+  border: 1px solid #004d40;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }

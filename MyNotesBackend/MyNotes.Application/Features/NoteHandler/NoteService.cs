@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyNotes.Domain.Entities;
 using MyNotes.Domain.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyNotes.Application.Features.NoteHandler
 {
@@ -65,6 +66,11 @@ namespace MyNotes.Application.Features.NoteHandler
         {
             return _noteRepository.Update(notePutDTO, id);
         }
+        public async Task<List<Note>> SearchNotes(string term)
+        {
+            return _noteRepository.Search(term);
+        }
+
 
     }
 }

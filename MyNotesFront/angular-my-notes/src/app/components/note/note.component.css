@@ -7,6 +7,12 @@
   border-radius: 4px;
   background-color: #f9f9f9;
   position: relative;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.note-container:hover {
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  transform: scale(1.1);
 }
 
 .note-title {

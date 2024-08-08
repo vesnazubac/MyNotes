@@ -22,7 +22,7 @@ namespace MyNotes.Application.Repositories.Notes
         Note Delete(NotePutDTO note);
         void Archive(Guid id);
         void SaveChanges();
-
+        List<Note> Search(String term);
 
 
 

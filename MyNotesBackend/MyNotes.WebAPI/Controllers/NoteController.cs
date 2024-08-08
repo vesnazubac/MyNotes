@@ -10,19 +10,19 @@ namespace MyNotes.WebAPI.Controllers
     [Route("/api/notes")]
     public class NotesController : ControllerBase
     {
-   
+
         private readonly NoteService _noteService;
         public NotesController(NoteService noteService)
         {
-            
+
             _noteService = noteService;
         }
 
         [HttpPost]
         public async Task<ActionResult<Note>> CreateNote(Note note)
         {
-             await _noteService.Create(note);
-           
+            await _noteService.Create(note);
+
             return note;
         }
 
@@ -34,18 +34,18 @@ namespace MyNotes.WebAPI.Controllers
         }
 
         // GET: api/notes/{id}
-          [HttpGet("by-id/{id}")]
-           public async Task<ActionResult<Note>> GetNoteById(Guid id)
-           {
-               var note =_noteService.GetById(id);
+        [HttpGet("by-id/{id}")]
+        public async Task<ActionResult<Note>> GetNoteById(Guid id)
+        {
+            var note = _noteService.GetById(id);
 
-               if (note == null)
-               {
-                   return NotFound();
-               }
+            if (note == null)
+            {
+                return NotFound();
+            }
 
-               return await note;
-           }
+            return await note;
+        }
         [HttpGet("by-title/{title}")]
         public async Task<ActionResult<List<Note>>> GetNoteByTitle(String title)
         {
@@ -84,22 +84,22 @@ namespace MyNotes.WebAPI.Controllers
 
             return await note;
         }
-        
-         [HttpPut("archive/{id}")]
-         public async Task<IActionResult> ArchiveNote(Guid id)
-         {
-             var note = await _noteService.GetById(id);
-             if (note == null)
-             {
-                 return NotFound();
-             }
-                _noteService.Archive(id);
-             return NoContent();
-         }
-        [HttpPut("editNote/{id}")]
-        public async Task<IActionResult> UpdateNote(NotePutDTO notePutDTO,Guid id)
+
+        [HttpPut("archive/{id}")]
+        public async Task<IActionResult> ArchiveNote(Guid id)
         {
-             var note=await _noteService.Update(notePutDTO,id);
+            var note = await _noteService.GetById(id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+            _noteService.Archive(id);
+            return NoContent();
+        }
+        [HttpPut("editNote/{id}")]
+        public async Task<IActionResult> UpdateNote(NotePutDTO notePutDTO, Guid id)
+        {
+            var note = await _noteService.Update(notePutDTO, id);
             if (note != null)
             {
                 return Ok(note);
@@ -109,6 +109,20 @@ namespace MyNotes.WebAPI.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet("search/{term}")]
+        public async Task<ActionResult<List<Note>>> SearchNotes(string term)
+        {
+            var notes = await _noteService.SearchNotes(term);
+
+            if (notes == null || notes.Count == 0)
+            {
+                return NotFound("No notes match your search criteria.");
+            }
+
+            return Ok(notes);
+        }
+
     }
 }
 

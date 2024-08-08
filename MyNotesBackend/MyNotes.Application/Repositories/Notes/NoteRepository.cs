@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MyNotes.Domain.DTOs;
 using MyNotes.Infrastructure.Persistence;
 using System.Reflection.Metadata;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyNotes.Application.Repositories.Notes
 {
@@ -32,12 +33,12 @@ namespace MyNotes.Application.Repositories.Notes
 
         public Note GetById(Guid id)
         {
-            return   _databaseContext.Notes.FirstOrDefault(x => x.Id == id);
-           
+            return _databaseContext.Notes.FirstOrDefault(x => x.Id == id);
+
         }
         public List<Note> GetByUserId(Guid userId)
         {
-            return _databaseContext.Notes.AsEnumerable().Where(note=>note.UserId==userId).ToList();
+            return _databaseContext.Notes.AsEnumerable().Where(note => note.UserId == userId).ToList();
 
         }
         public List<Note> GetByTitle(String title)
@@ -50,9 +51,9 @@ namespace MyNotes.Application.Repositories.Notes
 
         public List<Note> GetByContent(String content)
         {
-                 return _databaseContext.Notes.AsEnumerable()
-            .Where(x => x.Content.Contains(content, StringComparison.OrdinalIgnoreCase))
-            .ToList();
+            return _databaseContext.Notes.AsEnumerable()
+       .Where(x => x.Content.Contains(content, StringComparison.OrdinalIgnoreCase))
+       .ToList();
         }
 
         public List<Note> GetNotes()
@@ -69,7 +70,15 @@ namespace MyNotes.Application.Repositories.Notes
             var note = GetById(id);
             if (note != null)
             {
-                note.IsArchived = true;
+                if (note.IsArchived == true)
+                {
+                    note.IsArchived = false;
+                }
+                else
+                {
+                    note.IsArchived = true;
+                }
+                
             }
             SaveChanges();
         }
@@ -78,16 +87,24 @@ namespace MyNotes.Application.Repositories.Notes
         {
             var note = GetById(id);
             if (note == null)
-            { 
+            {
                 throw new Exception("Note not found");
             }
             note.Title = noteDTO.Title;
             note.Content = noteDTO.Content;
             note.Color = noteDTO.Color;
             note.EditedDate = DateTime.UtcNow;
-            note.IsPinned= noteDTO.IsPinned;
+            note.IsPinned = noteDTO.IsPinned;
             SaveChanges();
             return note;
+        }
+        public List<Note> Search(String term)
+        {
+            term.ToLower();
+            var notes = _databaseContext.Notes.AsEnumerable()
+                .Where(n => n.Title.ToLower().Contains(term) || n.Content.ToLower().Contains(term))
+                .ToList(); 
+            return notes;
         }
     }
 }
