@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyNotes.Domain.DTOs;
 using MyNotes.Infrastructure.Persistence;
+using System.Reflection.Metadata;
 
 namespace MyNotes.Application.Repositories.Notes
 {
@@ -18,20 +19,40 @@ namespace MyNotes.Application.Repositories.Notes
             _databaseContext = databaseContext;
         }
 
-        public Note CreateNote(Note note)
+        public Note Create(Note note)
         {
             var createdNote = _databaseContext.Notes.Add(note);
             return createdNote.Entity;
         }
 
-        public Note DeleteNote(NotePutDTO note)
+        public Note Delete(NotePutDTO note)
         {
             throw new NotImplementedException();
         }
 
-        public Note GetNoteById(Guid id)
+        public Note GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return   _databaseContext.Notes.FirstOrDefault(x => x.Id == id);
+           
+        }
+        public List<Note> GetByUserId(Guid userId)
+        {
+            return _databaseContext.Notes.AsEnumerable().Where(note=>note.UserId==userId).ToList();
+
+        }
+        public List<Note> GetByTitle(String title)
+        {
+            return _databaseContext.Notes.AsEnumerable()
+                .Where(x => x.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
+          .ToList();
+
+        }
+
+        public List<Note> GetByContent(String content)
+        {
+                 return _databaseContext.Notes.AsEnumerable()
+            .Where(x => x.Content.Contains(content, StringComparison.OrdinalIgnoreCase))
+            .ToList();
         }
 
         public List<Note> GetNotes()
@@ -41,13 +62,32 @@ namespace MyNotes.Application.Repositories.Notes
 
         public void SaveChanges()
         {
-
             _databaseContext.SaveChangesAsync();
         }
-
-        public Note UpdateNote(NotePutDTO note)
+        public void Archive(Guid id)
         {
-            throw new NotImplementedException();
+            var note = GetById(id);
+            if (note != null)
+            {
+                note.IsArchived = true;
+            }
+            SaveChanges();
+        }
+
+        public Note Update(NotePutDTO noteDTO, Guid id)
+        {
+            var note = GetById(id);
+            if (note == null)
+            { 
+                throw new Exception("Note not found");
+            }
+            note.Title = noteDTO.Title;
+            note.Content = noteDTO.Content;
+            note.Color = noteDTO.Color;
+            note.EditedDate = DateTime.UtcNow;
+            note.IsPinned= noteDTO.IsPinned;
+            SaveChanges();
+            return note;
         }
     }
 }

@@ -30,6 +30,9 @@ export class NoteService {
   }
 
   getById(id: string): Observable<NoteGetDTO> {
-    return this.httpClient.get<NoteGetDTO>(environment.apiHost + 'api/notes/id/' + id)
+    return this.httpClient.get<NoteGetDTO>(environment.apiHost + 'api/notes/by-id/id/' + id)
+  }
+  updateNote(id: string, notePutDTO: NotePutDTO): Observable<Note> {
+    return this.httpClient.put<Note>(environment.apiHost+`api/notes/editNote/${id}`, notePutDTO);
   }
 }

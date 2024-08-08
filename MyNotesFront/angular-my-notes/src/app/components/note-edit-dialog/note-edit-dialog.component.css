@@ -1,0 +1,46 @@
+/* Styling for dialog title */
+.dialog-title {
+  color: #004d40; /* Darker teal color for title */
+  font-size: 24px; /* Larger font size */
+  margin-bottom: 20px; /* Space below the title */
+}
+
+/* Styling for the dialog content */
+.dialog-content {
+  display: flex;
+  flex-direction: column; /* Stack inputs vertically */
+  gap: 16px; /* Space between inputs */
+}
+
+/* Styling for dialog actions */
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px; /* Space above buttons */
+}
+
+/* Custom styling for buttons */
+.custom-button {
+  background-color: #e0f7fa; /* Baby blue color */
+  color: #00796b; /* Darker teal color for text */
+  font-size: 16px; /* Larger font size */
+  padding: 12px 24px; /* Increase padding for larger buttons */
+  border-radius: 20px; /* Rounded corners */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions for background color and hover effect */
+}
+
+/* Hover effect */
+.custom-button:hover {
+  background-color: #b2ebf2; /* Lighter baby blue on hover */
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Specific styles for cancel and save buttons if needed */
+.cancel-button {
+  border: 1px solid #00796b; /* Optional: Border for cancel button */
+}
+
+.save-button {
+  border: 1px solid #004d40; /* Optional: Darker border for save button */
+}
