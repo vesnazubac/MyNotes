@@ -10,15 +10,19 @@ namespace MyNotes.Application.Repositories.Notes
      public interface INoteRepository
     {
         List<Note> GetNotes();
-        Note GetNoteById(Guid id);
+        Note GetById(Guid id);
+        List<Note> GetByUserId(Guid userId);
+        List<Note> GetByTitle(String title);
+        List<Note> GetByContent(String content);
 
-        Note CreateNote(Note note);
+        Note Create(Note note);
 
-        Note UpdateNote(NotePutDTO note);
+        Note Update(NotePutDTO note,Guid id);
 
-        Note DeleteNote(NotePutDTO note);
+        Note Delete(NotePutDTO note);
+        void Archive(Guid id);
         void SaveChanges();
-
+        List<Note> Search(String term);
 
 
 

@@ -18,6 +18,6 @@ namespace MyNotes.Domain.DTOs
         public bool IsPinned { get; set; }
         public bool IsArchived { get; set; }
         public long UserId { get; set; }
-        public long GroupId { get; set; }
+        public Guid GroupId { get; set; }
     }
 }

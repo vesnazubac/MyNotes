@@ -19,18 +19,15 @@ import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 @Component({
-  selector: 'app-home',
+  selector: 'app-archive',
   standalone: true,
   imports: [MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './archive.component.html',
+  styleUrl: './archive.component.css'
 })
-export class HomeComponent {
+export class ArchiveComponent {
 
-  itemsNotPinned:NoteGetDTO[]=[]
-
-  itemsPinned:NoteGetDTO[]=[]
-
+  items:NoteGetDTO[]=[]
   notes: NoteGetDTO[] = [];
   searchTerm: string = '';
 
@@ -42,27 +39,26 @@ export class HomeComponent {
     this.handleNoteSaved();
   }
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.itemsNotPinned, event.previousIndex, event.currentIndex);
-    moveItemInArray(this.itemsPinned, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
-onSearchChange(searchValue: string) {
-  if (searchValue === '') {
-    this.noteService.getAll().subscribe(notes => {
-      this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
-      this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
-    });
-  } else {
-    this.noteService.searchNotes(searchValue).subscribe((filteredNotes: NoteGetDTO[]) => {
-      this.itemsNotPinned = filteredNotes.filter(note => !note.IsArchived && !note.IsPinned);
-      this.itemsPinned = filteredNotes.filter(note => !note.IsArchived && note.IsPinned).reverse();
-    });
+  onSearchChange(searchValue: string) {
+    if (searchValue === '') {
+      this.noteService.getAll().subscribe(notes => {
+        this.items = notes.filter(note => note.IsArchived).reverse();
+      });
+    } else {
+      this.noteService.searchNotes(searchValue).subscribe((filteredNotes: NoteGetDTO[]) => {
+        this.items = filteredNotes.filter(note => note.IsArchived);
+      });
+    }
   }
-}
 
   handleNoteSaved() {
     this.noteService.getAll().subscribe(notes => {
-      this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
-      this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
+      const ArchivedNotes = notes.filter(note => note.IsArchived);
+      this.notes = ArchivedNotes;
+      this.items = ArchivedNotes.reverse();
+      console.log(ArchivedNotes);
     });
   }
   pinNote(note: NoteGetDTO, event: MouseEvent): void {
@@ -84,40 +80,6 @@ onSearchChange(searchValue: string) {
     );
   }
 
-  openEditDialog(note: NoteGetDTO,event: MouseEvent): void {
-    const dialogRef = this.dialog.open(NoteEditDialogComponent, {
-      width: '500px',
-      data: {
-        Title: note.Title,
-        Content: note.Content,
-        Color: note.Color,
-        IsPinned: note.IsPinned,
-        GroupId: note.GroupId,
-        EditedDate:note.EditedDate
-      }
-    });
-
-    dialogRef.afterClosed().subscribe((result: { Title: any; Content: any; Color: any; IsPinned: any; GroupId: any; }) => {
-      if (result) {
-        const notePutDTO: NotePutDTO = {
-          Title: result.Title,
-          Content: result.Content,
-          Color: result.Color,
-          IsPinned: result.IsPinned,
-          GroupId: result.GroupId
-        };
-        this.noteService.updateNote(note.Id, notePutDTO).subscribe(
-          updatedNote => {
-            console.log('Note updated:', updatedNote);
-            this.handleNoteSaved();  // Refresh notes after update
-          },
-          error => {
-            console.error('Error updating note:', error);
-          }
-        );
-      }
-    });
-  }
   archiveNote(note: NoteGetDTO,$event: MouseEvent) {
     this.noteService.archiveNote(note.Id).subscribe(
       updatedNote => {
@@ -130,5 +92,3 @@ onSearchChange(searchValue: string) {
     );
   }
 }
-
-

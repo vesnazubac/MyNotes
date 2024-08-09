@@ -7,6 +7,12 @@
   border-radius: 4px;
   background-color: #f9f9f9;
   position: relative;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.note-container:hover {
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  transform: scale(1.1);
 }
 
 .note-title {
@@ -14,6 +20,7 @@
   width: 90%;
   padding: 10px;
   font-size: 16px;
+  font-weight: 300;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
@@ -30,6 +37,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 300;
 }
 
 button {
@@ -43,6 +51,7 @@ button {
   cursor: pointer;
   margin-left: 10%;
   margin-top: 3%;
+  font-weight: 300;
 }
 
 button:hover {

@@ -1,0 +1,49 @@
+/* Styling for dialog title */
+.dialog-title {
+  color: #004d40; /* Darker teal color for title */
+  font-size: 24px; /* Larger font size */
+  margin-bottom: 20px; /* Space below the title */
+}
+
+/* Styling for the dialog content */
+.dialog-content {
+  display: flex;
+  flex-direction: column; /* Stack inputs vertically */
+  gap: 16px; /* Space between inputs */
+  padding: 20px;
+}
+
+/* Styling for dialog actions */
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px; /* Space above buttons */
+}
+
+.custom-button {
+  background-color: #00796b;
+  color: whitesmoke;
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 20px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Hover effect */
+.custom-button:hover {
+  transform: scale(1.05);
+}
+
+
+.cancel-button {
+  border: 1px solid #00796b;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.save-button {
+  border: 1px solid #004d40;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}

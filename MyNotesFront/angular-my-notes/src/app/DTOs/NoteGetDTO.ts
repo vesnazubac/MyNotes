@@ -1,6 +1,7 @@
 // src/app/models/post-dto.ts
 
 export interface NoteGetDTO {
+  Id:string;
   Title: string;
   Content: string;
   Color: string;

@@ -38,6 +38,7 @@ export class NoteComponent {
         });
         console.log('Note saved:', response);
         this.noteSaved.emit();
+        this.isPinned=false;
       },
       (error) => {
         this.snackBar.open('Error saving note', 'Close', {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyNotes.Domain.Entities;
-using MyNotes.Application.Features.Add;
+using MyNotes.Application.Features.NoteHandler;
+using MyNotes.Domain.DTOs;
 
 
 namespace MyNotes.WebAPI.Controllers
@@ -9,101 +10,121 @@ namespace MyNotes.WebAPI.Controllers
     [Route("/api/notes")]
     public class NotesController : ControllerBase
     {
-        private readonly AddNoteHandler _addNoteHandler;
-        private readonly GetNoteHandler _getNoteHandler;
-        public NotesController(AddNoteHandler addNoteHandler, GetNoteHandler getNoteHandler)
-        {
-            _addNoteHandler = addNoteHandler;
-            _getNoteHandler = getNoteHandler;
-        }
 
+        private readonly NoteService _noteService;
+        public NotesController(NoteService noteService)
+        {
+
+            _noteService = noteService;
+        }
 
         [HttpPost]
         public async Task<ActionResult<Note>> CreateNote(Note note)
         {
-             await _addNoteHandler.Create(note);
-           
+            await _noteService.Create(note);
+
             return note;
         }
-
-
 
         // GET: api/notes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
         {
-            return await _getNoteHandler.GetAll();
+            return await _noteService.GetAll();
         }
 
         // GET: api/notes/{id}
-        /*   [HttpGet("{id}")]
-           public async Task<ActionResult<Note>> GetNoteById(long id)
-           {
-               var note =_getNoteHandler.GetById(id);
+        [HttpGet("by-id/{id}")]
+        public async Task<ActionResult<Note>> GetNoteById(Guid id)
+        {
+            var note = _noteService.GetById(id);
 
-               if (note == null)
-               {
-                   return NotFound();
-               }
+            if (note == null)
+            {
+                return NotFound();
+            }
 
-               return note;
-           }*/
+            return await note;
+        }
+        [HttpGet("by-title/{title}")]
+        public async Task<ActionResult<List<Note>>> GetNoteByTitle(String title)
+        {
+            var note = _noteService.GetByTitle(title);
 
-        // POST: api/notes
+            if (note == null)
+            {
+                return NotFound();
+            }
 
+            return await note;
+        }
 
-        // PUT: api/notes/{id}
-        /* [HttpPut("{id}")]
-         public async Task<IActionResult> UpdateNote(long id, Note note)
-         {
-             if (id != note.Id)
-             {
-                 return BadRequest();
-             }
+        [HttpGet("by-content/{content}")]
+        public async Task<ActionResult<List<Note>>> GetNoteByContent(String content)
+        {
+            var note = _noteService.GetByContent(content);
 
-             _context.Entry(note).State = EntityState.Modified;
+            if (note == null)
+            {
+                return NotFound();
+            }
 
-             try
-             {
-                 await _context.SaveChangesAsync();
-             }
-             catch (DbUpdateConcurrencyException)
-             {
-                 if (!NoteExists(id))
-                 {
-                     return NotFound();
-                 }
-                 else
-                 {
-                     throw;
-                 }
-             }
+            return await note;
+        }
 
-             return NoContent();
-         }
+        [HttpGet("by-userId/{userId}")]
+        public async Task<ActionResult<List<Note>>> GetNoteByUserId(Guid userId)
+        {
+            var note = _noteService.GetByUserId(userId);
 
-         // DELETE: api/notes/{id}
-         [HttpDelete("{id}")]
-         public async Task<IActionResult> DeleteNote(long id)
-         {
-             var note = await _context.Notes.FindAsync(id);
-             if (note == null)
-             {
-                 return NotFound();
-             }
+            if (note == null)
+            {
+                return NotFound();
+            }
 
-             _context.Notes.Remove(note);
-             await _context.SaveChangesAsync();
+            return await note;
+        }
 
-             return NoContent();
-         }
+        [HttpPut("archive/{id}")]
+        public async Task<IActionResult> ArchiveNote(Guid id)
+        {
+            var note = await _noteService.GetById(id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+            _noteService.Archive(id);
+            return NoContent();
+        }
+        [HttpPut("editNote/{id}")]
+        public async Task<IActionResult> UpdateNote(NotePutDTO notePutDTO, Guid id)
+        {
+            var note = await _noteService.Update(notePutDTO, id);
+            if (note != null)
+            {
+                return Ok(note);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
-         private bool NoteExists(long id)
-         {
-             return _context.Notes.Any(e => e.Id == id);
-         }
-     }*/
+        [HttpGet("search/{term}")]
+        public async Task<ActionResult<List<Note>>> SearchNotes(string term)
+        {
+            var notes = await _noteService.SearchNotes(term);
+
+            if (notes == null || notes.Count == 0)
+            {
+                return NotFound("No notes match your search criteria.");
+            }
+
+            return Ok(notes);
+        }
+
     }
 }
+
 
 

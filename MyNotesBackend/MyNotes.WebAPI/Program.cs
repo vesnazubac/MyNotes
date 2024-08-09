@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MyNotes.Application.Features.Add;
+using MyNotes.Application.Features.NoteHandler;
 using MyNotes.Application.Repositories.Notes;
 using MyNotes.Infrastructure.Persistence;
 
@@ -15,9 +15,8 @@ builder.Services.AddControllers()
                     options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 });
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
-builder.Services.AddScoped<AddNoteHandler>();
-builder.Services.AddScoped<GetNoteHandler>();
-    
+builder.Services.AddScoped<NoteService>();
+  
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
