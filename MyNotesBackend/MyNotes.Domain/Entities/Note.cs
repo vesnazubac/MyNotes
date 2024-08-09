@@ -16,6 +16,8 @@ namespace MyNotes.Domain.Entities
         public string Color { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime EditedDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
+        public bool IsDeleted { get; set; }
         public bool IsPinned { get; set; }
         public bool IsArchived { get; set; }
         public Guid UserId { get; set; }

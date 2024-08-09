@@ -39,7 +39,35 @@ app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
-app.MapControllers(); 
+app.MapControllers();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var noteRepository = services.GetRequiredService<INoteRepository>();
+        var context = services.GetRequiredService<DatabaseContext>();
+
+        var thirtyDaysAgo = DateTime.UtcNow.AddDays(-30);
+
+        var notesToDelete = context.Notes
+            .Where(note => note.DeletedDate != null && note.DeletedDate < thirtyDaysAgo && note.IsDeleted==true)
+            .ToList();
+
+        foreach (var note in notesToDelete)
+        {
+            noteRepository.Delete(note.Id);
+        }
+
+       noteRepository.SaveChanges();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
 
 app.Run();
 

@@ -1,0 +1,28 @@
+<div class="home-container">
+  <mat-form-field class="example-full-width">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
+    <input type="search" matInput class="search-text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
+  </mat-form-field>
+  <div cdkDropList cdkDropListOrientation="mixed" class="example-list" (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let item of items" cdkDrag class="example-box">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-icon *ngIf="item.IsPinned" class="pinned-icon">push_pin</mat-icon>
+          <mat-card-title>{{ item.Title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ item.Content }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+        </mat-card-actions>
+        <mat-card-footer class="deleted-date">
+          Date deleted: {{ item.DeletedDate | date:'short' }}
+          <mat-icon  class="note-icons" (click)="restore(item,$event)">restore_from_trash</mat-icon>
+          <span class="icon-text">Restore</span>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
