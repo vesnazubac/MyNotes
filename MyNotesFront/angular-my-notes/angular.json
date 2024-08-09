@@ -5,7 +5,9 @@
   "projects": {
     "angular-my-notes": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -28,7 +30,7 @@
             ],
             "styles": [
               "src/styles.css",
-
+              "src/styles.scss",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": [],

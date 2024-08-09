@@ -78,7 +78,6 @@ namespace MyNotes.Application.Repositories.Notes
                 {
                     note.IsArchived = true;
                 }
-                
             }
             SaveChanges();
         }

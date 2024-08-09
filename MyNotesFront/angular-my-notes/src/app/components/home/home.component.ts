@@ -61,7 +61,7 @@ onSearchChange(searchValue: string) {
 
   handleNoteSaved() {
     this.noteService.getAll().subscribe(notes => {
-      this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned);
+      this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
       this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
     });
   }
