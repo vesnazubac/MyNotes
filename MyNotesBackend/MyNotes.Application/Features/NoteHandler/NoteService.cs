@@ -23,7 +23,9 @@ namespace MyNotes.Application.Features.NoteHandler
         {
             noteToCreate.CreatedDate = DateTime.Now;
             noteToCreate.EditedDate = DateTime.Now;
+            noteToCreate.DeletedDate = null;
             noteToCreate.IsArchived = false;
+            noteToCreate.IsDeleted=false;
             var createdNote = _noteRepository.Create(noteToCreate);
             _noteRepository.SaveChanges();
             return createdNote;
@@ -70,7 +72,38 @@ namespace MyNotes.Application.Features.NoteHandler
         {
             return _noteRepository.Search(term);
         }
-
+        public async Task DeleteNote(Guid id)
+        {
+             _noteRepository.Delete(id);
+        }
+        public async Task SetDeletedDate(Guid id)
+        {
+            var note = _noteRepository.GetById(id);
+            if (note == null)
+            {
+                throw new Exception("Note not found");
+            }
+            else
+            {
+                _noteRepository.SetDeletedDate(id);
+            }
+        }
+        public async Task<List<Note>> GetDeletedNotes()
+        {
+            return _noteRepository.GetDeletedNotes();
+        }
+        public async Task Restore(Guid id)
+        {
+            var note = _noteRepository.GetById(id);
+            if (note == null)
+            {
+                throw new Exception("Note not found");
+            }
+            else
+            {
+                _noteRepository.Restore(id);
+            }
+        }
 
     }
 }

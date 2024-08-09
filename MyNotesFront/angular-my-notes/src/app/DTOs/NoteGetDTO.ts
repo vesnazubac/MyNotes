@@ -11,4 +11,6 @@ export interface NoteGetDTO {
   IsArchived: boolean;
   UserId: string;
   GroupId: string;
+  DeletedDate:Date;
+  IsDeleted:boolean;
 }

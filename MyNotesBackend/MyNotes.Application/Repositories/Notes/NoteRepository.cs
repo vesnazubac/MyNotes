@@ -30,7 +30,7 @@ namespace MyNotes.Application.Repositories.Notes
         {
             throw new NotImplementedException();
         }
-
+        
         public Note GetById(Guid id)
         {
             return _databaseContext.Notes.FirstOrDefault(x => x.Id == id);
@@ -58,7 +58,11 @@ namespace MyNotes.Application.Repositories.Notes
 
         public List<Note> GetNotes()
         {
-            return _databaseContext.Notes.ToList();
+            return _databaseContext.Notes.Where(x=>x.IsDeleted==false).ToList();
+        }
+        public List<Note> GetDeletedNotes()
+        {
+            return _databaseContext.Notes.Where(x => x.IsDeleted==true).ToList();
         }
 
         public void SaveChanges()
@@ -105,5 +109,36 @@ namespace MyNotes.Application.Repositories.Notes
                 .ToList(); 
             return notes;
         }
+        public void Delete(Guid id)
+        {
+            var note = GetById(id);
+            if (note != null && note.DeletedDate!=null)
+            {
+                _databaseContext.Notes.Remove(note);
+                SaveChanges();
+            }
+        }
+
+        public void SetDeletedDate(Guid id)
+        {
+            var note = GetById(id);
+            if (note != null)
+            {
+               note.DeletedDate = DateTime.UtcNow; 
+                note.IsDeleted = true;
+            }
+            SaveChanges();
+        }
+        public void Restore(Guid id)
+        {
+            var note = GetById(id);
+            if (note != null)
+            {
+                note.IsDeleted = false;
+                note.DeletedDate = null;
+            }
+            SaveChanges();
+        }
+
     }
 }

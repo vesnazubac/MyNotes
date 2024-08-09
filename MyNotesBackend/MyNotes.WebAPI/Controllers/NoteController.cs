@@ -32,6 +32,11 @@ namespace MyNotes.WebAPI.Controllers
         {
             return await _noteService.GetAll();
         }
+        [HttpGet("deletedNotes")]
+        public async Task<ActionResult<IEnumerable<Note>>> GetDeletedNotes()
+        {
+            return await _noteService.GetDeletedNotes();
+        }
 
         // GET: api/notes/{id}
         [HttpGet("by-id/{id}")]
@@ -123,6 +128,36 @@ namespace MyNotes.WebAPI.Controllers
             return Ok(notes);
         }
 
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult>DeleteNote(Guid id)
+        {
+            var note = _noteService.DeleteNote(id);
+            return Ok(note);
+        }
+
+        [HttpPut("setDeletedDate/{id}")]
+        public async Task<IActionResult> SetDeletedDate(Guid id)
+        {
+            var note = await _noteService.GetById(id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+            _noteService.SetDeletedDate(id);
+            return NoContent();
+        }
+
+        [HttpPut("restore/{id}")]
+        public async Task<IActionResult> Restore(Guid id)
+        {
+            var note = await _noteService.GetById(id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+            _noteService.Restore(id);
+            return NoContent();
+        }
     }
 }
 

@@ -11,7 +11,7 @@
         <mat-card class="example-card">
           <mat-card-header (click)="openEditDialog(item,$event)">
             <div mat-card-avatar class="example-header-image"></div>
-            <mat-icon *ngIf="item.IsPinned" class="pinned-icon">push_pin</mat-icon>
+            <mat-icon *ngIf="item.IsPinned"  (click)="pinNote(item, $event)"class="pinned-icon" >push_pin</mat-icon>
             <mat-card-title>{{ item.Title }}</mat-card-title>
           </mat-card-header>
           <mat-card-content (click)="openEditDialog(item,$event)">
@@ -24,7 +24,8 @@
             <mat-icon  class="note-icons">palette</mat-icon>
             <mat-icon  class="note-icons">image</mat-icon>
             <mat-icon  class="note-icons" (click)="archiveNote(item,$event)">archive</mat-icon>
-            <mat-icon  class="note-icons"  (click)="pinNote(item, $event)">push_pin</mat-icon>
+            <mat-icon  class="note-icons" (click)="deleteNote(item,$event)">delete</mat-icon>
+            <mat-icon  class="note-icons" (click)="pinNote(item,$event)">push_pin</mat-icon>
             </div>
           </mat-card-actions>
         </mat-card>
@@ -44,12 +45,13 @@
           </mat-card-content>
           <mat-card-actions>
             <div class="ikonice">
-            <mat-icon class="note-icons">notification_important</mat-icon>
-            <mat-icon  class="note-icons">groups</mat-icon>
-            <mat-icon  class="note-icons">palette</mat-icon>
-            <mat-icon  class="note-icons">image</mat-icon>
-            <mat-icon  class="note-icons" (click)="archiveNote(item,$event)">archive</mat-icon>
-            <mat-icon  class="note-icons"  (click)="pinNote(item, $event)">push_pin</mat-icon>
+              <mat-icon class="note-icons">notification_important</mat-icon>
+              <mat-icon  class="note-icons">groups</mat-icon>
+              <mat-icon  class="note-icons">palette</mat-icon>
+              <mat-icon  class="note-icons">image</mat-icon>
+              <mat-icon  class="note-icons" (click)="archiveNote(item,$event)">archive</mat-icon>
+              <mat-icon  class="note-icons" (click)="deleteNote(item,$event)">delete</mat-icon>
+              <mat-icon  class="note-icons" (click)="pinNote(item,$event)">push_pin</mat-icon>
             </div>
           </mat-card-actions>
         </mat-card>

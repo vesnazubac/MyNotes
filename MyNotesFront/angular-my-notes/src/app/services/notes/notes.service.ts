@@ -18,6 +18,9 @@ export class NoteService {
   getAll(): Observable<NoteGetDTO[]> {
     return this.httpClient.get<NoteGetDTO[]>(environment.apiHost + 'api/notes')
   }
+  getDeletedNotes():Observable<NoteGetDTO[]>{
+    return this.httpClient.get<NoteGetDTO[]>(environment.apiHost + 'api/notes/deletedNotes')
+  }
   create(note: NotePostDTO): Observable<NotePostDTO> {
     return this.httpClient.post<NotePostDTO>(environment.apiHost + 'api/notes', note)
   }
@@ -25,9 +28,6 @@ export class NoteService {
     return this.httpClient.put<Note>(environment.apiHost + 'api/notes' + id,note)
   }
 
-  deleteNote(id:number) {
-    return this.httpClient.delete(environment.apiHost + 'api/notes' + id)
-  }
 
   getById(id: string): Observable<NoteGetDTO> {
     return this.httpClient.get<NoteGetDTO>(environment.apiHost + 'api/notes/by-id/id' + id)
@@ -40,5 +40,15 @@ export class NoteService {
   }
   searchNotes(term: string): Observable<NoteGetDTO[]> {
     return this.httpClient.get<NoteGetDTO[]>(environment.apiHost+`api/notes/search/${term}`);
+  }
+  deleteNote(id:string):Observable<Note>{
+    return this.httpClient.delete<Note>(environment.apiHost+`api/notes/delete/${id}`);
+  }
+
+  setDeletedDate(id: string): Observable<Note> {
+    return this.httpClient.put<Note>(environment.apiHost+`api/notes/setDeletedDate/${id}`,null);
+  }
+  restore(id: string): Observable<Note> {
+    return this.httpClient.put<Note>(environment.apiHost+`api/notes/restore/${id}`,null);
   }
 }

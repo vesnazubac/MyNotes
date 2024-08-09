@@ -22,11 +22,11 @@
 }
 
 .custom-button {
-  background-color: #00796b;
+  background-color: #17dbdb;
   color: whitesmoke;
   font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 20px;
+  padding: 7px 12px;
+  border-radius: 10px;
   transition: background-color 0.3s, transform 0.3s;
 }
 
