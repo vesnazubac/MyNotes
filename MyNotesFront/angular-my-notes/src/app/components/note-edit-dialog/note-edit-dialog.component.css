@@ -22,7 +22,7 @@
 }
 
 .custom-button {
-  background-color: #17dbdb;
+  background-color:  #89CFF0;
   color: whitesmoke;
   font-size: 16px;
   padding: 7px 12px;
@@ -32,18 +32,16 @@
 
 /* Hover effect */
 .custom-button:hover {
-  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 
 .cancel-button {
-  border: 1px solid #00796b;
   margin-bottom: 10px;
   margin-right: 10px;
 }
 
 .save-button {
-  border: 1px solid #004d40;
   margin-bottom: 10px;
   margin-right: 10px;
 }

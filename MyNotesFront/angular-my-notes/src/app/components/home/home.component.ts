@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NoteComponent } from '../note/note.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -19,21 +19,26 @@ import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Note } from '../../models/Note';
+import { ColorPickerModule } from 'ngx-color-picker';
+
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
+  imports: [ColorPickerModule,MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent {
-
+  hideNavBar: boolean = false;
   itemsNotPinned:NoteGetDTO[]=[]
-
   itemsPinned:NoteGetDTO[]=[]
-
   notes: NoteGetDTO[] = [];
   searchTerm: string = '';
+  colorPickerVisible: boolean = false;
+  selectedColor: string = '';
+  selectedNote: NoteGetDTO | null = null;
 
   constructor(private noteService: NoteService,private dialog: MatDialog) {
 
@@ -142,6 +147,37 @@ onSearchChange(searchValue: string) {
       }
     });
   }
+
+
+  openColorPicker(note: NoteGetDTO,$event: MouseEvent) {
+    console.log("USAO COLOR")
+    this.colorPickerVisible = true;
+    this.selectedNote = note;
+  }
+
+  updateCardColor(event: any) {
+    const color = event.color; // Adjust this line based on the actual event structure
+
+    if (this.selectedNote) {
+      const updatedNote: NotePutDTO = {
+        ...this.selectedNote,
+        Color: color
+      };
+      this.noteService.updateNote(this.selectedNote.Id, updatedNote).subscribe(
+        updatedNote => {
+          console.log('Note updated:', updatedNote);
+          this.handleNoteSaved(); // Refresh notes after update
+        },
+        error => {
+          console.error('Error updating note:', error);
+        }
+      );
+      this.colorPickerVisible = false;
+      this.selectedNote = null;
+    }
+  }
+
+
 }
 
 

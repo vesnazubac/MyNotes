@@ -8,7 +8,7 @@
     <h3 class="heading3">Pinned</h3>
     <div cdkDropList cdkDropListOrientation="mixed" class="example-list" (cdkDropListDropped)="drop($event)">
       <div *ngFor="let item of itemsPinned" cdkDrag class="example-box">
-        <mat-card class="example-card">
+        <mat-card class="example-card" [ngStyle]="{'background-color': item.Color}">
           <mat-card-header (click)="openEditDialog(item,$event)">
             <div mat-card-avatar class="example-header-image"></div>
             <mat-icon *ngIf="item.IsPinned"  (click)="pinNote(item, $event)"class="pinned-icon" >push_pin</mat-icon>
@@ -21,7 +21,7 @@
             <div class="ikonice">
             <mat-icon class="note-icons">notification_important</mat-icon>
             <mat-icon  class="note-icons">groups</mat-icon>
-            <mat-icon  class="note-icons">palette</mat-icon>
+            <mat-icon  class="note-icons" (click)="openColorPicker(item,$event)">palette</mat-icon>
             <mat-icon  class="note-icons">image</mat-icon>
             <mat-icon  class="note-icons" (click)="archiveNote(item,$event)">archive</mat-icon>
             <mat-icon  class="note-icons" (click)="deleteNote(item,$event)">delete</mat-icon>
@@ -34,7 +34,7 @@
 
     <div cdkDropList cdkDropListOrientation="mixed" class="example-listNotPinned" (cdkDropListDropped)="drop($event)">
       <div *ngFor="let item of itemsNotPinned" cdkDrag class="example-box">
-        <mat-card class="example-card">
+        <mat-card class="example-card" [ngStyle]="{'background-color': item.Color}">
           <mat-card-header (click)="openEditDialog(item,$event)">
             <div mat-card-avatar class="example-header-image"></div>
             <mat-icon *ngIf="item.IsPinned" class="pinned-icon">push_pin</mat-icon>
@@ -47,7 +47,7 @@
             <div class="ikonice">
               <mat-icon class="note-icons">notification_important</mat-icon>
               <mat-icon  class="note-icons">groups</mat-icon>
-              <mat-icon  class="note-icons">palette</mat-icon>
+              <mat-icon  class="note-icons" (click)="openColorPicker(item,$event)">palette</mat-icon>
               <mat-icon  class="note-icons">image</mat-icon>
               <mat-icon  class="note-icons" (click)="archiveNote(item,$event)">archive</mat-icon>
               <mat-icon  class="note-icons" (click)="deleteNote(item,$event)">delete</mat-icon>
@@ -56,6 +56,9 @@
           </mat-card-actions>
         </mat-card>
       </div>
+    </div>
+    <div *ngIf="colorPickerVisible" class="color-picker-container">
+      <color-picker [(color)]="selectedColor" (colorChange)="updateCardColor($event)"></color-picker>
     </div>
   </div>
 

@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Note } from '../../models/Note';
 @Component({
   selector: 'app-archive',
   standalone: true,
@@ -90,5 +91,16 @@ export class ArchiveComponent {
         console.error('Error archiving note:', error);
       }
     );
+  }
+  deleteNote(note: NoteGetDTO,$event: MouseEvent) {
+    this.noteService.setDeletedDate(note.Id).subscribe({
+      next: (updatedNote: Note) => {
+        console.log('Note deleted date set:', updatedNote);
+        this.handleNoteSaved();
+      },
+      error: (error) => {
+        console.error('Error setting deleted date:', error);
+      }
+    });
   }
 }
