@@ -1,68 +1,72 @@
-import { ChangeDetectorRef, Component, Injectable, NgZone } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Injectable, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatNavList } from '@angular/material/list';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
-
-
+import { Router, RouterModule } from '@angular/router';
+import { SidebarService } from '../services/sidebar/sidebar.service';
+import { CommonModule } from '@angular/common';
 
 @Injectable()
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
-  imports:[MatToolbarModule,MatIconModule,MatButtonModule,RouterModule],
-  standalone:true
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatNavList,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule
+  ],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter, :leave', [
+        animate(300, style({ opacity: 1 })),
+      ]),
+    ]),
+  ]
 })
 export class NavBarComponent {
-//   constructor(private authService: AuthService) {}
-//   user:UserGetDTO;
-//   role: RoleEnum ;
-//  // private cdr: ChangeDetectorRef;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
 
+  isSidebarVisible = false;
+  isSubmenuOpen = false;
+  isDashboardSelected = false;
 
-//   ngOnInit(): void {
+  constructor(private router: Router, private sidebarService: SidebarService) {}
 
-
-//     this.authService.userState.subscribe((result) => {
-//       if(result != null){
-//         this.role = result.role;
-//       }else{
-//        this.role=RoleEnum.UNAUTHENTICATED;
-//       }
-//      // this.cdr.detectChanges();
-//     })
-//   }
-
-//   logout(): void {
-//     console.log("LOG OUT ")
-//     this.authService.logout();
-//   }
-
-//   isLoggedIn(): boolean {
-//     return this.authService.isLoggedIn();
-//   }
-
-//   isAdmin(): boolean {
-//     console.log("USAO U IS ADM")
-//     console.log('ROLA JE ', this.role)
-
-//     return this.authService.getRole() == RoleEnum.ADMIN;
-//   }
-
-//   isGuest(): boolean {
-//     return this.authService.getRole() == RoleEnum.GUEST;
-//   }
-
-//   isOwner(): boolean {
-//     return this.authService.getRole() == RoleEnum.OWNER;
-//   }
-  public logout():void{
-
+  ngOnInit() {
+    this.sidebarService.sidebarVisibility$.subscribe((isVisible) => {
+      this.isSidebarVisible = isVisible;
+    });
   }
 
- }
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
+    this.sidebarService.toggleSidebar(); // Toggle sidebar state
+  }
+
+  toggleSubmenu() {
+    this.isSubmenuOpen = !this.isSubmenuOpen;
+  }
+
+  selectDashboard() {
+    this.isDashboardSelected = true;
+  }
 
 
+  toggleSidenav() {
+    this.sidenav.toggle();
+  }
 
-
+  public logout(): void {
+    this.router.navigate(['/login-register']);
+  }
+}

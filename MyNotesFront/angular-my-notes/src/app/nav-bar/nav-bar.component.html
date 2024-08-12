@@ -1,31 +1,48 @@
-<mat-toolbar>
-  <div class="toolbar-left">
-    <span class="motivational-text">Stay organized, stay productive!</span>
-  </div>
-  <div>
-    <button mat-button [routerLink]="['home']">
-      <mat-icon>notes</mat-icon>
-      Notes
-    </button>
-    <button mat-button [routerLink]="['reminders']">
-      <mat-icon>alarm</mat-icon>
-      Reminders
-    </button>
-    <button mat-button [routerLink]="['edit-labels']">
-      <mat-icon>label</mat-icon>
-      Edit Labels
-    </button>
-    <button mat-button [routerLink]="['archived']">
-      <mat-icon>archive</mat-icon>
-      Archive
-    </button>
-    <button mat-button [routerLink]="['trash']">
-      <mat-icon>delete</mat-icon>
-      Trash
-    </button>
-    <button mat-button (click)="logout()">
-      <mat-icon>logout</mat-icon>
-     Log out
-    </button>
-  </div>
-</mat-toolbar>
+<div class="sidebar" [ngClass]="{ 'showSidebar': isSidebarVisible, 'hideSidebar': !isSidebarVisible }" [@fadeInOut]>
+  <ul>
+    <li>
+      <!-- <a routerLinkActive="active" (click)="toggleSubmenu()"> -->
+        <!-- <span class="menu-icon material-icons">dashboard</span>
+        <span class="menu-text">Dashboard</span>
+        <span class="sub-menu-icon" [ngClass]="{ 'sub-menu-open': isSubmenuOpen }">
+          <mat-icon>{{ isSubmenuOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_right' }}</mat-icon>
+        </span> -->
+      <!-- </a> -->
+      <!-- Sub-menu for Dashboard with left padding -->
+      <!-- <ul *ngIf="isSubmenuOpen" class="sub-menu">
+        <li><a routerLink="/dashboard" routerLinkActive="active"><span class="menu-icon material-icons">details</span><span class="menu-text">Details</span></a></li>
+        <li><a routerLink="/dashboard/messages" routerLinkActive="active"><span class="menu-icon material-icons">message</span><span class="menu-text">Messages</span></a></li>
+      </ul> -->
+    </li>
+    <li>
+      <a routerLink="/home" routerLinkActive="active">
+        <span class="menu-icon material-icons">home</span>
+        <span class="menu-text">Home</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/reminders" routerLinkActive="active">
+        <span class="menu-icon material-icons">alarm</span>
+        <span class="menu-text">Reminders</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/edit-labels" routerLinkActive="active">
+        <span class="menu-icon material-icons">label</span>
+        <span class="menu-text">Edit labels</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/archived" routerLinkActive="active">
+        <span class="menu-icon material-icons">archive</span>
+        <span class="menu-text">Archive</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/trash" routerLinkActive="active">
+        <span class="menu-icon material-icons">delete</span>
+        <span class="menu-text">Trash</span>
+      </a>
+    </li>
+  </ul>
+</div>

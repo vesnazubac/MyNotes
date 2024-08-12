@@ -32,7 +32,7 @@ namespace MyNotes.Application.Features.Background
                         var noteRepository = services.GetRequiredService<INoteRepository>();
                         var context = services.GetRequiredService<DatabaseContext>();
 
-                        var thirtyDaysAgo = DateTime.UtcNow.AddDays(+1);
+                        var thirtyDaysAgo = DateTime.UtcNow.AddDays(-30);
 
                         var notesToDelete = context.Notes
                             .Where(note => note.DeletedDate != null

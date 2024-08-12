@@ -54,6 +54,7 @@ mat-form-field {
   position: relative;
   font-weight: 300;
   height: 100%;
+  margin-left: 100px;
 }
 
 mat-form-field .mat-form-field-wrapper {
@@ -61,9 +62,10 @@ mat-form-field .mat-form-field-wrapper {
 }
 
 mat-icon {
-  color: #2196F3;
+  color: gray;
   position: relative;
   top:5px;
+  float: right;
 }
 
 .search-text{
@@ -109,6 +111,7 @@ mat-icon {
   width: 100%;
   max-width: 1000px;
   margin-top: 20px;
+  margin-left: 200px;
 }
 
 .note-item {

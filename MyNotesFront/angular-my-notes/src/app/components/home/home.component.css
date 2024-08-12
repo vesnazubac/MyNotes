@@ -25,14 +25,9 @@ mat-form-field {
   border-radius: 10px;
   margin-bottom: 10px;
   font-size: 15px;
+  margin-left: 100px;
 }
 
-
-
-
-mat-icon {
-  color: #2196F3;
-}
 .example-icon {
   padding: 0 14px;
 }
@@ -49,14 +44,15 @@ mat-icon {
   margin-top: 20px;
 }
 
-mat-form-field .mat-form-field-wrapper {
+/* mat-form-field .mat-form-field-wrapper {
   flex: 1;
-}
+} */
 
 mat-icon {
-  color: #2196F3;
+  color: gray;
   position: relative;
   top:5px;
+  float:right;
 }
 
 .search-text{
@@ -102,6 +98,7 @@ mat-icon {
   width: 100%;
   max-width: 1000px;
   margin-top: 20px;
+  margin-left: 200px;
 }
 
 .note-item {
@@ -124,8 +121,10 @@ mat-icon {
 
 .note-actions {
   display: flex;
-  justify-content: space-around;
+  /* bio je justify-content:space around; */
+  justify-content: right;
   padding: 10px;
+  gap:10px;
 }
 
 .note-icon {
@@ -157,6 +156,9 @@ mat-icon {
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
+
+
+
 
 
 

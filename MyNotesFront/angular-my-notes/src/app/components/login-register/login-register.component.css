@@ -102,9 +102,10 @@ a{color:inherit;text-decoration:none}
 .login-form .group .label{
 	color:white;
 	font-size:12px;
+  font-weight: 200;
 }
 .login-form .group .button{
-	background:#1161ee;
+	background:gray;
 }
 .login-form .group label .icon{
 	width:15px;

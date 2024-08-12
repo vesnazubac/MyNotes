@@ -1,54 +1,84 @@
-mat-toolbar {
-  background-color: #89CFF0;
-  width: 100%;
+/* Define common styles for menu items */
+.menu-item {
+  color: #d4d4d4;
+  text-decoration: none;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 60px;
-  padding-right: 40px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s;
 }
 
-.toolbar-left {
-  display: flex;
-  align-items: center;
-  margin-right: 50px;
-}
-.motivational-text {
-  color: whitesmoke;
-  font-size: 18px;
-  font-weight: 400;
-  /* font-family: 'Mooli', sans-serif; */
-  /* font-weight: bold; */
-}
-.toolbar-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.toolbar-right button {
-  color: white;
+.menu-item .menu-icon {
+  font-size: 24px;
   margin-right: 10px;
 }
-.toolbar-right button:hover {
-  transform:scale(1.2)!important
+
+.menu-item .menu-text {
+  /* Optional: Add font-weight or other styles if needed */
 }
 
-mat-toolbar button:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s ease-in-out;
+/* Sidebar styles */
+.sidebar {
+  background-color: gray;
+  width: 200px;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  margin-right: 300px;
+
 }
 
-
-mat-toolbar mat-icon {
-  /* color: #F089A5; */
-  color:	black;
+.sidebar ul {
+  list-style: none;
+  padding: 0;
 }
 
+.sidebar li {
+  margin-bottom: 10px;
+}
 
+.sidebar li a {
+  color: #d4d4d4;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
 
+.sidebar li a:hover {
+  background-color: rgb(241, 241, 241);
+  color: #6c6c6c;
+}
 
+.sidebar li a.active {
+  color: #000000;
+  background-color: rgb(241, 241, 241);
+}
 
+.sidebar li a.active:hover {
+  /* Optional: Add styles for active hover state if needed */
+}
 
+/* Sub-menu styles */
+.sub-menu {
+  padding-left: 20px; /* Adjust the value to your desired padding */
+}
 
+/* Sidebar visibility transitions */
+.hideSidebar {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.showSidebar {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.3s, opacity 0.3s;
+}
