@@ -21,27 +21,47 @@
   margin-top: 20px; /* Space above buttons */
 }
 
+/* Styling for buttons */
 .custom-button {
-  background-color:  #89CFF0;
-  color: whitesmoke;
+  background-color: #e0e0e0; /* Neutral gray */
+  color: #333; /* Dark gray text color */
   font-size: 16px;
-  padding: 7px 12px;
-  border-radius: 10px;
-  transition: background-color 0.3s, transform 0.3s;
+  padding: 10px 20px; /* Adjusted padding for better appearance */
+  border-radius: 8px; /* Slightly larger border radius for a smoother look */
+  border: 1px solid #bbb; /* Light gray border */
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 /* Hover effect */
 .custom-button:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: #d0d0d0; /* Slightly darker gray */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+  transform: scale(1.02); /* Slight zoom effect */
 }
 
-
+/* Specific styles for Cancel and Save buttons */
 .cancel-button {
+  background-color: #f0f0f0; /* Very light gray */
+  color: #555; /* Medium gray text */
+  border-color: #ddd; /* Light gray border */
+  margin-right: 20px;
   margin-bottom: 10px;
-  margin-right: 10px;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0; /* Slightly darker gray */
+  border-color: #ccc; /* Light gray border */
 }
 
 .save-button {
+  background-color: #e0e0e0; /* Neutral gray */
+  color: #333; /* Dark gray text */
+  border-color: #ccc; /* Light gray border */
+  margin-right: 20px;
   margin-bottom: 10px;
-  margin-right: 10px;
+}
+
+.save-button:hover {
+  background-color: #d0d0d0; /* Slightly darker gray */
+  border-color: #bbb; /* Slightly darker gray border */
 }
