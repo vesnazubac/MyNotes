@@ -17,7 +17,7 @@ mat-toolbar {
   color: whitesmoke;
   font-size: 18px;
   font-weight: 400;
-  font-family: 'Mooli', sans-serif;
+  /* font-family: 'Mooli', sans-serif; */
   /* font-weight: bold; */
 }
 .toolbar-right {

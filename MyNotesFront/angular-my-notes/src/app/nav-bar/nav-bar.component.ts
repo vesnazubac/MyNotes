@@ -57,7 +57,9 @@ export class NavBarComponent {
 //   isOwner(): boolean {
 //     return this.authService.getRole() == RoleEnum.OWNER;
 //   }
+  public logout():void{
 
+  }
 
  }
 

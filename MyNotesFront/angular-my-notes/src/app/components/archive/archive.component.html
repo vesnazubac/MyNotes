@@ -3,29 +3,25 @@
     <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
     <input type="search" matInput class="search-text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
   </mat-form-field>
-  <div cdkDropList cdkDropListOrientation="mixed" class="example-list" (cdkDropListDropped)="drop($event)">
-    <div *ngFor="let item of items" cdkDrag class="example-box">
-      <mat-card class="example-card">
+  <div cdkDropList cdkDropListOrientation="vertical" class="note-list" (cdkDropListDropped)="drop($event)">
+
+
+  <div cdkDropList cdkDropListOrientation="vertical" class="note-list" (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let item of items" cdkDrag class="note-item">
+      <mat-card class="note-card" [ngStyle]="{'background-color': item.Color}">
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
           <mat-icon *ngIf="item.IsPinned" class="pinned-icon">push_pin</mat-icon>
           <mat-card-title>{{ item.Title }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>{{ item.Content }}</p>
         </mat-card-content>
-        <mat-card-actions>
-          <div class="ikonice">
-          <mat-icon class="note-icons">notification_important</mat-icon>
-          <mat-icon  class="note-icons">groups</mat-icon>
-          <mat-icon  class="note-icons">palette</mat-icon>
-          <mat-icon  class="note-icons">image</mat-icon>
-          <mat-icon  class="note-icons" (click)="archiveNote(item,$event)">archive</mat-icon>
-          <mat-icon  class="note-icons" (click)="deleteNote(item,$event)">delete</mat-icon>
-          </div>
+        <mat-card-actions class="note-actions">
+          <mat-icon class="note-icon" (click)="archiveNote(item, $event)">archive</mat-icon>
+          <mat-icon class="note-icon" (click)="deleteNote(item, $event)">delete</mat-icon>
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
-</div>
 
+</div>

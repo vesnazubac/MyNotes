@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using MyNotes.Application.Features.NoteHandler;
 using MyNotes.Application.Repositories.Notes;
 using MyNotes.Infrastructure.Persistence;
+using MyNotes.Application.Features.Background;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,9 @@ builder.Services.AddControllers()
                 });
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<NoteService>();
-  
+
+builder.Services.AddHostedService<NotesBackgroundService>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -41,7 +45,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
+/*
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -68,6 +72,6 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine(ex.Message);
     }
 }
-
+*/
 app.Run();
 

@@ -59,7 +59,7 @@ onSearchChange(searchValue: string) {
     });
   } else {
     this.noteService.searchNotes(searchValue).subscribe((filteredNotes: NoteGetDTO[]) => {
-      this.itemsNotPinned = filteredNotes.filter(note => !note.IsArchived && !note.IsPinned);
+      this.itemsNotPinned = filteredNotes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
       this.itemsPinned = filteredNotes.filter(note => !note.IsArchived && note.IsPinned).reverse();
     });
   }

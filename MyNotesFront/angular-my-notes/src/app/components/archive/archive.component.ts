@@ -56,10 +56,26 @@ export class ArchiveComponent {
 
   handleNoteSaved() {
     this.noteService.getAll().subscribe(notes => {
-      const ArchivedNotes = notes.filter(note => note.IsArchived);
-      this.notes = ArchivedNotes;
-      this.items = ArchivedNotes.reverse();
-      console.log(ArchivedNotes);
+      const archivedNotes = notes.filter(note => note.IsArchived);
+
+      // Create a map to store unique notes by their Id
+      const uniqueNotesMap = new Map<string, any>();
+
+      // Iterate through the notes and add them to the map
+      archivedNotes.forEach(note => {
+        if (!uniqueNotesMap.has(note.Id)) {
+          uniqueNotesMap.set(note.Id, note);
+        }
+      });
+
+      // Convert the map values to an array
+      const uniqueArchivedNotes = Array.from(uniqueNotesMap.values());
+
+      // Reverse the array and assign to the class properties
+      this.notes = uniqueArchivedNotes;
+      this.items = uniqueArchivedNotes.reverse();
+
+      console.log(uniqueArchivedNotes);
     });
   }
   pinNote(note: NoteGetDTO, event: MouseEvent): void {
