@@ -1,0 +1,38 @@
+/* datetime-picker-dialog.component.css */
+
+mat-dialog-content {
+  padding-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px; /* Add spacing between date and time pickers */
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 15px;
+}
+
+button {
+  margin-left: 10px;
+  color: #ffffff;
+  background-color: #616161;
+  border-radius: 10px;
+  text-transform: uppercase;
+  padding: 10px 20px; /* Larger button size */
+  font-size: 14px; /* Larger text */
+}
+
+button:hover {
+  background-color: #757575;
+}
+.time-pickers {
+  display: flex;
+  gap: 16px; /* Adjust as needed */
+}
+
+mat-form-field {
+  flex: 1;
+}

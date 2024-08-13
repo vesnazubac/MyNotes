@@ -15,7 +15,11 @@
           <p>{{ item.Content }}</p>
         </mat-card-content>
         <mat-card-actions class="note-actions">
-          <mat-icon class="note-icon">notification_important</mat-icon>
+          <!-- <mat-icon class="note-icon">notification_important</mat-icon> -->
+          <mat-icon class="note-icon" (click)="toggleDateTimePicker(item, $event)">notification_important</mat-icon>
+
+          <!-- Vaše druge ikone -->
+
           <!-- <mat-icon class="note-icon">groups</mat-icon>  -->
           <!-- <mat-icon class="note-icon" (click)="openColorPicker(item, $event)">palette</mat-icon> -->
           <!-- <mat-icon class="note-icon">image</mat-icon> -->
@@ -38,7 +42,7 @@
           <p>{{ item.Content }}</p>
         </mat-card-content>
         <mat-card-actions class="note-actions">
-          <mat-icon class="note-icon">notification_important</mat-icon>
+          <mat-icon class="note-icon" (click)="toggleDateTimePicker(item, $event)">notification_important</mat-icon>
           <!-- <mat-icon class="note-icon">groups</mat-icon>
           <mat-icon class="note-icon" (click)="openColorPicker(item, $event)">palette</mat-icon>
           <mat-icon class="note-icon">image</mat-icon> -->
@@ -49,7 +53,6 @@
       </mat-card>
     </div>
   </div>
-
   <div *ngIf="colorPickerVisible" class="color-picker-container">
     <color-picker [(color)]="selectedColor" (colorChange)="updateCardColor($event)"></color-picker>
   </div>

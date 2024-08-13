@@ -20,12 +20,16 @@ import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.co
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Note } from '../../models/Note';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateTimePickerDialogComponent } from '../datetime-picker-dialog/datetime-picker-dialog.component';
+
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ColorPickerModule,MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
+  imports: [MatNativeDateModule,MatDatepickerModule,ColorPickerModule,MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -39,6 +43,7 @@ export class HomeComponent {
   colorPickerVisible: boolean = false;
   selectedColor: string = '';
   selectedNote: NoteGetDTO | null = null;
+  showDateTimePicker=false;
 
   constructor(private noteService: NoteService,private dialog: MatDialog) {
 
@@ -77,7 +82,8 @@ onSearchChange(searchValue: string) {
       Content: note.Content,
       Color: note.Color,
       IsPinned: !note.IsPinned,
-      GroupId: note.GroupId
+      GroupId: note.GroupId,
+      ReminderDate:note.ReminderDate
     };
     this.noteService.updateNote(note.Id, notePutDTO).subscribe(
       updatedNote => {
@@ -103,14 +109,15 @@ onSearchChange(searchValue: string) {
       }
     });
 
-    dialogRef.afterClosed().subscribe((result: { Title: any; Content: any; Color: any; IsPinned: any; GroupId: any; }) => {
+    dialogRef.afterClosed().subscribe((result: { Title: any; Content: any; Color: any; IsPinned: any; GroupId: any; ReminderDate:any }) => {
       if (result) {
         const notePutDTO: NotePutDTO = {
           Title: result.Title,
           Content: result.Content,
           Color: result.Color,
           IsPinned: result.IsPinned,
-          GroupId: result.GroupId
+          GroupId: result.GroupId,
+          ReminderDate:result.ReminderDate
         };
         this.noteService.updateNote(note.Id, notePutDTO).subscribe(
           updatedNote => {
@@ -175,6 +182,49 @@ onSearchChange(searchValue: string) {
       this.colorPickerVisible = false;
       this.selectedNote = null;
     }
+  }
+
+  toggleDateTimePicker(item: NoteGetDTO, event: Event): void {
+    // event.stopPropagation();
+    const dialogRef = this.dialog.open(DateTimePickerDialogComponent, {
+      width: '450px',
+      data: {
+        selectedDate: item.ReminderDate|| new Date() // Pass current notification date or current date
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Update the note with the selected date and time
+        item.ReminderDate= result;
+
+        // You can now save the note with the updated notification date
+        const notePutDTO: NotePutDTO = {
+          Title: item.Title,
+          Content: item.Content,
+          Color: item.Color,
+          IsPinned: item.IsPinned,
+          GroupId: item.GroupId,
+          ReminderDate: item.ReminderDate
+        };
+        this.noteService.updateNote(item.Id, notePutDTO).subscribe(
+          updatedNote => {
+            console.log('Notification date updated:', updatedNote);
+            this.handleNoteSaved();  // Refresh notes after update
+          },
+          error => {
+            console.error('Error updating notification date:', error);
+          }
+        );
+      }
+    });
+
+  }
+
+  onDateSelected(event: any, item: any): void {
+    const selectedDate = event.value;
+    item.notificationDate = selectedDate;
+    item.showDateTimePicker = false;
   }
 
 

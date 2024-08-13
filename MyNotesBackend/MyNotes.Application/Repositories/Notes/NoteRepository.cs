@@ -98,6 +98,7 @@ namespace MyNotes.Application.Repositories.Notes
             note.Color = noteDTO.Color;
             note.EditedDate = DateTime.UtcNow;
             note.IsPinned = noteDTO.IsPinned;
+            note.ReminderDate = noteDTO.ReminderDate;
             SaveChanges();
             return note;
         }

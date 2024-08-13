@@ -19,5 +19,6 @@ namespace MyNotes.Domain.DTOs
         public bool IsArchived { get; set; }
         public long UserId { get; set; }
         public Guid GroupId { get; set; }
+        public DateTime? ReminderDate { get; set; }
     }
 }

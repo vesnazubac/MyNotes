@@ -65,7 +65,8 @@ export class TrashComponent {
       Content: note.Content,
       Color: note.Color,
       IsPinned: !note.IsPinned,
-      GroupId: note.GroupId
+      GroupId: note.GroupId,
+      ReminderDate:note.ReminderDate
     };
     this.noteService.updateNote(note.Id, notePutDTO).subscribe(
       updatedNote => {
