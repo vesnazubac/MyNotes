@@ -156,3 +156,17 @@ mat-icon {
   position: relative;
   font-weight: 300;
 }
+
+.note-card {
+  position: relative;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.note-card .note-icon {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.note-card:hover .note-icon {
+  opacity: 1;
+}
