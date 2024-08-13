@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NoteComponent } from './components/note/note.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { TrashComponent } from './components/trash/trash.component';
+import { RemindersComponent } from './components/reminders/reminders.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path:'archived',component:ArchiveComponent},
     {path:'trash',component:TrashComponent},
     {path:'login-register',component:LoginRegisterComponent},
+    {path:'reminders',component:RemindersComponent}
 
   ];

@@ -11,6 +11,7 @@ namespace MyNotes.Application.Repositories.Notes
     {
         List<Note> GetNotes();
         List<Note> GetDeletedNotes();
+        List<Note> GetReminderNotes();
         Note GetById(Guid id);
         List<Note> GetByUserId(Guid userId);
         List<Note> GetByTitle(String title);

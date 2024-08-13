@@ -64,6 +64,12 @@ namespace MyNotes.Application.Repositories.Notes
         {
             return _databaseContext.Notes.Where(x => x.IsDeleted==true).ToList();
         }
+        public List<Note> GetReminderNotes()
+        {
+            return _databaseContext.Notes
+         .Where(x => x.ReminderDate != null && x.ReminderDate > DateTime.Now && !x.IsDeleted && !x.IsArchived)
+         .ToList();
+        }
 
         public void SaveChanges()
         {
