@@ -13,4 +13,5 @@ export interface NoteGetDTO {
   GroupId: string;
   DeletedDate:Date;
   IsDeleted:boolean;
+  ReminderDate:Date;
 }

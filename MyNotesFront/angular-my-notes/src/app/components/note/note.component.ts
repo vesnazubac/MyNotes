@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoteService } from '../../services/notes/notes.service';
@@ -18,7 +18,17 @@ export class NoteComponent {
   content: string = '';
   isPinned: boolean = false;
   @Output() noteSaved = new EventEmitter<void>();
-  constructor(private noteService: NoteService, public snackBar: MatSnackBar) {}
+  noteForm: FormGroup;
+  constructor(private noteService: NoteService, public snackBar: MatSnackBar) {
+    this.noteForm = new FormGroup({
+      title: new FormControl(''),
+      content: new FormControl(''),
+      color: new FormControl('#FFFFFF'),
+      isPinned: new FormControl(false),
+      userId: new FormControl('00000000-0000-0000-0000-000000000001'),
+      groupId: new FormControl('00000000-0000-0000-0000-000000000001')
+    });
+  }
 
   saveNote() {
     const newNote: NotePostDTO = {
@@ -38,6 +48,8 @@ export class NoteComponent {
         });
         console.log('Note saved:', response);
         this.noteSaved.emit();
+        this.content='';
+        this.title='';
         this.isPinned=false;
       },
       (error) => {

@@ -4,6 +4,7 @@ export interface NotePutDTO {
   Color: string;
   IsPinned: boolean;
   GroupId: string;
+  ReminderDate:Date;
 }
 
 

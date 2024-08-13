@@ -122,7 +122,7 @@ namespace MyNotes.WebAPI.Controllers
 
             if (notes == null || notes.Count == 0)
             {
-                return NotFound("No notes match your search criteria.");
+                return Ok(notes);
             }
 
             return Ok(notes);

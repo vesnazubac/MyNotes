@@ -1,115 +1,84 @@
-mat-toolbar {
-  background-color: #89CFF0;
-  width: 100%;
+/* Define common styles for menu items */
+.menu-item {
+  color: #d4d4d4;
+  text-decoration: none;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 60px;
-  padding-right: 40px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s;
 }
 
-.toolbar-left {
-  display: flex;
-  align-items: center;
-  margin-right: 50px;
-}
-.motivational-text {
-  color: whitesmoke;
-  font-size: 18px;
-  font-weight: 400;
-  font-family: 'Mooli', sans-serif;
-  /* font-weight: bold; */
-}
-.toolbar-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.toolbar-right button {
-  color: white;
+.menu-item .menu-icon {
+  font-size: 24px;
   margin-right: 10px;
 }
 
-mat-toolbar mat-icon {
-  /* color: #F089A5; */
-  color:	black;
+.menu-item .menu-text {
+  /* Optional: Add font-weight or other styles if needed */
 }
 
+/* Sidebar styles */
+.sidebar {
+  background-color: gray;
+  width: 200px;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  margin-right: 300px;
 
-
-
-
-
-
-:root {
-  --body-bg-color: #1a1c1d;
-  --text-color: #aaaebc;
-  --red: #e74c3c;
 }
 
-ul {
+.sidebar ul {
   list-style: none;
+  padding: 0;
 }
 
-a {
-  color: inherit;
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar li a {
+  color: #d4d4d4;
   text-decoration: none;
-}
-
-body {
-  margin: 30px 0;
-  font: 22px sans-serif;
-  background: var(--body-bg-color);
-  color: var(--text-color);
-}
-
-.menu {
   display: flex;
-  justify-content: center;
-}
-
-.menu li {
-  margin-right: 70px;
-}
-
-.menu a {
-  position: relative;
-  display: block;
+  align-items: center;
   padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s;
 }
 
-.menu a svg {
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
+.sidebar li a:hover {
+  background-color: rgb(241, 241, 241);
+  color: #6c6c6c;
 }
 
-.menu a svg path {
-  fill: transparent;
-  stroke-width: 2px;
-  stroke: currentColor;
-  stroke-dasharray: 89.7506103515625;
-  stroke-dashoffset: -89.7506103515625;
-  transition: stroke-dashoffset 0.5s cubic-bezier(0.29, 0.68, 0.74, 1.02);
+.sidebar li a.active {
+  color: #000000;
+  background-color: rgb(241, 241, 241);
 }
 
-.menu a:hover svg path {
-  stroke-dashoffset: 0;
+.sidebar li a.active:hover {
+  /* Optional: Add styles for active hover state if needed */
 }
 
-
-/* FOOTER
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.page-footer {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-size: 1rem;
+/* Sub-menu styles */
+.sub-menu {
+  padding-left: 20px; /* Adjust the value to your desired padding */
 }
 
-.page-footer span {
-  color: var(--red);
+/* Sidebar visibility transitions */
+.hideSidebar {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.showSidebar {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.3s, opacity 0.3s;
 }

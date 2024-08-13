@@ -15,5 +15,6 @@ namespace MyNotes.Domain.DTOs
         public DateTime EditedDate { get; set; }
         public bool IsPinned { get; set; }
         public string GroupId { get; set; }
+        public DateTime? ReminderDate { get; set; }
     }
 }

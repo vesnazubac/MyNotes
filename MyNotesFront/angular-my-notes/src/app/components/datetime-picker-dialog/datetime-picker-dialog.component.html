@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Pick a Date and Time</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Select Date</mat-label>
+    <input matInput [matDatepicker]="datePicker" [(ngModel)]="selectedDate" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="time-pickers">
+    <mat-form-field appearance="fill">
+      <mat-label>Select Hour</mat-label>
+      <mat-select [(ngModel)]="selectedHour">
+        <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select Minute</mat-label>
+      <mat-select [(ngModel)]="selectedMinute">
+        <mat-option *ngFor="let minute of minutes" [value]="minute">{{ minute }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="saveDate()">Save</button>
+</mat-dialog-actions>

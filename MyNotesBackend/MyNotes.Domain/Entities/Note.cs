@@ -17,6 +17,7 @@ namespace MyNotes.Domain.Entities
         public DateTime CreatedDate { get; set; }
         public DateTime EditedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
+        public DateTime? ReminderDate { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsPinned { get; set; }
         public bool IsArchived { get; set; }
