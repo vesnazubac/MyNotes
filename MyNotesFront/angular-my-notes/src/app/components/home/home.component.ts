@@ -23,6 +23,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateTimePickerDialogComponent } from '../datetime-picker-dialog/datetime-picker-dialog.component';
+import { SignalRService } from '../../services/SignalR/signalR.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -45,12 +47,19 @@ export class HomeComponent {
   selectedNote: NoteGetDTO | null = null;
   showDateTimePicker=false;
 
-  constructor(private noteService: NoteService,private dialog: MatDialog) {
+  constructor( private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
 
   }
 
   ngOnInit() {
     this.handleNoteSaved();
+    this.signalRService.hubConnection.on('ReceiveReminder', (message: string) => {
+      this.snackBar.open(message, 'Close', {
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+      });
+    });
   }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.itemsNotPinned, event.previousIndex, event.currentIndex);

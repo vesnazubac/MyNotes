@@ -40,6 +40,7 @@ export class DateTimePickerDialogComponent {
     if (this.selectedHour !== undefined && this.selectedMinute !== undefined) {
       combinedDateTime.setHours(this.selectedHour+2);
       combinedDateTime.setMinutes(this.selectedMinute);
+      combinedDateTime.setSeconds(0);
     }
     // Make sure to format the date-time to ISO string format
     const isoDateTime = combinedDateTime.toISOString();

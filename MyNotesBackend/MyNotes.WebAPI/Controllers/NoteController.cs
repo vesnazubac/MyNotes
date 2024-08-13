@@ -37,6 +37,11 @@ namespace MyNotes.WebAPI.Controllers
         {
             return await _noteService.GetDeletedNotes();
         }
+        [HttpGet("reminderNotes")]
+        public async Task<ActionResult<IEnumerable<Note>>> GetReminderNotes()
+        {
+            return await _noteService.GetReminderNotes();
+        }
 
         // GET: api/notes/{id}
         [HttpGet("by-id/{id}")]

@@ -1,77 +1,73 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using MyNotes.Application.Features.NoteHandler;
-using MyNotes.Application.Repositories.Notes;
-using MyNotes.Infrastructure.Persistence;
-using MyNotes.Application.Features.Background;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Hosting;
+    using MyNotes.Application.Features.NoteHandler;
+    using MyNotes.Application.Repositories.Notes;
+    using MyNotes.Infrastructure.Persistence;
+    using MyNotes.Application.Features.Background;
+    using MyNotes.Application.Features.Notifications;
 
-var builder = WebApplication.CreateBuilder(args);
+    var builder = WebApplication.CreateBuilder(args);
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-//builder.Services.AddControllers();
-builder.Services.AddDbContext<DatabaseContext>(options =>
-options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                });
-builder.Services.AddScoped<INoteRepository, NoteRepository>();
-builder.Services.AddScoped<NoteService>();
+    var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+    //builder.Services.AddControllers();
+    builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Services.AddControllers()
+                    .AddJsonOptions(options =>
+                    {
+                        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    });
+    builder.Services.AddScoped<INoteRepository, NoteRepository>();
+    builder.Services.AddScoped<NoteService>();
+    builder.Services.AddHostedService<NotesBackgroundService>();
+/* builder.Services.AddScoped<ReminderService>();
+builder.Services.AddSignalR();*/
 
-builder.Services.AddHostedService<NotesBackgroundService>();
+builder.Services.AddHostedService<ReminderBackgroundService>();
+    builder.Services.AddScoped<ReminderService>();
+ //   builder.Services.AddSingleton<IHostedService, ReminderBackgroundService>();
+    builder.Services.AddSignalR();
+
+
+
+
 
 builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        builder => builder.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
-});
+    {
+        options.AddPolicy("AllowAll",
+            builder => builder.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
+       
+    });
+
+// Define specific origins
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigins",
+            builder => builder.WithOrigins("http://localhost:4200/*")  // Replace with your actual origin
+                              .AllowAnyMethod()
+                              .AllowAnyHeader()
+                              .AllowCredentials());  // Allow credentials
+    });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-app.UseCors("AllowAll");
+    // Configure the HTTP request pipeline.
+    app.UseCors("AllowAll");
 
 
 
-// Configure the HTTP request pipeline.
-app.UseHttpsRedirection();
+    // Configure the HTTP request pipeline.
+    app.UseHttpsRedirection();
 
-app.UseCors(MyAllowSpecificOrigins);
+    app.UseCors(MyAllowSpecificOrigins);
 
-app.UseAuthorization();
+    app.UseAuthorization();
 
-app.MapControllers();
+    app.MapControllers();
+    app.MapHub<NotificationHub>("/notificationHub");
 
-/*
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        var noteRepository = services.GetRequiredService<INoteRepository>();
-        var context = services.GetRequiredService<DatabaseContext>();
 
-        var thirtyDaysAgo = DateTime.UtcNow.AddDays(-30);
-
-        var notesToDelete = context.Notes
-            .Where(note => note.DeletedDate != null && note.DeletedDate < thirtyDaysAgo && note.IsDeleted==true)
-            .ToList();
-
-        foreach (var note in notesToDelete)
-        {
-            noteRepository.Delete(note.Id);
-        }
-
-       noteRepository.SaveChanges();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message);
-    }
-}
-*/
 app.Run();
 

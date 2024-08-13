@@ -21,6 +21,9 @@ export class NoteService {
   getDeletedNotes():Observable<NoteGetDTO[]>{
     return this.httpClient.get<NoteGetDTO[]>(environment.apiHost + 'api/notes/deletedNotes')
   }
+  getReminderNotes():Observable<NoteGetDTO[]>{
+    return this.httpClient.get<NoteGetDTO[]>(environment.apiHost + 'api/notes/reminderNotes')
+  }
   create(note: NotePostDTO): Observable<NotePostDTO> {
     return this.httpClient.post<NotePostDTO>(environment.apiHost + 'api/notes', note)
   }

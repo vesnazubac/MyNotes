@@ -93,6 +93,10 @@ namespace MyNotes.Application.Features.NoteHandler
         {
             return _noteRepository.GetDeletedNotes();
         }
+        public async Task<List<Note>> GetReminderNotes()
+        {
+            return _noteRepository.GetReminderNotes();
+        }
         public async Task Restore(Guid id)
         {
             var note = _noteRepository.GetById(id);
