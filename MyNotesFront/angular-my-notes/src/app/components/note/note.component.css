@@ -1,81 +1,78 @@
 .note-container {
-  width: 100%;
-  max-width: 600px;
+  width: 700px;
+  max-width: 900px; /* Adjusted width to match Google Keep's compact note size */
   margin: 20px auto;
-  padding: 20px;
+  margin-left: 300px;
+  margin-bottom: 40px;
+  padding: 16px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: #fff;
   position: relative;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  margin-bottom: 50px;
-  margin-left: 50px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); /* Softer shadow for a more subtle effect */
+  transition: box-shadow 0.2s ease, transform 0.2s ease; /* Faster transition for responsiveness */
+  margin-bottom: 30px;
 }
 
 .note-container:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transform: translateY(-5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); /* Slightly increased shadow for hover effect */
+  transform: translateY(-3px); /* Gentle hover effect */
+}
+
+.note-title, .note-content {
+  width: 90%; /* Full width for consistency */
+  padding: 10px;
+  border: none; /* No border for a minimalist look */
+  border-radius: 4px;
+  background-color: transparent; /* Transparent background for simplicity */
+  font-weight: 400;
+  outline: none; /* Remove blue outline */
 }
 
 .note-title {
-  width: 90%;
-  padding: 12px;
-  font-size: 18px;
-  font-weight: 400;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  background-color: #fefefe;
+  font-size: 16px; /* Slightly smaller font size for a minimalist look */
+  font-weight: 500; /* Medium font weight */
+  margin-bottom: 12px;
 }
 
 .note-content {
-  width: 95%;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  resize: vertical;
-  min-height: 120px;
-  background-color: #fefefe;
-  font-weight: 400;
+  font-size: 14px; /* Smaller font for content */
+  resize: none; /* Removed resizing to maintain consistent design */
+  min-height: 100px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns the button to the right */
+  padding: 0 16px; /* Optional: Add padding to the container if needed */
 }
 
 button {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  background-color: gray;
+  padding: 8px 16px;
+  background-color: #f5f5f5;
   border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background-color: rgb(112, 111, 111);
-  transform: scale(1.05);
+  background-color: #e0e0e0; /* Slightly darker gray on hover */
+  transform: scale(1.02); /* Subtle hover effect */
 }
+
 .pinned-icon {
   position: absolute;
-  top: 20px; /* Adjusted to align better with the title input */
-  right: 16px; /* Moved slightly inward to fit within the form */
-  font-size: 24px;
-  color: #555;
+  top: 10px; /* Aligns closer to the top */
+  right: 10px; /* Moved closer to the edge */
+  font-size: 20px; /* Slightly smaller icon size */
+  color: #777; /* Lighter gray for a subtle icon */
   cursor: pointer;
-  transition: transform 0.3s ease;
-  z-index: 2; /* Ensure the icon stays above other elements */
+  transition: transform 0.2s ease;
 }
 
 .pinned-icon:hover {
-  transform: scale(1.2);
-}
-
-
-
-.pinned-icon:hover {
-  transform: scale(1.2);
+  transform: scale(1.1); /* Gentle hover effect */
 }

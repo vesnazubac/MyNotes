@@ -13,6 +13,7 @@
   height: 80px;
   padding: 20px;
   border-radius: 20px;
+
 }
 
 mat-form-field {
@@ -25,7 +26,8 @@ mat-form-field {
   border-radius: 10px;
   margin-bottom: 10px;
   font-size: 15px;
-  margin-left: 100px;
+  margin-left: 300px;
+  background-color: white;
 }
 
 .example-icon {
@@ -49,7 +51,7 @@ mat-form-field {
 } */
 
 mat-icon {
-  color: gray;
+  color: #606060;
   position: relative;
   top:5px;
   float:right;
@@ -64,21 +66,6 @@ mat-icon {
 }
 
 
-/*
-.search-bar {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  height: 100px;
-}
-
-.search-input {
-  margin-left: 10px;
-  font-size: 16px;
-  font-weight: 300;
-} */
 
 .section-title {
   margin-top: 30px;

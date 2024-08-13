@@ -1,8 +1,8 @@
 <div class="note-container">
-
     <mat-icon class="pinned-icon" (click)="togglePin()">push_pin</mat-icon>
     <input type="text" placeholder="Title" [(ngModel)]="title" class="note-title">
-    <textarea placeholder="Take a note..." [(ngModel)]="content" class="note-content"></textarea>
+    <textarea placeholder="Take a note..." [(ngModel)]="content" class="note-content"  (keydown.enter)="saveNote()"></textarea>
+    <!-- <div class="button-container">
     <button (click)="saveNote()">Save Note</button>
-
+    </div> -->
   </div>
