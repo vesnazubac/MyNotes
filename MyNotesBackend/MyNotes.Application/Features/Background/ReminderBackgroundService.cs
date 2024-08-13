@@ -32,7 +32,7 @@ namespace MyNotes.Application.Features.Background
                     var reminderService = scope.ServiceProvider.GetRequiredService<ReminderService>();
                     await reminderService.CheckReminders();
                 }
-                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken); // Run every minute or as needed
+                await Task.Delay(TimeSpan.FromSeconds(20), stoppingToken); // Run every minute or as needed
             }
         }
     }

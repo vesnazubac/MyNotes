@@ -1,3 +1,4 @@
+
 import { LoginRegisterComponent } from './components/login-register/login-register.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -10,5 +11,6 @@ export const routes: Routes = [
     {path:'note',component:NoteComponent},
     {path:'archived',component:ArchiveComponent},
     {path:'trash',component:TrashComponent},
-    {path:'login-register',component:LoginRegisterComponent}
+    {path:'login-register',component:LoginRegisterComponent},
+
   ];

@@ -31,7 +31,7 @@ namespace MyNotes.Application.Features.NoteHandler
             var notes = _noteRepository.GetNotes();
             var now = DateTime.Now;
 
-            foreach (var note in notes.Where(n => n.ReminderDate != null && n.ReminderDate > now && !n.IsDeleted && !n.IsArchived))
+            foreach (var note in notes.Where(n => n.ReminderDate != null && n.ReminderDate >= now && !n.IsDeleted && !n.IsArchived))
             {
                 var reminderDate = note.ReminderDate.Value;
                 var delay = reminderDate - now;

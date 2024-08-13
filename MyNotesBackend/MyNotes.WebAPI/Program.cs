@@ -21,11 +21,11 @@
     builder.Services.AddScoped<NoteService>();
     builder.Services.AddHostedService<NotesBackgroundService>();
 /* builder.Services.AddScoped<ReminderService>();
-builder.Services.AddSignalR();
+builder.Services.AddSignalR();*/
 
-builder.Services.AddHostedService<ReminderBackgroundService>();*/
+builder.Services.AddHostedService<ReminderBackgroundService>();
     builder.Services.AddScoped<ReminderService>();
-    builder.Services.AddSingleton<IHostedService, ReminderBackgroundService>();
+ //   builder.Services.AddSingleton<IHostedService, ReminderBackgroundService>();
     builder.Services.AddSignalR();
 
 
