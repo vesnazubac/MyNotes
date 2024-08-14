@@ -1,27 +1,15 @@
 import { Component } from '@angular/core';
-import { NoteComponent } from '../note/note.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
-import { MatMenuItem, MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoteGetDTO } from '../../DTOs/NoteGetDTO';
 import { NoteService } from '../../services/notes/notes.service';
-import { CommonModule } from '@angular/common';
 import {CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
-import { MatCardModule } from '@angular/material/card';
 import { NotePutDTO } from '../../DTOs/NotePutDTO';
-import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
+import { SharedModule } from '../../common/shared.module';
 @Component({
   selector: 'app-trash',
   standalone: true,
-  imports: [MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
+  //imports: [MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
+  imports:[SharedModule],
   templateUrl: './trash.component.html',
   styleUrl: './trash.component.css'
 })

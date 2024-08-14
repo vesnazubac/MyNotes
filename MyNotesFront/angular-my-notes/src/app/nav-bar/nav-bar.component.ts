@@ -9,7 +9,7 @@ import { Router, RouterModule } from '@angular/router';
 import { SidebarService } from '../services/sidebar/sidebar.service';
 import { CommonModule } from '@angular/common';
 
-@Injectable()
+// @Injectable()
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',

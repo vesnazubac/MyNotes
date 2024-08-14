@@ -19,10 +19,14 @@ import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Note } from '../../models/Note';
+
+
+import { SharedModule } from '../../common/shared.module';
 @Component({
   selector: 'app-archive',
   standalone: true,
-  imports: [MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
+  //imports: [MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
+  imports:[SharedModule],
   templateUrl: './archive.component.html',
   styleUrl: './archive.component.css'
 })

@@ -1,0 +1,61 @@
+/* Kontejner za sve form-fields */
+.example-container {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  padding: 20px;
+ /* Svetla pozadina za formu */
+  border-radius: 8px; /* Zaobljeni uglovi */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Blagi senke */
+}
+
+/* Polja za unos */
+.mat-form-field {
+  width: 100%;
+  max-width: 300px; /* Maksimalna širina */
+  margin-bottom: 16px;
+}
+
+/* Polja koja se razlikuju od glavnih */
+.other-fields {
+  width: 100%;
+  max-width: 250px; /* Maksimalna širina */
+}
+
+/* Naslov registracije */
+.register-header {
+  color: #333; /* Tamno siva boja */
+  font-size: 28px; /* Veći font za naslov */
+  font-weight: 600; /* Bold */
+  margin-bottom: 20px;
+  text-align: center; /* Poravnanje teksta u centar */
+}
+
+/* Dugmadi i redovi dugmadi */
+.example-button-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; /* Povećan razmak za bolje razdvajanje */
+}
+
+/* Kontejner za slide toggle */
+.slide-toggle-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Razmak između elemenata */
+  margin-top: 20px;
+  margin-left: 0; /* Uklonite levo margine za centriranje */
+  margin-bottom: 20px;
+}
+
+/* Poruka o grešci */
+.error-message {
+  color: #e53935; /* Crvena boja za greške */
+  font-size: 14px; /* Manji font */
+  margin-top: 10px;
+  text-align: center; /* Poravnanje poruke u centar */
+}

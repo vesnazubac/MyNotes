@@ -26,6 +26,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   templateUrl: './reminders.component.html',
   styleUrl: './reminders.component.css'
 })
+
 export class RemindersComponent {
 
   items:NoteGetDTO[]=[]
@@ -79,5 +80,4 @@ export class RemindersComponent {
       }
     );
   }
-
 }
