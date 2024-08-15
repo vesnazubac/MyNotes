@@ -7,6 +7,8 @@
     using MyNotes.Application.Features.Notifications;
 using MyNotes.Application.Repositories.Users;
 using MyNotes.Application.Features.UserHandler;
+using MyNotes.WebAPI.Helpers;
+using MyNotes.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,9 +26,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<NoteService>();
     builder.Services.AddHostedService<NotesBackgroundService>();
     builder.Services.AddScoped<UserService>();
+    builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
-
-builder.Services.AddHostedService<ReminderBackgroundService>();
+    builder.Services.AddHostedService<ReminderBackgroundService>();
     builder.Services.AddScoped<ReminderService>();
  //   builder.Services.AddSingleton<IHostedService, ReminderBackgroundService>();
     builder.Services.AddSignalR();
@@ -70,6 +72,7 @@ var app = builder.Build();
 
     app.MapControllers();
     app.MapHub<NotificationHub>("/notificationHub");
+    app.UseMiddleware<JwtMiddleware>();
 
 
 app.Run();

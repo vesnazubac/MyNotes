@@ -7,7 +7,7 @@ namespace MyNotes.WebAPI.Controllers
 {
     [ApiController]
     [Route("/api/users")]
-    public class UserController
+    public class UserController:ControllerBase
     {   
         private readonly UserService _userService;
 
@@ -26,6 +26,17 @@ namespace MyNotes.WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _userService.GetAll();
+        }
+
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate(AuthenticateRequest model)
+        {
+            var response = await _userService.Authenticate(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
         }
     }
 }

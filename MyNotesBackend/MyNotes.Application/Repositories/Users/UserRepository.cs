@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyNotes.Domain.Entities;
 using MyNotes.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 namespace MyNotes.Application.Repositories.Users
 {
     public class UserRepository : IUserRepository
@@ -26,6 +27,14 @@ namespace MyNotes.Application.Repositories.Users
         public List<User> GetUsers()
         {
             return _databaseContext.Users.ToList();
+        }
+        public User GetById(Guid id)
+        {
+            return _databaseContext.Users.FirstOrDefault(x => x.Id == id);
+        }
+        public User? Authenticate(AuthenticateRequest model)
+        {
+            return _databaseContext.Users.SingleOrDefault(x=>x.UserName==model.Username && x.Password==model.Password);
         }
     }
 }

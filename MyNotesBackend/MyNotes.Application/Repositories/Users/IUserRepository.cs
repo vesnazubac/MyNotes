@@ -11,5 +11,7 @@ namespace MyNotes.Application.Repositories.Users
     {
         public User Register(User user);
         public List<User> GetUsers();
+        public User GetById(Guid id);
+        public User? Authenticate(AuthenticateRequest model);
     }
 }
