@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth/auth.service';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NoteGetDTO } from '../../DTOs/NoteGetDTO';
 import { NoteService } from '../../services/notes/notes.service';
@@ -31,8 +32,9 @@ export class HomeComponent {
   selectedColor: string = '';
   selectedNote: NoteGetDTO | null = null;
   showDateTimePicker=false;
+  loggedInUser:any =''
 
-  constructor( private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
+  constructor( private authService:AuthService,private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
 
   }
 
@@ -45,6 +47,9 @@ export class HomeComponent {
         verticalPosition: 'bottom',
       });
     });
+    this.loggedInUser=this.authService.getUserIdFromToken();
+    console.log(this.loggedInUser)
+
   }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.itemsNotPinned, event.previousIndex, event.currentIndex);

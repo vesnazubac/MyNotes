@@ -4,16 +4,19 @@
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+  margin-left: 100px;
+  margin-top: 100px;
 }
 
 
 
 .login-header {
-  color: #007bff; /* Blue color, you can change it */
+  color: black; /* Blue color, you can change it */
   font-size: 28px;
   margin-bottom: 10px;
   justify-content: center;
   display: flex;
+  margin-left: 20px;
 
 }
 
