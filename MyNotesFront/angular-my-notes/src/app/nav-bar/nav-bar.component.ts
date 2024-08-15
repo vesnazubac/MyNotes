@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth/auth.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Injectable, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 import { SidebarService } from '../services/sidebar/sidebar.service';
 import { CommonModule } from '@angular/common';
 
-@Injectable()
+// @Injectable()
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -40,7 +41,7 @@ export class NavBarComponent {
   isSubmenuOpen = false;
   isDashboardSelected = false;
 
-  constructor(private router: Router, private sidebarService: SidebarService) {}
+  constructor(private router: Router, private sidebarService: SidebarService,private authService:AuthService) {}
 
   ngOnInit() {
     this.sidebarService.sidebarVisibility$.subscribe((isVisible) => {
@@ -66,7 +67,10 @@ export class NavBarComponent {
     this.sidenav.toggle();
   }
 
-  public logout(): void {
-    this.router.navigate(['/login-register']);
+   logout(): void {
+    this.authService.logout()
+  }
+  isLoggedIn(){
+    return this.authService.isLoggedIn();
   }
 }

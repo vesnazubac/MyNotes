@@ -65,6 +65,14 @@ namespace MyNotes.Application.Features.NoteHandler
         {
             return _noteRepository.GetByUserId(userId);
         }
+        public async Task<List<Note>> GetDeletedByUserId(Guid userId)
+        {
+            return _noteRepository.GetDeletedByUserId(userId);
+        }
+        public async Task<List<Note>> GetArchivedByUserId(Guid userId)
+        {
+            return _noteRepository.GetArchivedByUserId(userId);
+        }
         public async Task<Note> Update(NotePutDTO notePutDTO, Guid id)
         {
             return _noteRepository.Update(notePutDTO, id);
@@ -93,9 +101,9 @@ namespace MyNotes.Application.Features.NoteHandler
         {
             return _noteRepository.GetDeletedNotes();
         }
-        public async Task<List<Note>> GetReminderNotes()
+        public async Task<List<Note>> GetReminderNotes(Guid id)
         {
-            return _noteRepository.GetReminderNotes();
+            return _noteRepository.GetReminderNotes(id);
         }
         public async Task Restore(Guid id)
         {

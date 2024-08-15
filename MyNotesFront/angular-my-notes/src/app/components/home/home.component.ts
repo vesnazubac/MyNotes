@@ -1,37 +1,23 @@
+import { AuthService } from './../../services/auth/auth.service';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { NoteComponent } from '../note/note.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
-import { MatMenuItem, MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoteGetDTO } from '../../DTOs/NoteGetDTO';
 import { NoteService } from '../../services/notes/notes.service';
-import { CommonModule } from '@angular/common';
 import {CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
-import { MatCardModule } from '@angular/material/card';
 import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Note } from '../../models/Note';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateTimePickerDialogComponent } from '../datetime-picker-dialog/datetime-picker-dialog.component';
 import { SignalRService } from '../../services/SignalR/signalR.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { SharedModule } from '../../common/shared.module';
+import { NoteComponent } from '../note/note.component';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatNativeDateModule,MatDatepickerModule,ColorPickerModule,MatDialogModule,MatIconModule,MatCardModule,CdkDrag,CdkDropList,CommonModule,NoteComponent,RouterOutlet, FormsModule,MatFormFieldModule, MatInputModule,MatIconModule,MatMenuModule,MatToolbarModule,MatListModule,MatSidenavModule],
+  imports: [NoteComponent,SharedModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -46,16 +32,20 @@ export class HomeComponent {
   selectedColor: string = '';
   selectedNote: NoteGetDTO | null = null;
   showDateTimePicker=false;
+  loggedInUser:any;
 
-  constructor( private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
+
+  constructor( private authService:AuthService,private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
 
   }
 
   ngOnInit() {
+    this.loggedInUser=this.authService.getUserIdFromToken();
+
     this.handleNoteSaved();
     this.signalRService.hubConnection.on('ReceiveReminder', (message: string) => {
       this.snackBar.open(message, 'Close', {
-        duration: 5000,
+        duration: 8000,
         horizontalPosition: 'right',
         verticalPosition: 'bottom',
       });
@@ -80,10 +70,17 @@ onSearchChange(searchValue: string) {
 }
 
   handleNoteSaved() {
-    this.noteService.getAll().subscribe(notes => {
-      this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
-      this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
+
+    this.noteService.getById(this.loggedInUser).subscribe(notes => {
+      this.itemsNotPinned = notes.filter(note => !note.IsPinned).reverse();
+      this.itemsPinned = notes.filter(note => note.IsPinned).reverse();
     });
+    console.log(this.itemsNotPinned);
+    console.log(this.itemsPinned)
+    // this.noteService.getAll().subscribe(notes => {
+    //   this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
+    //   this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
+    // });
   }
   pinNote(note: NoteGetDTO, event: MouseEvent): void {
     const notePutDTO: NotePutDTO = {

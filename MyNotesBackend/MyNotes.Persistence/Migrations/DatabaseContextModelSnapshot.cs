@@ -15,7 +15,7 @@ namespace MyNotes.Persistence.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
 
             modelBuilder.Entity("MyNotes.Domain.Entities.Note", b =>
                 {
@@ -91,11 +91,19 @@ namespace MyNotes.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -104,13 +112,13 @@ namespace MyNotes.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProfilePicture")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("phoneNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

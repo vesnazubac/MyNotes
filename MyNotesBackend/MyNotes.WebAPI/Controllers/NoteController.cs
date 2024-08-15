@@ -37,10 +37,10 @@ namespace MyNotes.WebAPI.Controllers
         {
             return await _noteService.GetDeletedNotes();
         }
-        [HttpGet("reminderNotes")]
-        public async Task<ActionResult<IEnumerable<Note>>> GetReminderNotes()
+        [HttpGet("reminderNotes/{id}")]
+        public async Task<ActionResult<IEnumerable<Note>>> GetReminderNotes(Guid id)
         {
-            return await _noteService.GetReminderNotes();
+            return await _noteService.GetReminderNotes(id);
         }
 
         // GET: api/notes/{id}
@@ -85,7 +85,31 @@ namespace MyNotes.WebAPI.Controllers
         [HttpGet("by-userId/{userId}")]
         public async Task<ActionResult<List<Note>>> GetNoteByUserId(Guid userId)
         {
-            var note = _noteService.GetByUserId(userId);
+            var notes = _noteService.GetByUserId(userId);
+
+            if (notes == null)
+            {
+                return Ok(notes);
+            }
+
+            return await notes;
+        }
+        [HttpGet("deleted/by-userId/{userId}")]
+        public async Task<ActionResult<List<Note>>> GetDeletedNotesByUserId(Guid userId)
+        {
+            var note = _noteService.GetDeletedByUserId(userId);
+
+            if (note == null)
+            {
+                return NotFound();
+            }
+
+            return await note;
+        }
+        [HttpGet("archived/by-userId/{userId}")]
+        public async Task<ActionResult<List<Note>>> GetArchivedNotesByUserId(Guid userId)
+        {
+            var note = _noteService.GetArchivedByUserId(userId);
 
             if (note == null)
             {

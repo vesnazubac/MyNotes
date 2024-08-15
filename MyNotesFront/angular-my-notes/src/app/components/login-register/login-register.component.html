@@ -19,6 +19,16 @@
 				<div class="group">
 					<input type="submit" class="button" value="Sign In">
 				</div>
+        <div class="group">
+          <div id="g_id_onload"
+            data-client_id="YOUR_GOOGLE_CLIENT_ID"
+            data-context="signin"
+            data-ux_mode="popup"
+            data-callback="handleCredentialResponse"
+            data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin" data-type="standard"></div>
+        </div>
 				<div class="hr"></div>
 				<div class="foot-lnk">
 					<a href="#forgot">Forgot Password?</a>

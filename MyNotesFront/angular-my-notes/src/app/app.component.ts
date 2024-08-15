@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
+// import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @Component({
