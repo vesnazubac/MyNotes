@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-reminders',
@@ -32,12 +33,14 @@ export class RemindersComponent {
   items:NoteGetDTO[]=[]
   notes: NoteGetDTO[] = [];
   searchTerm: string = '';
+  loggedInUser:any=''
 
-  constructor(private noteService: NoteService,private dialog: MatDialog) {
+  constructor(private noteService: NoteService,private dialog: MatDialog,private authService:AuthService) {
 
   }
 
   ngOnInit() {
+    this.loggedInUser=this.authService.getUserIdFromToken()
     this.handleNoteSaved();
   }
   drop(event: CdkDragDrop<string[]>) {
@@ -45,7 +48,7 @@ export class RemindersComponent {
   }
   onSearchChange(searchValue: string) {
     if (searchValue === '') {
-      this.noteService.getReminderNotes().subscribe(notes => {
+      this.noteService.getReminderNotes(this.loggedInUser).subscribe(notes => {
         this.items = notes.reverse();
       });
     } else {
@@ -56,7 +59,7 @@ export class RemindersComponent {
   }
 
   handleNoteSaved() {
-    this.noteService.getReminderNotes().subscribe(notes => {
+    this.noteService.getReminderNotes(this.loggedInUser).subscribe(notes => {
       this.items = notes.reverse();
       console.log(notes);
     });

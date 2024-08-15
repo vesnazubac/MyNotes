@@ -32,13 +32,16 @@ export class HomeComponent {
   selectedColor: string = '';
   selectedNote: NoteGetDTO | null = null;
   showDateTimePicker=false;
-  loggedInUser:any =''
+  loggedInUser:any;
+
 
   constructor( private authService:AuthService,private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
 
   }
 
   ngOnInit() {
+    this.loggedInUser=this.authService.getUserIdFromToken();
+
     this.handleNoteSaved();
     this.signalRService.hubConnection.on('ReceiveReminder', (message: string) => {
       this.snackBar.open(message, 'Close', {
@@ -47,9 +50,6 @@ export class HomeComponent {
         verticalPosition: 'bottom',
       });
     });
-    this.loggedInUser=this.authService.getUserIdFromToken();
-    console.log(this.loggedInUser)
-
   }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.itemsNotPinned, event.previousIndex, event.currentIndex);
@@ -70,10 +70,17 @@ onSearchChange(searchValue: string) {
 }
 
   handleNoteSaved() {
-    this.noteService.getAll().subscribe(notes => {
-      this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
-      this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
+
+    this.noteService.getById(this.loggedInUser).subscribe(notes => {
+      this.itemsNotPinned = notes.filter(note => !note.IsPinned).reverse();
+      this.itemsPinned = notes.filter(note => note.IsPinned).reverse();
     });
+    console.log(this.itemsNotPinned);
+    console.log(this.itemsPinned)
+    // this.noteService.getAll().subscribe(notes => {
+    //   this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
+    //   this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
+    // });
   }
   pinNote(note: NoteGetDTO, event: MouseEvent): void {
     const notePutDTO: NotePutDTO = {

@@ -15,45 +15,51 @@
       </ul> -->
     </li>
     <li>
-      <a routerLink="/home" routerLinkActive="active">
+      <a routerLink="/home" *ngIf="isLoggedIn()" routerLinkActive="active">
         <span class="menu-icon material-icons">home</span>
         <span class="menu-text">Home</span>
       </a>
     </li>
     <li>
-      <a routerLink="/reminders" routerLinkActive="active">
+      <a routerLink="/reminders" *ngIf="isLoggedIn()" routerLinkActive="active">
         <span class="menu-icon material-icons">alarm</span>
         <span class="menu-text">Reminders</span>
       </a>
     </li>
     <li>
-      <a routerLink="/edit-labels" routerLinkActive="active">
+      <a routerLink="/edit-labels" *ngIf="isLoggedIn()" routerLinkActive="active">
         <span class="menu-icon material-icons">label</span>
         <span class="menu-text">Edit labels</span>
       </a>
     </li>
     <li>
-      <a routerLink="/archived" routerLinkActive="active">
+      <a routerLink="/archived" *ngIf="isLoggedIn()" routerLinkActive="active">
         <span class="menu-icon material-icons">archive</span>
         <span class="menu-text">Archive</span>
       </a>
     </li>
     <li>
-      <a routerLink="/trash" routerLinkActive="active">
+      <a routerLink="/trash" *ngIf="isLoggedIn()" routerLinkActive="active">
         <span class="menu-icon material-icons">delete</span>
         <span class="menu-text">Trash</span>
       </a>
     </li>
-    <li>
+    <li *ngIf="!isLoggedIn()">
       <a routerLink="/login" routerLinkActive="active">
         <span class="menu-icon material-icons">login</span>
         <span class="menu-text">Log in</span>
       </a>
     </li>
-    <li>
+    <li *ngIf="!isLoggedIn()">
       <a routerLink="/register" routerLinkActive="active">
         <span class="menu-icon material-icons">how_to_reg</span>
         <span class="menu-text">Register</span>
+      </a>
+    </li>
+    <li *ngIf="isLoggedIn()">
+      <a (click)="logout()" routerLinkActive="active">
+        <span class="menu-icon material-icons">logout</span>
+        <span class="menu-text">Logout</span>
       </a>
     </li>
   </ul>

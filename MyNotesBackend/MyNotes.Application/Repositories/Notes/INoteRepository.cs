@@ -11,9 +11,11 @@ namespace MyNotes.Application.Repositories.Notes
     {
         List<Note> GetNotes();
         List<Note> GetDeletedNotes();
-        List<Note> GetReminderNotes();
+        List<Note> GetReminderNotes(Guid id);
         Note GetById(Guid id);
         List<Note> GetByUserId(Guid userId);
+        List<Note>GetDeletedByUserId(Guid userId);
+        List<Note> GetArchivedByUserId(Guid userId);
         List<Note> GetByTitle(String title);
         List<Note> GetByContent(String content);
         Note Create(Note note);

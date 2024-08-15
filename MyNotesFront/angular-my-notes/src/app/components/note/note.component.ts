@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoteService } from '../../services/notes/notes.service';
 import { NotePostDTO } from '../../DTOs/NotePostDTO';
+import { AuthService } from '../../services/auth/auth.service';
 
 
 @Component({
@@ -13,30 +14,35 @@ import { NotePostDTO } from '../../DTOs/NotePostDTO';
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.css'],
 })
-export class NoteComponent {
+export class NoteComponent  {
   title: string = '';
   content: string = '';
   isPinned: boolean = false;
   @Output() noteSaved = new EventEmitter<void>();
   noteForm: FormGroup;
-  constructor(private noteService: NoteService, public snackBar: MatSnackBar) {
+  loggedInUser:any=''
+
+
+  constructor(private noteService: NoteService, public snackBar: MatSnackBar,private authService:AuthService) {
     this.noteForm = new FormGroup({
       title: new FormControl(''),
       content: new FormControl(''),
       color: new FormControl('#FFFFFF'),
       isPinned: new FormControl(false),
-      userId: new FormControl('00000000-0000-0000-0000-000000000001'),
+      userId: new FormControl(''),
       groupId: new FormControl('00000000-0000-0000-0000-000000000001')
     });
   }
-
+  ngOnInit() {
+    this.loggedInUser=this.authService.getUserIdFromToken();
+  }
   saveNote() {
     const newNote: NotePostDTO = {
       title: this.title,
       content: this.content,
       color: '#FFFFFF',
       isPinned: this.isPinned,
-      userId: '00000000-0000-0000-0000-000000000001',
+      userId: this.loggedInUser,
       groupId: '00000000-0000-0000-0000-000000000001'
     };
 

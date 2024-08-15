@@ -5,6 +5,7 @@ import {CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray} from '@angular/cdk/d
 import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { MatDialog} from '@angular/material/dialog';
 import { SharedModule } from '../../common/shared.module';
+import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-trash',
   standalone: true,
@@ -18,12 +19,15 @@ export class TrashComponent {
   items:NoteGetDTO[]=[]
   notes: NoteGetDTO[] = [];
   searchTerm: string = '';
+  loggedInUser:any=''
 
-  constructor(private noteService: NoteService,private dialog: MatDialog) {
+  constructor(private noteService: NoteService,private dialog: MatDialog,private authService:AuthService) {
 
   }
 
   ngOnInit() {
+    this.loggedInUser=this.authService.getUserIdFromToken();
+
     this.handleNoteSaved();
   }
   drop(event: CdkDragDrop<string[]>) {
@@ -42,7 +46,7 @@ export class TrashComponent {
   }
 
   handleNoteSaved() {
-    this.noteService.getDeletedNotes().subscribe(notes => {
+    this.noteService.getDeletedById(this.loggedInUser).subscribe(notes => {
       this.items = notes.reverse();
       console.log(notes);
     });

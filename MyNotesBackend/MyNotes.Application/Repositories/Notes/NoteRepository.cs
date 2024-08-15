@@ -38,8 +38,16 @@ namespace MyNotes.Application.Repositories.Notes
         }
         public List<Note> GetByUserId(Guid userId)
         {
-            return _databaseContext.Notes.AsEnumerable().Where(note => note.UserId == userId).ToList();
+            return _databaseContext.Notes.AsEnumerable().Where(note => note.UserId == userId && !note.IsDeleted && !note.IsArchived).ToList();
+        }
+        public List<Note> GetDeletedByUserId(Guid userId)
+        {
+            return _databaseContext.Notes.AsEnumerable().Where(note => note.UserId == userId && note.IsDeleted).ToList();
 
+        }
+        public List<Note> GetArchivedByUserId(Guid userId)
+        {
+            return _databaseContext.Notes.AsEnumerable().Where(note => note.UserId == userId && note.IsArchived).ToList();
         }
         public List<Note> GetByTitle(String title)
         {
@@ -64,10 +72,10 @@ namespace MyNotes.Application.Repositories.Notes
         {
             return _databaseContext.Notes.Where(x => x.IsDeleted==true).ToList();
         }
-        public List<Note> GetReminderNotes()
+        public List<Note> GetReminderNotes(Guid id)
         {
             return _databaseContext.Notes
-         .Where(x => x.ReminderDate != null && x.ReminderDate > DateTime.Now && !x.IsDeleted && !x.IsArchived)
+         .Where(x => x.UserId==id && x.ReminderDate != null && x.ReminderDate > DateTime.Now && !x.IsDeleted && !x.IsArchived)
          .ToList();
         }
 

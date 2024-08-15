@@ -5,6 +5,7 @@ import { Login } from '../../models/login';
 import { environment } from '../../../enviroment/env';
 import jwtDecode from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 interface JwtPayload {
   id: string;
@@ -17,7 +18,7 @@ interface JwtPayload {
 export class AuthService {
   private tokenKey = 'authToken'
   helper = new JwtHelperService();
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,private router:Router) {}
   saveToken(token: string): void {
     localStorage.setItem('authToken', token);
   }
@@ -26,6 +27,7 @@ export class AuthService {
   }
   logout(): void {
     localStorage.removeItem('authToken');
+    this.router.navigate(['login']);
   }
   login(credentials: Login): Observable<any> {
     return this.httpClient.post(environment.apiHost+'api/users/authenticate', credentials);
@@ -38,14 +40,12 @@ export class AuthService {
       return decodedToken.id;
     }
     return null;
-    // if (token) {
-    //   try {
-    //     const decoded = jwtDecode<JwtPayload>(token);
-    //     return decoded.id || null; // Adjust according to your token payload
-    //   } catch (error) {
-    //     console.error('Error decoding token:', error);
-    //   }
-    // }
-    // return null;
+  }
+  isLoggedIn():boolean{
+    if(localStorage.getItem('authToken')){
+      return true;
+    }else{
+      return false;
+    }
   }
 }
