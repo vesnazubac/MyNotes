@@ -9,8 +9,6 @@ import { Note } from '../../models/Note';
 import { DateTimePickerDialogComponent } from '../datetime-picker-dialog/datetime-picker-dialog.component';
 import { SignalRService } from '../../services/SignalR/signalR.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
 import { SharedModule } from '../../common/shared.module';
 import { NoteComponent } from '../note/note.component';
 
