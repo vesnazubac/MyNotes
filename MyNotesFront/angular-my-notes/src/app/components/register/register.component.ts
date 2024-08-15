@@ -1,23 +1,16 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import {FormControl, Validators, FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, AbstractControl, ValidationErrors} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import {FormControl, Validators, FormGroup, AbstractControl, ValidationErrors} from '@angular/forms';
 import { Router } from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectChange, MatSelectModule} from '@angular/material/select';
 import { UserService } from '../../services/users/user.service';
-import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { MatOptionSelectionChange, ThemePalette } from '@angular/material/core';
-import { CommonModule } from '@angular/common';
+import {ThemePalette } from '@angular/material/core';
 import { UserPostDTO } from '../../DTOs/users/userPostDTO';
+import { SharedModule } from '../../common/shared.module';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule,MatIconModule,MatButtonModule,MatSelectModule,
-  MatSlideToggleModule,CommonModule],
+  imports: [SharedModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

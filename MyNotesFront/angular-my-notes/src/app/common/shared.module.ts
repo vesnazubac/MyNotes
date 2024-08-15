@@ -9,12 +9,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { CdkDrag, CdkDropList} from '@angular/cdk/drag-drop';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -39,7 +42,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDatepicker,
     MatNativeDateModule,
     MatSnackBarModule,
-
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    CommonModule
+    //MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule,MatIconModule,MatButtonModule,MatSelectModule,
+ // MatSlideToggleModule,CommonModule
   ],
   exports: [
     CommonModule,
@@ -59,6 +72,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDatepicker,
     MatNativeDateModule,
     MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    CommonModule
   ]
 })
 export class SharedModule { }

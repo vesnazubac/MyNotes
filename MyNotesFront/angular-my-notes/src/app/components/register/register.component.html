@@ -1,6 +1,7 @@
 
 
 <div class="example-container">
+  <div class="registration">
   <h2 class="register-header">Register</h2>
 
   <form [formGroup]="createRegisterForm" class="example-container" (ngSubmit)="register()">
@@ -77,6 +78,7 @@ Passwords do not match.
 
 <div *ngIf="!isFormValid" class="error-message">
 Input data are not valid!
+</div>
 </div>
 </div>
 
