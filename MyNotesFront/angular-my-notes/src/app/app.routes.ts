@@ -8,6 +8,7 @@ import { TrashComponent } from './components/trash/trash.component';
 import { RemindersComponent } from './components/reminders/reminders.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { UserprofileComponent } from './components/userprofile/userprofile.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -17,5 +18,6 @@ export const routes: Routes = [
     {path:'login-register',component:LoginRegisterComponent},
     {path:'reminders', component:RemindersComponent},
     {path:'register',component:RegisterComponent},
-    {path:"login",component:LoginComponent}
+    {path:"login",component:LoginComponent},
+    {path:"userProfile",component:UserprofileComponent}
   ];

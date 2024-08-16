@@ -44,6 +44,12 @@
         <span class="menu-text">Trash</span>
       </a>
     </li>
+    <li>
+      <a routerLink="/userProfile" *ngIf="isLoggedIn()" routerLinkActive="active">
+        <span class="menu-icon material-icons">person</span>
+        <span class="menu-text">My profile</span>
+      </a>
+    </li>
     <li *ngIf="!isLoggedIn()">
       <a routerLink="/login" routerLinkActive="active">
         <span class="menu-icon material-icons">login</span>

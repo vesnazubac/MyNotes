@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyNotes.Application.Features.NoteHandler;
 using MyNotes.Application.Features.UserHandler;
+using MyNotes.Domain.DTOs;
 using MyNotes.Domain.Entities;
 
 namespace MyNotes.WebAPI.Controllers
@@ -38,5 +39,33 @@ namespace MyNotes.WebAPI.Controllers
 
             return Ok(response);
         }
+        [HttpGet("by-id/{id}")]
+        public async Task<ActionResult<User>> GetUserById(Guid id)
+        {
+            var user = _userService.GetById(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return  user;
+        }
+
+
+        [HttpPut("editUser/{id}")]
+        public async Task<IActionResult> UpdateUser(UserPutDTO userPutDTO, Guid id)
+        {
+            var user = await _userService.Update(userPutDTO, id);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

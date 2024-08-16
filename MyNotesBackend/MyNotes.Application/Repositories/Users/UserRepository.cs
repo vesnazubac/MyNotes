@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MyNotes.Domain.Entities;
 using MyNotes.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using MyNotes.Domain.DTOs;
 namespace MyNotes.Application.Repositories.Users
 {
     public class UserRepository : IUserRepository
@@ -35,6 +36,24 @@ namespace MyNotes.Application.Repositories.Users
         public User? Authenticate(AuthenticateRequest model)
         {
             return _databaseContext.Users.SingleOrDefault(x=>x.UserName==model.Username && x.Password==model.Password);
+        }
+        public User Update(UserPutDTO userDTO, Guid id)
+        {
+            var user = GetById(id);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            user.Address = userDTO.Address;
+            user.phoneNumber = userDTO.PhoneNumber;
+            user.UserName=userDTO.UserName;
+            user.FirstName=userDTO.FirstName;
+            user.LastName = userDTO.LastName;
+            user.Email=userDTO.Email;
+            user.Password=userDTO.Password;
+            user.ProfilePicture = userDTO.ProfilePicture;
+            _databaseContext.SaveChanges();
+            return user;
         }
     }
 }
