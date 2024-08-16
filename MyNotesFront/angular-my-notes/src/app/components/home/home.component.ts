@@ -1,9 +1,9 @@
-import { AuthService } from './../../services/auth/auth.service';
+import { NotePutDTO } from './../../DTOs/NotePutDTO';
+import { AuthService } from '../../services/auth/auth.service';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NoteGetDTO } from '../../DTOs/NoteGetDTO';
 import { NoteService } from '../../services/notes/notes.service';
 import {CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
-import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { NoteEditDialogComponent } from '../note-edit-dialog/note-edit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Note } from '../../models/Note';
@@ -12,6 +12,8 @@ import { SignalRService } from '../../services/SignalR/signalR.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SharedModule } from '../../common/shared.module';
 import { NoteComponent } from '../note/note.component';
+import { ColorOption } from '../../models/color';
+import { ColorPickerDialogComponent } from '../color-picker-dialog/color-picker-dialog.component';
 
 
 @Component({
@@ -22,18 +24,27 @@ import { NoteComponent } from '../note/note.component';
   styleUrl: './home.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
+
 export class HomeComponent {
   hideNavBar: boolean = false;
   itemsNotPinned:NoteGetDTO[]=[]
   itemsPinned:NoteGetDTO[]=[]
   notes: NoteGetDTO[] = [];
   searchTerm: string = '';
-  colorPickerVisible: boolean = false;
-  selectedColor: string = '';
   selectedNote: NoteGetDTO | null = null;
   showDateTimePicker=false;
   loggedInUser:any;
+  showColorPicker:boolean=false;
+  selectedColor:string = '#FFFFFF';
 
+  colors: ColorOption[] = [
+    { value: '#FF5733', viewValue: 'Red' },
+    { value: '#33FF57', viewValue: 'Green' },
+    { value: '#3357FF', viewValue: 'Blue' },
+    { value: '#FFC300', viewValue: 'Yellow' },
+    { value: '#900C3F', viewValue: 'Purple' },
+    {value: '#FFFFFF', viewValue:'White'}
+  ];
 
   constructor( private authService:AuthService,private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
 
@@ -41,7 +52,6 @@ export class HomeComponent {
 
   ngOnInit() {
     this.loggedInUser=this.authService.getUserIdFromToken();
-
     this.handleNoteSaved();
     this.signalRService.hubConnection.on('ReceiveReminder', (message: string) => {
       this.snackBar.open(message, 'Close', {
@@ -57,12 +67,12 @@ export class HomeComponent {
   }
 onSearchChange(searchValue: string) {
   if (searchValue === '') {
-    this.noteService.getAll().subscribe(notes => {
+    this.noteService.getById(this.loggedInUser).subscribe(notes => {
       this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
       this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
     });
   } else {
-    this.noteService.searchNotes(searchValue).subscribe((filteredNotes: NoteGetDTO[]) => {
+    this.noteService.searchNotes(searchValue,this.loggedInUser).subscribe((filteredNotes: NoteGetDTO[]) => {
       this.itemsNotPinned = filteredNotes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
       this.itemsPinned = filteredNotes.filter(note => !note.IsArchived && note.IsPinned).reverse();
     });
@@ -164,7 +174,6 @@ onSearchChange(searchValue: string) {
 
   openColorPicker(note: NoteGetDTO,$event: MouseEvent) {
     console.log("USAO COLOR")
-    this.colorPickerVisible = true;
     this.selectedNote = note;
   }
 
@@ -185,7 +194,6 @@ onSearchChange(searchValue: string) {
           console.error('Error updating note:', error);
         }
       );
-      this.colorPickerVisible = false;
       this.selectedNote = null;
     }
   }
@@ -232,8 +240,37 @@ onSearchChange(searchValue: string) {
     item.notificationDate = selectedDate;
     item.showDateTimePicker = false;
   }
+  toggleColorPicker() {
+    this.showColorPicker = !this.showColorPicker;  // Toggles the color picker visibility
+  }
 
+  openColorPickerDialog(item: NoteGetDTO, event: Event){
+    const dialogRef = this.dialog.open(ColorPickerDialogComponent);
 
+    dialogRef.afterClosed().subscribe((selectedColor: string) => {
+      if (selectedColor) {
+        item.Color = selectedColor;
+        const notePutDTO: NotePutDTO = {
+          Title: item.Title,
+          Content: item.Content,
+          Color: selectedColor,
+          IsPinned: item.IsPinned,
+          GroupId: item.GroupId,
+          ReminderDate:item.ReminderDate
+        };
+        this.noteService.updateNote(item.Id, notePutDTO).subscribe(
+          updatedNote => {
+            console.log('Note updated:', updatedNote);
+            this.handleNoteSaved();
+          },
+          error => {
+            console.error('Error updating note:', error);
+          }
+        );
+      }
+    });
+  }
 }
+
 
 

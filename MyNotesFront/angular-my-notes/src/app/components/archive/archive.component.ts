@@ -36,11 +36,11 @@ export class ArchiveComponent {
   }
   onSearchChange(searchValue: string) {
     if (searchValue === '') {
-      this.noteService.getAll().subscribe(notes => {
-        this.items = notes.filter(note => note.IsArchived).reverse();
+      this.noteService.getArchivedById(this.loggedInUser).subscribe(notes => {
+        this.items = notes.reverse();
       });
     } else {
-      this.noteService.searchNotes(searchValue).subscribe((filteredNotes: NoteGetDTO[]) => {
+      this.noteService.searchNotes(searchValue,this.loggedInUser).subscribe((filteredNotes: NoteGetDTO[]) => {
         this.items = filteredNotes.filter(note => note.IsArchived);
       });
     }

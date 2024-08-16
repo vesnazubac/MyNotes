@@ -157,6 +157,17 @@ mat-icon {
   opacity: 1;
 }
 
-
-
-
+.color-circle {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.color-picker-form{
+  height: 200px;
+  width:200px;
+  margin-right: 600px;
+  margin-bottom: 700px;
+  margin-left:50px;
+}

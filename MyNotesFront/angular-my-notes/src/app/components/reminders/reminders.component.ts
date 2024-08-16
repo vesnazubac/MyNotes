@@ -52,7 +52,7 @@ export class RemindersComponent {
         this.items = notes.reverse();
       });
     } else {
-      this.noteService.searchNotes(searchValue).subscribe((notes: NoteGetDTO[]) => {
+      this.noteService.searchNotes(searchValue,this.loggedInUser).subscribe((notes: NoteGetDTO[]) => {
         this.items = notes.filter(note=>note.IsDeleted==true).reverse();
       });
     }

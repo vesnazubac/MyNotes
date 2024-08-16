@@ -4,8 +4,6 @@
     <input type="search" matInput class="search-text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
   </mat-form-field>
   <div cdkDropList cdkDropListOrientation="vertical" class="note-list" (cdkDropListDropped)="drop($event)">
-
-
   <div cdkDropList cdkDropListOrientation="vertical" class="note-list" (cdkDropListDropped)="drop($event)">
     <div *ngFor="let item of items" cdkDrag class="note-item">
       <mat-card class="note-card" [ngStyle]="{'background-color': item.Color}">

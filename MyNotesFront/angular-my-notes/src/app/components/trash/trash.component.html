@@ -3,10 +3,9 @@
     <mat-icon aria-hidden="false" aria-label="Search icon" fontIcon="search"></mat-icon>
     <input type="search" matInput class="search-text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
   </mat-form-field>
-
   <div cdkDropList cdkDropListOrientation="vertical" class="note-list" (cdkDropListDropped)="drop($event)">
     <div *ngFor="let item of items" cdkDrag class="note-item">
-      <mat-card class="note-card">
+      <mat-card class="note-card" [ngStyle]="{'background-color': item.Color}">
         <mat-card-header>
           <mat-icon *ngIf="item.IsPinned" class="pinned-icon">push_pin</mat-icon>
           <mat-card-title>{{ item.Title }}</mat-card-title>
@@ -16,7 +15,10 @@
         </mat-card-content>
         <mat-card-footer class="note-footer">
           <span class="deleted-date" *ngIf="item.DeletedDate">Date deleted: {{ item.DeletedDate | date:'short' }}</span>
+          <div class="note-icons">
+          <mat-icon class="note-icon" (click)="deleteNote(item, $event)">delete</mat-icon>
           <mat-icon class="note-icon" *ngIf="item.DeletedDate" (click)="restore(item, $event)">restore_from_trash</mat-icon>
+        </div>
         </mat-card-footer>
       </mat-card>
     </div>

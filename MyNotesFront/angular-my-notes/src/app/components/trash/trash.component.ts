@@ -6,6 +6,7 @@ import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { MatDialog} from '@angular/material/dialog';
 import { SharedModule } from '../../common/shared.module';
 import { AuthService } from '../../services/auth/auth.service';
+import { Note } from '../../models/Note';
 @Component({
   selector: 'app-trash',
   standalone: true,
@@ -35,11 +36,11 @@ export class TrashComponent {
   }
   onSearchChange(searchValue: string) {
     if (searchValue === '') {
-      this.noteService.getDeletedNotes().subscribe(notes => {
+      this.noteService.getDeletedNotes(this.loggedInUser).subscribe(notes => {
         this.items = notes.reverse();
       });
     } else {
-      this.noteService.searchNotes(searchValue).subscribe((notes: NoteGetDTO[]) => {
+      this.noteService.searchNotes(searchValue,this.loggedInUser).subscribe((notes: NoteGetDTO[]) => {
         this.items = notes.filter(note=>note.IsDeleted==true).reverse();
       });
     }
@@ -69,6 +70,17 @@ export class TrashComponent {
         console.error('Error updating note:', error);
       }
     );
+  }
+  deleteNote(note: NoteGetDTO,$event: MouseEvent) {
+    this.noteService.deleteNote(note.Id).subscribe({
+      next: (updatedNote: Note) => {
+        console.log('Note deleted successfully:');
+        this.handleNoteSaved();
+      },
+      error: (error) => {
+        console.error('Error setting deleted date:', error);
+      }
+    });
   }
 
   restore(note: NoteGetDTO,$event: MouseEvent) {
