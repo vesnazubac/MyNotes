@@ -47,7 +47,7 @@ namespace MyNotes.Application.Repositories.Notes
         }
         public List<Note> GetArchivedByUserId(Guid userId)
         {
-            return _databaseContext.Notes.AsEnumerable().Where(note => note.UserId == userId && note.IsArchived).ToList();
+            return _databaseContext.Notes.AsEnumerable().Where(note => note.UserId == userId && note.IsArchived && !note.IsDeleted).ToList();
         }
         public List<Note> GetByTitle(String title)
         {
