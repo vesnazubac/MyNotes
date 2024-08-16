@@ -68,9 +68,9 @@ namespace MyNotes.Application.Repositories.Notes
         {
             return _databaseContext.Notes.Where(x=>x.IsDeleted==false).ToList();
         }
-        public List<Note> GetDeletedNotes()
+        public List<Note> GetDeletedNotes(Guid id)
         {
-            return _databaseContext.Notes.Where(x => x.IsDeleted==true).ToList();
+            return _databaseContext.Notes.Where(x => x.UserId==id && x.IsDeleted==true).ToList();
         }
         public List<Note> GetReminderNotes(Guid id)
         {
@@ -116,11 +116,11 @@ namespace MyNotes.Application.Repositories.Notes
             SaveChanges();
             return note;
         }
-        public List<Note> Search(String term)
+        public List<Note> Search(String term,Guid id)
         {
             term.ToLower();
             var notes = _databaseContext.Notes.AsEnumerable()
-                .Where(n => n.Title.ToLower().Contains(term) || n.Content.ToLower().Contains(term))
+                .Where(n =>n.UserId==id && (n.Title.ToLower().Contains(term) || n.Content.ToLower().Contains(term)))
                 .ToList(); 
             return notes;
         }

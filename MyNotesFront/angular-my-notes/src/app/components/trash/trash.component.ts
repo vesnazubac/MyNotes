@@ -6,6 +6,8 @@ import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import { MatDialog} from '@angular/material/dialog';
 import { SharedModule } from '../../common/shared.module';
 import { AuthService } from '../../services/auth/auth.service';
+import { Note } from '../../models/Note';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-trash',
   standalone: true,
@@ -21,7 +23,7 @@ export class TrashComponent {
   searchTerm: string = '';
   loggedInUser:any=''
 
-  constructor(private noteService: NoteService,private dialog: MatDialog,private authService:AuthService) {
+  constructor(private snackBar:MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private authService:AuthService) {
 
   }
 
@@ -35,11 +37,11 @@ export class TrashComponent {
   }
   onSearchChange(searchValue: string) {
     if (searchValue === '') {
-      this.noteService.getDeletedNotes().subscribe(notes => {
+      this.noteService.getDeletedNotes(this.loggedInUser).subscribe(notes => {
         this.items = notes.reverse();
       });
     } else {
-      this.noteService.searchNotes(searchValue).subscribe((notes: NoteGetDTO[]) => {
+      this.noteService.searchNotes(searchValue,this.loggedInUser).subscribe((notes: NoteGetDTO[]) => {
         this.items = notes.filter(note=>note.IsDeleted==true).reverse();
       });
     }
@@ -70,16 +72,38 @@ export class TrashComponent {
       }
     );
   }
+  deleteNote(note: NoteGetDTO,$event: MouseEvent) {
+    this.noteService.deleteNote(note.Id).subscribe({
+      next: (updatedNote: Note) => {
+        console.log('Note deleted successfully:');
+        this.handleNoteSaved();
+        this.showSnackBar("Your message has been permanently deleted.")
+      },
+      error: (error) => {
+        console.error('Error setting deleted date:', error);
+        this.showSnackBar("Error deleting note")
+      }
+    });
+  }
 
   restore(note: NoteGetDTO,$event: MouseEvent) {
     this.noteService.restore(note.Id).subscribe(
       updatedNote => {
         console.log('Note restored:', updatedNote);
         this.handleNoteSaved();
+        this.showSnackBar("Your message is now restored from trash.")
       },
       error => {
         console.error('Error restoring note:', error);
       }
     );
+  }
+  showSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar'],
+    });
   }
 }

@@ -9,6 +9,7 @@ import { Note } from '../../models/Note';
 
 import { SharedModule } from '../../common/shared.module';
 import { AuthService } from '../../services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-archive',
   standalone: true,
@@ -23,7 +24,7 @@ export class ArchiveComponent {
   searchTerm: string = '';
   loggedInUser:any=''
 
-  constructor(private noteService: NoteService,private dialog: MatDialog,private authService:AuthService) {
+  constructor(private snackBar:MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private authService:AuthService) {
 
   }
 
@@ -36,11 +37,11 @@ export class ArchiveComponent {
   }
   onSearchChange(searchValue: string) {
     if (searchValue === '') {
-      this.noteService.getAll().subscribe(notes => {
-        this.items = notes.filter(note => note.IsArchived).reverse();
+      this.noteService.getArchivedById(this.loggedInUser).subscribe(notes => {
+        this.items = notes.reverse();
       });
     } else {
-      this.noteService.searchNotes(searchValue).subscribe((filteredNotes: NoteGetDTO[]) => {
+      this.noteService.searchNotes(searchValue,this.loggedInUser).subscribe((filteredNotes: NoteGetDTO[]) => {
         this.items = filteredNotes.filter(note => note.IsArchived);
       });
     }
@@ -49,24 +50,15 @@ export class ArchiveComponent {
   handleNoteSaved() {
     this.noteService.getArchivedById(this.loggedInUser).subscribe(notes => {
       const archivedNotes = notes;
-
-      // Create a map to store unique notes by their Id
       const uniqueNotesMap = new Map<string, any>();
-
-      // Iterate through the notes and add them to the map
       archivedNotes.forEach(note => {
         if (!uniqueNotesMap.has(note.Id)) {
           uniqueNotesMap.set(note.Id, note);
         }
       });
-
-      // Convert the map values to an array
       const uniqueArchivedNotes = Array.from(uniqueNotesMap.values());
-
-      // Reverse the array and assign to the class properties
       this.notes = uniqueArchivedNotes;
       this.items = uniqueArchivedNotes.reverse();
-
       console.log(uniqueArchivedNotes);
     });
   }
@@ -95,9 +87,11 @@ export class ArchiveComponent {
       updatedNote => {
         console.log('Note archived:', updatedNote);
         this.handleNoteSaved();
+        this.showSnackBar("Note has been archived. You can find it in archive section")
       },
       error => {
         console.error('Error archiving note:', error);
+        this.showSnackBar("Error creating note")
       }
     );
   }
@@ -106,10 +100,20 @@ export class ArchiveComponent {
       next: (updatedNote: Note) => {
         console.log('Note deleted date set:', updatedNote);
         this.handleNoteSaved();
+        this.showSnackBar("Note has been temporarily deleted.You can find it in trash section")
       },
       error: (error) => {
         console.error('Error setting deleted date:', error);
+        this.showSnackBar("Error deleting note")
       }
+    });
+  }
+  showSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar'],
     });
   }
 }

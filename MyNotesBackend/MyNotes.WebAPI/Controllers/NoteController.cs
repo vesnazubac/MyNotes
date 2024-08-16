@@ -33,9 +33,9 @@ namespace MyNotes.WebAPI.Controllers
             return await _noteService.GetAll();
         }
         [HttpGet("deletedNotes")]
-        public async Task<ActionResult<IEnumerable<Note>>> GetDeletedNotes()
+        public async Task<ActionResult<IEnumerable<Note>>> GetDeletedNotes(Guid id)
         {
-            return await _noteService.GetDeletedNotes();
+            return await _noteService.GetDeletedNotes(id);
         }
         [HttpGet("reminderNotes/{id}")]
         public async Task<ActionResult<IEnumerable<Note>>> GetReminderNotes(Guid id)
@@ -144,10 +144,10 @@ namespace MyNotes.WebAPI.Controllers
             }
         }
 
-        [HttpGet("search/{term}")]
-        public async Task<ActionResult<List<Note>>> SearchNotes(string term)
+        [HttpGet("search/{term}/{id}")]
+        public async Task<ActionResult<List<Note>>> SearchNotes(string term,Guid id)
         {
-            var notes = await _noteService.SearchNotes(term);
+            var notes = await _noteService.SearchNotes(term,id);
 
             if (notes == null || notes.Count == 0)
             {

@@ -27,7 +27,7 @@ mat-form-field {
 }
 
 .search-text {
-  margin-left: 40px;
+  margin-left: 20px;
   font-size: 15px;
 
 }
@@ -169,4 +169,21 @@ mat-icon {
 
 .note-card:hover .note-icon {
   opacity: 1;
+}
+
+
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+}
+
+.note-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.deleted-date {
+  margin-right: auto;
 }

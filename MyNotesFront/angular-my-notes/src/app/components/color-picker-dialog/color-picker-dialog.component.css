@@ -1,0 +1,21 @@
+.enlarged-form {
+  width: 300px;
+  padding: 15px;
+}
+
+.color-picker-form .mat-select {
+  font-size: 16px;
+}
+
+.color-circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.mat-option {
+  padding: 12px 24px;
+}

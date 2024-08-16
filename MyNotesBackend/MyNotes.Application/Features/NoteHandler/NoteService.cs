@@ -77,9 +77,9 @@ namespace MyNotes.Application.Features.NoteHandler
         {
             return _noteRepository.Update(notePutDTO, id);
         }
-        public async Task<List<Note>> SearchNotes(string term)
+        public async Task<List<Note>> SearchNotes(string term,Guid id)
         {
-            return _noteRepository.Search(term);
+            return _noteRepository.Search(term,id);
         }
         public async Task DeleteNote(Guid id)
         {
@@ -97,9 +97,9 @@ namespace MyNotes.Application.Features.NoteHandler
                 _noteRepository.SetDeletedDate(id);
             }
         }
-        public async Task<List<Note>> GetDeletedNotes()
+        public async Task<List<Note>> GetDeletedNotes(Guid id)
         {
-            return _noteRepository.GetDeletedNotes();
+            return _noteRepository.GetDeletedNotes(id);
         }
         public async Task<List<Note>> GetReminderNotes(Guid id)
         {

@@ -10,7 +10,7 @@ namespace MyNotes.Application.Repositories.Notes
      public interface INoteRepository
     {
         List<Note> GetNotes();
-        List<Note> GetDeletedNotes();
+        List<Note> GetDeletedNotes(Guid id);
         List<Note> GetReminderNotes(Guid id);
         Note GetById(Guid id);
         List<Note> GetByUserId(Guid userId);
@@ -23,7 +23,7 @@ namespace MyNotes.Application.Repositories.Notes
         Note Delete(NotePutDTO note);
         void Archive(Guid id);
         void SaveChanges();
-        List<Note> Search(String term);
+        List<Note> Search(String term,Guid id);
         void Delete(Guid id);
         void SetDeletedDate(Guid id);
         void Restore(Guid id);

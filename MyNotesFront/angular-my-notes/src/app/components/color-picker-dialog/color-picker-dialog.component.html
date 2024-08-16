@@ -1,0 +1,10 @@
+<mat-form-field appearance="fill" class="color-picker-form enlarged-form">
+  <mat-label>Choose a color</mat-label>
+  <mat-select (selectionChange)="onColorSelected($event)">
+    <mat-option value="" disabled>Choose a color</mat-option>
+    <mat-option *ngFor="let color of colors" [value]="color.value">
+      <span class="color-circle" [ngStyle]="{'background-color': color.value}"></span>
+      {{ color.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
