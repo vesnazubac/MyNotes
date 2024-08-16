@@ -1,9 +1,11 @@
 export interface UserGetDTO {
-    firstName: string |null |undefined;
-    lastName: string |null |undefined;
-    username: string |null |undefined;
-    password:string |null |undefined;
-    passwordConfirmation:string |null |undefined;
-    address: string |null |undefined;
-    phoneNumber: string |null |undefined;
-  }
+  Email: string | null;
+  Password: string | null;
+  FirstName: string | null;
+  LastName: string | null;
+  UserName: string | null;
+  ProfilePicture: string | null;
+  Address: string | null;
+  phoneNumber: string | null;
+}
+

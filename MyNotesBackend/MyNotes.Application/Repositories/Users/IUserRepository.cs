@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyNotes.Domain.DTOs;
 using MyNotes.Domain.Entities;
 
 namespace MyNotes.Application.Repositories.Users
@@ -13,5 +14,6 @@ namespace MyNotes.Application.Repositories.Users
         public List<User> GetUsers();
         public User GetById(Guid id);
         public User? Authenticate(AuthenticateRequest model);
+        public User Update(UserPutDTO userDTO, Guid id);
     }
 }

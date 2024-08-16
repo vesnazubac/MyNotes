@@ -1,0 +1,75 @@
+
+<div style="text-align: center;" class="mainDiv">
+  <h2 class="register-header">Edit Profile</h2>
+  <form [formGroup]="editAccountDataForm" (ngSubmit)="saveChanges()" >
+  <p>
+
+      <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput placeholder="FirstName" formControlName="name" name="name">
+        <mat-icon matSuffix>edit_note</mat-icon>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Lastname"  formControlName="surname" name="surname">
+        <mat-icon matSuffix>edit_note</mat-icon>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="pat@example.com" formControlName="email" name="email" >
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field fxFlex="100%">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password" required>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide.toString()">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username" formControlName="username" name="username">
+        <mat-icon matSuffix>edit_note</mat-icon>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="Address" formControlName="address" name="address">
+        <mat-icon matSuffix>edit_note</mat-icon>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input matInput placeholder="Phone number" formControlName="phoneNumber" name="phoneNumber">
+        <mat-icon matSuffix>edit_note</mat-icon>
+      </mat-form-field>
+    </p>
+  <p>
+
+  </form>
+
+
+  <div class="button-container">
+      <button mat-button id="saveButton" (click)="saveChanges()" style="background-color: #1e88e5; color: white;margin-bottom:20px;"   [disabled]="!editAccountDataForm.valid">Save changes</button>
+    </div>
+
+    <div *ngIf="editAccountDataForm.hasError('passwordMismatch')" class="error-message">
+      Passwords do not match.
+    </div>
+
+    <div *ngIf="!isFormValid" class="error-message">
+      Input data are not valid!
+    </div>
+
+  </div>

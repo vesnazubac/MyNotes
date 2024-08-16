@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MyNotes.Application.Repositories.Users;
+using MyNotes.Domain.DTOs;
 using MyNotes.Domain.Entities;
 namespace MyNotes.Application.Features.UserHandler
 {
@@ -65,6 +66,10 @@ namespace MyNotes.Application.Features.UserHandler
             });
 
             return tokenHandler.WriteToken(token);
+        }
+        public async Task<User> Update(UserPutDTO userPutDTO, Guid id)
+        {
+            return _userRepository.Update(userPutDTO, id);
         }
 
     }   
