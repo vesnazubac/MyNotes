@@ -7,7 +7,7 @@
 
   <div cdkDropList cdkDropListOrientation="vertical" class="note-list" (cdkDropListDropped)="drop($event)">
     <div *ngFor="let item of items" cdkDrag class="note-item">
-      <mat-card class="note-card">
+      <mat-card class="note-card" [ngStyle]="{'background-color': item.Color}" >
         <mat-card-header>
           <mat-icon *ngIf="item.IsPinned" class="pinned-icon">push_pin</mat-icon>
           <mat-card-title>{{ item.Title }}</mat-card-title>
@@ -17,7 +17,6 @@
         </mat-card-content>
         <mat-card-footer class="note-footer">
           <span class="deleted-date">Remind me on: {{ item.ReminderDate | date:'short' }}</span>
-          <!-- <mat-icon class="note-icon" *ngIf="item.DeletedDate" (click)="restore(item, $event)">restore_from_trash</mat-icon> -->
         </mat-card-footer>
       </mat-card>
     </div>
