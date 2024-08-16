@@ -7,6 +7,7 @@ import { MatDialog} from '@angular/material/dialog';
 import { SharedModule } from '../../common/shared.module';
 import { AuthService } from '../../services/auth/auth.service';
 import { Note } from '../../models/Note';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-trash',
   standalone: true,
@@ -22,7 +23,7 @@ export class TrashComponent {
   searchTerm: string = '';
   loggedInUser:any=''
 
-  constructor(private noteService: NoteService,private dialog: MatDialog,private authService:AuthService) {
+  constructor(private snackBar:MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private authService:AuthService) {
 
   }
 
@@ -76,9 +77,11 @@ export class TrashComponent {
       next: (updatedNote: Note) => {
         console.log('Note deleted successfully:');
         this.handleNoteSaved();
+        this.showSnackBar("Your message has been permanently deleted.")
       },
       error: (error) => {
         console.error('Error setting deleted date:', error);
+        this.showSnackBar("Error deleting note")
       }
     });
   }
@@ -88,10 +91,19 @@ export class TrashComponent {
       updatedNote => {
         console.log('Note restored:', updatedNote);
         this.handleNoteSaved();
+        this.showSnackBar("Your message is now restored from trash.")
       },
       error => {
         console.error('Error restoring note:', error);
       }
     );
+  }
+  showSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar'],
+    });
   }
 }

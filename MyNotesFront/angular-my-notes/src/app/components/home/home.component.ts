@@ -34,17 +34,7 @@ export class HomeComponent {
   selectedNote: NoteGetDTO | null = null;
   showDateTimePicker=false;
   loggedInUser:any;
-  showColorPicker:boolean=false;
-  selectedColor:string = '#FFFFFF';
 
-  colors: ColorOption[] = [
-    { value: '#FF5733', viewValue: 'Red' },
-    { value: '#33FF57', viewValue: 'Green' },
-    { value: '#3357FF', viewValue: 'Blue' },
-    { value: '#FFC300', viewValue: 'Yellow' },
-    { value: '#900C3F', viewValue: 'Purple' },
-    {value: '#FFFFFF', viewValue:'White'}
-  ];
 
   constructor( private authService:AuthService,private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
 
@@ -65,32 +55,26 @@ export class HomeComponent {
     moveItemInArray(this.itemsNotPinned, event.previousIndex, event.currentIndex);
     moveItemInArray(this.itemsPinned, event.previousIndex, event.currentIndex);
   }
-onSearchChange(searchValue: string) {
-  if (searchValue === '') {
-    this.noteService.getById(this.loggedInUser).subscribe(notes => {
-      this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
-      this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
-    });
-  } else {
-    this.noteService.searchNotes(searchValue,this.loggedInUser).subscribe((filteredNotes: NoteGetDTO[]) => {
-      this.itemsNotPinned = filteredNotes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
-      this.itemsPinned = filteredNotes.filter(note => !note.IsArchived && note.IsPinned).reverse();
-    });
+  onSearchChange(searchValue: string) {
+    if (searchValue === '') {
+      this.noteService.getById(this.loggedInUser).subscribe(notes => {
+        this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
+        this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
+      });
+    } else {
+      this.noteService.searchNotes(searchValue,this.loggedInUser).subscribe((filteredNotes: NoteGetDTO[]) => {
+        this.itemsNotPinned = filteredNotes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
+        this.itemsPinned = filteredNotes.filter(note => !note.IsArchived && note.IsPinned).reverse();
+      });
+    }
   }
-}
-
   handleNoteSaved() {
-
     this.noteService.getById(this.loggedInUser).subscribe(notes => {
       this.itemsNotPinned = notes.filter(note => !note.IsPinned).reverse();
       this.itemsPinned = notes.filter(note => note.IsPinned).reverse();
     });
     console.log(this.itemsNotPinned);
-    console.log(this.itemsPinned)
-    // this.noteService.getAll().subscribe(notes => {
-    //   this.itemsNotPinned = notes.filter(note => !note.IsArchived && !note.IsPinned).reverse();
-    //   this.itemsPinned = notes.filter(note => !note.IsArchived && note.IsPinned).reverse();
-    // });
+    console.log(this.itemsPinned);
   }
   pinNote(note: NoteGetDTO, event: MouseEvent): void {
     const notePutDTO: NotePutDTO = {
@@ -104,10 +88,11 @@ onSearchChange(searchValue: string) {
     this.noteService.updateNote(note.Id, notePutDTO).subscribe(
       updatedNote => {
         console.log('Note updated:', updatedNote);
+        this.showSnackBar("Your note is now pinned!")
         this.handleNoteSaved();
       },
       error => {
-        console.error('Error updating note:', error);
+        console.error('Error pinning note:', error);
       }
     );
   }
@@ -138,10 +123,12 @@ onSearchChange(searchValue: string) {
         this.noteService.updateNote(note.Id, notePutDTO).subscribe(
           updatedNote => {
             console.log('Note updated:', updatedNote);
-            this.handleNoteSaved();  // Refresh notes after update
+            this.handleNoteSaved();
+            this.showSnackBar("Your note is now updated!")
           },
           error => {
             console.error('Error updating note:', error);
+            this.showSnackBar("Error updating note")
           }
         );
       }
@@ -152,6 +139,7 @@ onSearchChange(searchValue: string) {
       updatedNote => {
         console.log('Note archived:', updatedNote);
         this.handleNoteSaved();
+        this.showSnackBar("Your note is now archived. You can find it  in archive section")
       },
       error => {
         console.error('Error archiving note:', error);
@@ -163,10 +151,12 @@ onSearchChange(searchValue: string) {
     this.noteService.setDeletedDate(note.Id).subscribe({
       next: (updatedNote: Note) => {
         console.log('Note deleted date set:', updatedNote);
+        this.showSnackBar("Your note is now temporarily deleted. You can find it  in trash section")
         this.handleNoteSaved();
       },
       error: (error) => {
         console.error('Error setting deleted date:', error);
+        this.showSnackBar("Error deleting note")
       }
     });
   }
@@ -178,8 +168,7 @@ onSearchChange(searchValue: string) {
   }
 
   updateCardColor(event: any) {
-    const color = event.color; // Adjust this line based on the actual event structure
-
+    const color = event.color;
     if (this.selectedNote) {
       const updatedNote: NotePutDTO = {
         ...this.selectedNote,
@@ -188,7 +177,7 @@ onSearchChange(searchValue: string) {
       this.noteService.updateNote(this.selectedNote.Id, updatedNote).subscribe(
         updatedNote => {
           console.log('Note updated:', updatedNote);
-          this.handleNoteSaved(); // Refresh notes after update
+          this.handleNoteSaved();
         },
         error => {
           console.error('Error updating note:', error);
@@ -199,11 +188,10 @@ onSearchChange(searchValue: string) {
   }
 
   toggleDateTimePicker(item: NoteGetDTO, event: Event): void {
-    // event.stopPropagation();
     const dialogRef = this.dialog.open(DateTimePickerDialogComponent, {
       width: '450px',
       data: {
-        selectedDate: item.ReminderDate|| new Date() // Pass current notification date or current date
+        selectedDate: item.ReminderDate|| new Date()
       }
     });
 
@@ -224,29 +212,24 @@ onSearchChange(searchValue: string) {
         this.noteService.updateNote(item.Id, notePutDTO).subscribe(
           updatedNote => {
             console.log('Notification date updated:', updatedNote);
-            this.handleNoteSaved();  // Refresh notes after update
+            this.handleNoteSaved();
+            this.showSnackBar("Your reminder has been set. You’ll receive notifications to keep you on track.")
           },
           error => {
             console.error('Error updating notification date:', error);
+            this.showSnackBar('Error setting reminder')
           }
         );
       }
     });
-
   }
-
   onDateSelected(event: any, item: any): void {
     const selectedDate = event.value;
     item.notificationDate = selectedDate;
     item.showDateTimePicker = false;
   }
-  toggleColorPicker() {
-    this.showColorPicker = !this.showColorPicker;  // Toggles the color picker visibility
-  }
-
   openColorPickerDialog(item: NoteGetDTO, event: Event){
     const dialogRef = this.dialog.open(ColorPickerDialogComponent);
-
     dialogRef.afterClosed().subscribe((selectedColor: string) => {
       if (selectedColor) {
         item.Color = selectedColor;
@@ -268,6 +251,14 @@ onSearchChange(searchValue: string) {
           }
         );
       }
+    });
+  }
+  showSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar'],
     });
   }
 }

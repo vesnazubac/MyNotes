@@ -171,3 +171,18 @@ mat-icon {
   margin-bottom: 700px;
   margin-left:50px;
 }
+.custom-snackbar {
+  background-color: #4c81af;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+}
+
+
+.custom-snackbar .snackbar-icon {
+  margin-right: 8px;
+}

@@ -48,10 +48,7 @@ export class NoteComponent  {
 
     this.noteService.create(newNote).subscribe(
       (response) => {
-
-        this.snackBar.open('Note successfully created', 'Close', {
-          duration: 3000,
-        });
+        this.showSnackBar("Note is successfully created!")
         console.log('Note saved:', response);
         this.noteSaved.emit();
         this.content='';
@@ -59,18 +56,22 @@ export class NoteComponent  {
         this.isPinned=false;
       },
       (error) => {
-        this.snackBar.open('Error saving note', 'Close', {
-          duration: 3000,
-        });
+       this.showSnackBar("Error saving note")
         console.log('GRESKA');
         console.error('Error saving note:', error);
       }
     );
-
   }
-
   togglePin() {
     this.isPinned = !this.isPinned;
+  }
+  showSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: ['custom-snackbar'],
+    });
   }
 }
 
