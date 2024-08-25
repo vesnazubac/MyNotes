@@ -13,6 +13,15 @@
         </mat-card-header>
         <mat-card-content>
           <p>{{ item.Content }}</p>
+          <div class="carousel-container">
+            <div class="carousel-wrapper" [attr.data-item-id]="item.Id">
+              <div class="carousel-slide" *ngFor="let image of item.Images">
+                <img [src]="image" alt="Image" class="carousel-image"/>
+              </div>
+            </div>
+            <button class="carousel-control prev" (click)="prevSlide(item,$event)">&#10094;</button>
+            <button class="carousel-control next" (click)="nextSlide(item,$event)">&#10095;</button>
+          </div>
         </mat-card-content>
         <mat-card-actions class="note-actions">
           <mat-icon class="note-icon" (click)="archiveNote(item, $event)">archive</mat-icon>

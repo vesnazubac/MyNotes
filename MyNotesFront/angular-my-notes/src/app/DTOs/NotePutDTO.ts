@@ -5,6 +5,7 @@ export interface NotePutDTO {
   IsPinned: boolean;
   GroupId: string;
   ReminderDate:Date;
+  Images:string[];
 }
 
 

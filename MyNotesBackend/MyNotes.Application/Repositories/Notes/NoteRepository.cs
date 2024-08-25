@@ -113,6 +113,7 @@ namespace MyNotes.Application.Repositories.Notes
             note.EditedDate = DateTime.UtcNow;
             note.IsPinned = noteDTO.IsPinned;
             note.ReminderDate = noteDTO.ReminderDate;
+            note.Images = noteDTO.Images;
             SaveChanges();
             return note;
         }

@@ -15,7 +15,6 @@ import { NoteComponent } from '../note/note.component';
 import { ColorOption } from '../../models/color';
 import { ColorPickerDialogComponent } from '../color-picker-dialog/color-picker-dialog.component';
 
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -34,6 +33,14 @@ export class HomeComponent {
   selectedNote: NoteGetDTO | null = null;
   showDateTimePicker=false;
   loggedInUser:any;
+  carouselOptions = {
+    loop: true,
+    nav: true, // Enables next/prev buttons
+    dots: false, // You can enable this if you want dots as well
+    items: 1, // Displays one item at a time
+    autoHeight: true, // Adjust carousel height based on image
+  };
+
 
 
   constructor( private authService:AuthService,private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
@@ -83,7 +90,8 @@ export class HomeComponent {
       Color: note.Color,
       IsPinned: !note.IsPinned,
       GroupId: note.GroupId,
-      ReminderDate:note.ReminderDate
+      ReminderDate:note.ReminderDate,
+      Images:note.Images
     };
     this.noteService.updateNote(note.Id, notePutDTO).subscribe(
       updatedNote => {
@@ -106,11 +114,12 @@ export class HomeComponent {
         Color: note.Color,
         IsPinned: note.IsPinned,
         GroupId: note.GroupId,
-        EditedDate:note.EditedDate
+        EditedDate:note.EditedDate,
+        Images:note.Images
       }
     });
 
-    dialogRef.afterClosed().subscribe((result: { Title: any; Content: any; Color: any; IsPinned: any; GroupId: any; ReminderDate:any }) => {
+    dialogRef.afterClosed().subscribe((result: { Title: any; Content: any; Color: any; IsPinned: any; GroupId: any; ReminderDate:any,Images:any }) => {
       if (result) {
         const notePutDTO: NotePutDTO = {
           Title: result.Title,
@@ -118,7 +127,8 @@ export class HomeComponent {
           Color: result.Color,
           IsPinned: result.IsPinned,
           GroupId: result.GroupId,
-          ReminderDate:result.ReminderDate
+          ReminderDate:result.ReminderDate,
+          Images:result.Images
         };
         this.noteService.updateNote(note.Id, notePutDTO).subscribe(
           updatedNote => {
@@ -207,7 +217,8 @@ export class HomeComponent {
           Color: item.Color,
           IsPinned: item.IsPinned,
           GroupId: item.GroupId,
-          ReminderDate: item.ReminderDate
+          ReminderDate: item.ReminderDate,
+          Images:item.Images
         };
         this.noteService.updateNote(item.Id, notePutDTO).subscribe(
           updatedNote => {
@@ -239,7 +250,8 @@ export class HomeComponent {
           Color: selectedColor,
           IsPinned: item.IsPinned,
           GroupId: item.GroupId,
-          ReminderDate:item.ReminderDate
+          ReminderDate:item.ReminderDate,
+          Images:item.Images
         };
         this.noteService.updateNote(item.Id, notePutDTO).subscribe(
           updatedNote => {
@@ -253,6 +265,38 @@ export class HomeComponent {
       }
     });
   }
+
+  openFileDialog(item: any, event: Event) {
+    event.stopPropagation();
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.onchange = (e: any) => {
+      this.onFileSelected(e, item);
+    };
+    fileInput.click();
+  }
+  onFileSelected(event: any, item: any) {
+  const file: File = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    if (!item.Images) {
+      item.Images = [];
+    }
+    item.Images.push(reader.result as string);
+    this.saveNoteWithImage(item);
+  };
+
+  reader.readAsDataURL(file);
+  }
+  saveNoteWithImage(item: NoteGetDTO) {
+    this.noteService.updateNote(item.Id,item).subscribe(response => {
+      console.log('Note updated with image:', response);
+      this.handleNoteSaved();
+    });
+  }
+
   showSnackBar(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
@@ -260,6 +304,36 @@ export class HomeComponent {
       verticalPosition: 'bottom',
       panelClass: ['custom-snackbar'],
     });
+  }
+
+  currentIndexMap = new Map<string, number>();
+
+  getCurrentIndex(itemId: string): number {
+    return this.currentIndexMap.get(itemId) || 0;
+  }
+
+  prevSlide(item: any, event: Event) {
+    event.stopPropagation();
+    const currentIndex = this.getCurrentIndex(item.Id);
+    const newIndex = (currentIndex > 0) ? currentIndex - 1 : item.Images.length - 1;
+    this.currentIndexMap.set(item.Id, newIndex);
+    this.updateCarousel(item.Id);
+  }
+
+  nextSlide(item: any, event: Event) {
+    event.stopPropagation();
+    const currentIndex = this.getCurrentIndex(item.Id);
+    const newIndex = (currentIndex < item.Images.length - 1) ? currentIndex + 1 : 0;
+    this.currentIndexMap.set(item.Id, newIndex);
+    this.updateCarousel(item.Id);
+  }
+
+  updateCarousel(itemId: string) {
+    const wrapper = document.querySelector(`.carousel-wrapper[data-item-id="${itemId}"]`) as HTMLElement;
+    if (wrapper) {
+      const currentIndex = this.getCurrentIndex(itemId);
+      wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
   }
 }
 

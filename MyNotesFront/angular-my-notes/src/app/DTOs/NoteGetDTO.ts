@@ -14,4 +14,5 @@ export interface NoteGetDTO {
   DeletedDate:Date;
   IsDeleted:boolean;
   ReminderDate:Date;
+  Images:string[];
 }

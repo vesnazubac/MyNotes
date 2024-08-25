@@ -69,7 +69,8 @@ export class ArchiveComponent {
       Color: note.Color,
       IsPinned: !note.IsPinned,
       GroupId: note.GroupId,
-      ReminderDate:note.ReminderDate
+      ReminderDate:note.ReminderDate,
+      Images:note.Images
     };
     this.noteService.updateNote(note.Id, notePutDTO).subscribe(
       updatedNote => {
@@ -115,5 +116,35 @@ export class ArchiveComponent {
       verticalPosition: 'bottom',
       panelClass: ['custom-snackbar'],
     });
+  }
+
+  currentIndexMap = new Map<string, number>();
+
+  getCurrentIndex(itemId: string): number {
+    return this.currentIndexMap.get(itemId) || 0;
+  }
+
+  prevSlide(item: any, event: Event) {
+    event.stopPropagation();
+    const currentIndex = this.getCurrentIndex(item.Id);
+    const newIndex = (currentIndex > 0) ? currentIndex - 1 : item.Images.length - 1;
+    this.currentIndexMap.set(item.Id, newIndex);
+    this.updateCarousel(item.Id);
+  }
+
+  nextSlide(item: any, event: Event) {
+    event.stopPropagation();
+    const currentIndex = this.getCurrentIndex(item.Id);
+    const newIndex = (currentIndex < item.Images.length - 1) ? currentIndex + 1 : 0;
+    this.currentIndexMap.set(item.Id, newIndex);
+    this.updateCarousel(item.Id);
+  }
+
+  updateCarousel(itemId: string) {
+    const wrapper = document.querySelector(`.carousel-wrapper[data-item-id="${itemId}"]`) as HTMLElement;
+    if (wrapper) {
+      const currentIndex = this.getCurrentIndex(itemId);
+      wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
   }
 }

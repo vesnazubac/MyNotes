@@ -8,4 +8,5 @@ export interface NotePostDTO {
   // isArchived: boolean;
   userId:string;
   groupId: string;
+  images:string[];
 }

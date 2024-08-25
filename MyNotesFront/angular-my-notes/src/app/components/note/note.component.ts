@@ -43,7 +43,8 @@ export class NoteComponent  {
       color: '#FFFFFF',
       isPinned: this.isPinned,
       userId: this.loggedInUser,
-      groupId: '00000000-0000-0000-0000-000000000001'
+      groupId: '00000000-0000-0000-0000-000000000001',
+      images:[]
     };
 
     this.noteService.create(newNote).subscribe(
