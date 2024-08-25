@@ -55,6 +55,9 @@ builder.Services.AddCors(options =>
                               .AllowAnyHeader()
                               .AllowCredentials());  // Allow credentials
     });
+    builder.Logging.ClearProviders();
+    builder.Logging.AddConsole();
+    builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 var app = builder.Build();
 

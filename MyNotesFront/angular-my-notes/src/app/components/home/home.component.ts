@@ -35,10 +35,10 @@ export class HomeComponent {
   loggedInUser:any;
   carouselOptions = {
     loop: true,
-    nav: true, // Enables next/prev buttons
-    dots: false, // You can enable this if you want dots as well
-    items: 1, // Displays one item at a time
-    autoHeight: true, // Adjust carousel height based on image
+    nav: true,
+    dots: false,
+    items: 1,
+    autoHeight: true,
   };
 
 
@@ -80,8 +80,7 @@ export class HomeComponent {
       this.itemsNotPinned = notes.filter(note => !note.IsPinned).reverse();
       this.itemsPinned = notes.filter(note => note.IsPinned).reverse();
     });
-    console.log(this.itemsNotPinned);
-    console.log(this.itemsPinned);
+
   }
   pinNote(note: NoteGetDTO, event: MouseEvent): void {
     const notePutDTO: NotePutDTO = {

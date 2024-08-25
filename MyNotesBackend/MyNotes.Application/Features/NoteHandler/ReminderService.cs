@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 
 
@@ -28,6 +29,7 @@ namespace MyNotes.Application.Features.NoteHandler
 
         public async Task CheckReminders()
         {
+            Debug.WriteLine("CHECKING REMINDERS.");
             var notes = _noteRepository.GetNotes();
             var now = DateTime.Now;
 
@@ -40,12 +42,13 @@ namespace MyNotes.Application.Features.NoteHandler
                 {
                     // Use Task.Delay to wait until the reminder date
                     await Task.Delay(delay);
-
+                    Debug.WriteLine("Waited for 10 seconds.");
                     // Send reminder when the delay is over
                     await _hubContext.Clients.All.SendAsync(
                         "ReceiveReminder",
                         $"🔔 Hey! Don't forget your note titled *'{note.Title}'*:\n\n\"{note.Content}\"\n\nIt's time to take action!"
                     );
+                  
                 }
             }
         }
