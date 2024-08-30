@@ -18,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from 'express';
 
@@ -52,6 +53,7 @@ import { Router } from 'express';
     MatButtonModule,
     MatSelectModule,
     MatSlideToggleModule,
+    CarouselModule
   ],
   exports: [
     CommonModule,
@@ -79,7 +81,8 @@ import { Router } from 'express';
     MatButtonModule,
     MatSelectModule,
     MatSlideToggleModule,
-    RouterModule
+    RouterModule,
+    CarouselModule
   ]
 })
 export class SharedModule { }

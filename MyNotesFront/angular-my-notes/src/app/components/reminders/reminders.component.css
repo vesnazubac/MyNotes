@@ -170,3 +170,48 @@ mat-icon {
 .note-card:hover .note-icon {
   opacity: 1;
 }
+
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* Prilagodi prema potrebama */
+  overflow: hidden;
+  margin: auto;
+}
+
+.carousel-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 220px;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 18px;
+  z-index: 1000;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}

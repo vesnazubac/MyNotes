@@ -13,8 +13,20 @@
         </mat-card-header>
         <mat-card-content (click)="openEditDialog(item, $event)">
           <p>{{ item.Content }}</p>
+          <!-- <img *ngIf="item.Image" [src]="item.Image" alt="Note image" style="max-width: 100%; height: auto;" />
+            -->
+            <div class="carousel-container">
+              <div class="carousel-wrapper" [attr.data-item-id]="item.Id">
+                <div class="carousel-slide" *ngFor="let image of item.Images">
+                  <img [src]="image" alt="Image" class="carousel-image"/>
+                </div>
+              </div>
+              <button class="carousel-control prev" (click)="prevSlide(item,$event)">&#10094;</button>
+              <button class="carousel-control next" (click)="nextSlide(item,$event)">&#10095;</button>
+            </div>
         </mat-card-content>
         <mat-card-actions class="note-actions">
+          <mat-icon class="note-icon" (click)="openFileDialog(item, $event)">photo</mat-icon>
           <mat-icon class="note-icon" (click)="toggleDateTimePicker(item, $event)">notification_important</mat-icon>
           <mat-icon class="note-icon" (click)="openColorPickerDialog(item, $event)">palette</mat-icon>
           <mat-icon class="note-icon" (click)="archiveNote(item, $event)">archive</mat-icon>
@@ -33,8 +45,20 @@
         </mat-card-header>
         <mat-card-content (click)="openEditDialog(item, $event)">
           <p>{{ item.Content }}</p>
+           <!-- <img *ngIf="item.Images" [src]="item.Image" alt="Note image" style="max-width: 100%; height: auto;" />
+             -->
+             <div class="carousel-container">
+              <div class="carousel-wrapper" [attr.data-item-id]="item.Id">
+                <div class="carousel-slide" *ngFor="let image of item.Images">
+                  <img [src]="image" alt="Image" class="carousel-image"/>
+                </div>
+              </div>
+              <button class="carousel-control prev" (click)="prevSlide(item,$event)">&#10094;</button>
+              <button class="carousel-control next" (click)="nextSlide(item,$event)">&#10095;</button>
+            </div>
         </mat-card-content>
         <mat-card-actions class="note-actions">
+          <mat-icon class="note-icon" (click)="openFileDialog(item, $event)">photo</mat-icon>
           <mat-icon class="note-icon" (click)="toggleDateTimePicker(item, $event)">notification_important</mat-icon>
           <mat-icon class="note-icon" (click)="openColorPickerDialog(item, $event)">palette</mat-icon>
           <mat-icon class="note-icon" (click)="archiveNote(item, $event)">archive</mat-icon>

@@ -16,5 +16,6 @@ namespace MyNotes.Domain.DTOs
         public bool IsPinned { get; set; }
         public string GroupId { get; set; }
         public DateTime? ReminderDate { get; set; }
+        public List<string?>? Images { get;set; }
     }
 }

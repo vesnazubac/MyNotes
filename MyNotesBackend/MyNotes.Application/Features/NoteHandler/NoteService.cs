@@ -27,6 +27,7 @@ namespace MyNotes.Application.Features.NoteHandler
             noteToCreate.IsArchived = false;
             noteToCreate.IsDeleted=false;
             noteToCreate.ReminderDate = null;
+            noteToCreate.Images = null;
             var createdNote = _noteRepository.Create(noteToCreate);
             _noteRepository.SaveChanges();
             return createdNote;

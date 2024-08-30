@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyNotes.Infrastructure.Persistence;
 
@@ -10,9 +11,11 @@ using MyNotes.Infrastructure.Persistence;
 namespace MyNotes.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240825080553_add-migration ImagesMigration")]
+    partial class addmigrationImagesMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -43,7 +46,7 @@ namespace MyNotes.Persistence.Migrations
                     b.Property<Guid>("GroupId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Images")
+                    b.Property<string>("Image")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsArchived")

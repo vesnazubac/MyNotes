@@ -19,6 +19,7 @@ export class SignalRService {
       this.showNotification(message);
     });
 
+
     this.hubConnection.start().catch(err => console.error('SignalR Connection Error: ', err));
   }
 
