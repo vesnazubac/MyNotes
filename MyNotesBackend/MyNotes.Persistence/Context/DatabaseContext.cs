@@ -8,6 +8,7 @@ namespace MyNotes.Infrastructure.Persistence
         public DbSet<Note> Notes { get; set; }
         public DbSet<NoteGroup> NoteGroups { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Label> Labels{ get; set; }
         public DatabaseContext(DbContextOptions options) : base(options)
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -24,6 +25,16 @@ namespace MyNotes.Infrastructure.Persistence
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source={DbPath}");
 
-       
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Note>()
+        //        .HasMany(n => n.Labels)
+        //        .WithMany()
+        //        .UsingEntity<Dictionary<string, object>>(
+        //            "NoteLabel",
+        //            j => j.HasOne<Label>().WithMany().HasForeignKey("LabelId"),
+        //            j => j.HasOne<Note>().WithMany().HasForeignKey("NoteId"));
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

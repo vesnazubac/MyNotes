@@ -72,7 +72,8 @@ export class RemindersComponent {
       IsPinned: !note.IsPinned,
       GroupId: note.GroupId,
       ReminderDate:note.ReminderDate,
-      Images:note.Images
+      Images:note.Images,
+      Labels:note.Labels
     };
     this.noteService.updateNote(note.Id, notePutDTO).subscribe(
       updatedNote => {

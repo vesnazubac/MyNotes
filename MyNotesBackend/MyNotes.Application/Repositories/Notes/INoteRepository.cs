@@ -26,6 +26,8 @@ namespace MyNotes.Application.Repositories.Notes
         List<Note> Search(String term,Guid id);
         void Delete(Guid id);
         void SetDeletedDate(Guid id);
+        //bool AddLabel(Guid noteId,Guid labelId);
+        //void DeleteLabel(Guid id, Label label);
         void Restore(Guid id);
     }
 }

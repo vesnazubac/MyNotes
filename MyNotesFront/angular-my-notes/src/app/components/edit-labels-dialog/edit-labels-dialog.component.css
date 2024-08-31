@@ -1,0 +1,61 @@
+.mat-dialog-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mat-dialog-content {
+  flex: 1;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+  border-top: 1px solid #ddd;
+}
+
+.label-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-left: 5px;
+}
+
+.label-item {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-size: 14px;
+  position: relative;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.label-item:hover {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+}
+
+.label-name {
+  margin-left: 8px; /* Razmak između ikone i teksta */
+}
+
+.label-remove {
+  display: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: opacity 0.3s;
+  margin-left: 8px;
+}
+
+.label-item:hover .label-remove {
+  display: inline;
+  opacity: 1;
+}
+
+.labelIcon {
+  font-size: 16px;
+}

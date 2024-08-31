@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,8 +25,11 @@ namespace MyNotes.Domain.Entities
         public Guid UserId { get; set; }
         public Guid GroupId { get; set; }
         public List<string?>? Images { get;set; }
+        // public List<Label> Labels { get; set; } = new List<Label>();
+        public List<string?>?Labels{ get; set; }
 
-        
-        
+
+
+
     }
 }

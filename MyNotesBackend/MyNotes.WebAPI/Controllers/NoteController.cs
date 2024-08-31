@@ -187,6 +187,37 @@ namespace MyNotes.WebAPI.Controllers
             _noteService.Restore(id);
             return NoContent();
         }
+
+        //[HttpPut("addLabel/{noteId}/{labelId}")]
+        //public async Task<IActionResult> AddLabel(Guid noteId, Guid labelId)
+        //{
+        //    var note = await _noteService.GetById(noteId);
+        //    if (note == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var result = await _noteService.AddLabel(noteId, labelId);
+        //    if (result)
+        //    {
+        //        return NoContent();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest();
+        //    }
+        //}
+        //[HttpPut("deleteLabel/{id}")]
+        //public async Task<IActionResult> DeleteLabel(Guid id, Label label)
+        //{
+        //    var note = await _noteService.GetById(id);
+        //    if (note == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    _noteService.DeleteLabel(id, label);
+        //    return NoContent();
+        //}
     }
 }
 

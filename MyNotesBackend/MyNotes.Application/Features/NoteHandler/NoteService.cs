@@ -7,16 +7,21 @@ using System.Threading.Tasks;
 using MyNotes.Domain.Entities;
 using MyNotes.Domain.DTOs;
 using Microsoft.EntityFrameworkCore;
+using MyNotes.Application.Repositories.NoteLabels;
 
 namespace MyNotes.Application.Features.NoteHandler
 {
     public class NoteService
     {
         private readonly INoteRepository _noteRepository;
+        private readonly ILabelRepository _labelRepository;
 
-        public NoteService(INoteRepository noteRepository)
+
+        public NoteService(INoteRepository noteRepository,ILabelRepository labelRepository)
         {
             _noteRepository = noteRepository;
+            _labelRepository = labelRepository;
+
         }
 
         public async Task<Note> Create(Note noteToCreate)
@@ -28,6 +33,7 @@ namespace MyNotes.Application.Features.NoteHandler
             noteToCreate.IsDeleted=false;
             noteToCreate.ReminderDate = null;
             noteToCreate.Images = null;
+            noteToCreate.Labels = null;
             var createdNote = _noteRepository.Create(noteToCreate);
             _noteRepository.SaveChanges();
             return createdNote;
@@ -118,6 +124,24 @@ namespace MyNotes.Application.Features.NoteHandler
                 _noteRepository.Restore(id);
             }
         }
+        //public async Task<bool> AddLabel(Guid noteId, Guid labelId)
+        //{
+
+
+        //    return _noteRepository.AddLabel(noteId, labelId);
+        //}
+        //public async Task DeleteLabel(Guid id, Label label)
+        //{
+        //    var note = _noteRepository.GetById(id);
+        //    if (note == null)
+        //    {
+        //        throw new Exception("Note not found");
+        //    }
+        //    else
+        //    {
+        //        _noteRepository.DeleteLabel(id, label);
+        //    }
+        //}
 
     }
 }

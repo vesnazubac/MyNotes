@@ -27,7 +27,7 @@
       </a>
     </li>
     <li>
-      <a routerLink="/edit-labels" *ngIf="isLoggedIn()" routerLinkActive="active">
+      <a routerLink="/edit-labels" *ngIf="isLoggedIn()"  (click)="openEditLabelsDialog()" routerLinkActive="active">
         <span class="menu-icon material-icons">label</span>
         <span class="menu-text">Edit labels</span>
       </a>

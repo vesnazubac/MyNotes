@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Edit Labels</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Select a Label</mat-label>
+    <mat-select [(ngModel)]="selectedLabel">
+      <mat-option *ngFor="let label of labels" [value]="label">
+        {{ label.Name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onAddLabel()">Add Label</button>
+</mat-dialog-actions>
