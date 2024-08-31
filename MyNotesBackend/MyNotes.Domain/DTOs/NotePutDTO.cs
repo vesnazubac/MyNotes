@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyNotes.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace MyNotes.Domain.DTOs
         public string GroupId { get; set; }
         public DateTime? ReminderDate { get; set; }
         public List<string?>? Images { get;set; }
+        public List<string>? Labels { get; set; }
     }
 }

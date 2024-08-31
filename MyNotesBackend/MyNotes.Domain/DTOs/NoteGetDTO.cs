@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyNotes.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,5 +21,6 @@ namespace MyNotes.Domain.DTOs
         public long UserId { get; set; }
         public Guid GroupId { get; set; }
         public DateTime? ReminderDate { get; set; }
+        public List<string>?Labels { get;set; }
     }
 }

@@ -1,5 +1,7 @@
 // src/app/models/post-dto.ts
 
+import { Label } from "../models/label";
+
 export interface NoteGetDTO {
   Id:string;
   Title: string;
@@ -15,4 +17,5 @@ export interface NoteGetDTO {
   IsDeleted:boolean;
   ReminderDate:Date;
   Images:string[];
+  Labels:string[];
 }

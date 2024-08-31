@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyNotes.Infrastructure.Persistence;
 
@@ -10,9 +11,11 @@ using MyNotes.Infrastructure.Persistence;
 namespace MyNotes.Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240831083454_Labels")]
+    partial class Labels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -29,7 +32,7 @@ namespace MyNotes.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Labels");
+                    b.ToTable("Label");
                 });
 
             modelBuilder.Entity("MyNotes.Domain.Entities.Note", b =>
@@ -69,9 +72,6 @@ namespace MyNotes.Persistence.Migrations
 
                     b.Property<bool>("IsPinned")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Labels")
-                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ReminderDate")
                         .HasColumnType("TEXT");
@@ -146,6 +146,36 @@ namespace MyNotes.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("NoteLabel", b =>
+                {
+                    b.Property<Guid>("LabelId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("NoteId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("LabelId", "NoteId");
+
+                    b.HasIndex("NoteId");
+
+                    b.ToTable("NoteLabel");
+                });
+
+            modelBuilder.Entity("NoteLabel", b =>
+                {
+                    b.HasOne("MyNotes.Domain.Entities.Label", null)
+                        .WithMany()
+                        .HasForeignKey("LabelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyNotes.Domain.Entities.Note", null)
+                        .WithMany()
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

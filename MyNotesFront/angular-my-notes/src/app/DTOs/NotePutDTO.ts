@@ -1,3 +1,5 @@
+import { Label } from "../models/label";
+
 export interface NotePutDTO {
   Title: string;
   Content: string;
@@ -6,6 +8,7 @@ export interface NotePutDTO {
   GroupId: string;
   ReminderDate:Date;
   Images:string[];
+  Labels:string[];
 }
 
 

@@ -6,6 +6,7 @@ import { NotePostDTO } from '../../DTOs/NotePostDTO';
 import { environment } from '../../../enviroment/env';
 import { NotePutDTO } from '../../DTOs/NotePutDTO';
 import {Note} from '../../models/Note';
+import { Label } from '../../models/label';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,9 +28,7 @@ export class NoteService {
   create(note: NotePostDTO): Observable<NotePostDTO> {
     return this.httpClient.post<NotePostDTO>(environment.apiHost + 'api/notes', note)
   }
-  update(note: NotePutDTO,id:number): Observable<Note> {
-    return this.httpClient.put<Note>(environment.apiHost + 'api/notes' + id,note)
-  }
+
   getById(id: any): Observable<NoteGetDTO[]> {
     return this.httpClient.get<NoteGetDTO[]>(environment.apiHost + 'api/notes/by-userId/'+id)
   }
@@ -57,5 +56,15 @@ export class NoteService {
   }
   restore(id: string): Observable<Note> {
     return this.httpClient.put<Note>(environment.apiHost+`api/notes/restore/${id}`,null);
+  }
+  addLabel(noteId:any, labelId: any): Observable<void> {
+    console.log(
+      `${environment.apiHost}api/notes/addLabel/${noteId}/${labelId}`
+    )
+    return this.httpClient.put<void>(`${environment.apiHost}api/notes/addLabel/${noteId}/${labelId}`,{});
+  }
+
+  deleteLabel(noteId: any, label: Label): Observable<void> {
+    return this.httpClient.put<void>(`${environment.apiHost}api/notes/deleteLabel/${noteId}`, label);
   }
 }

@@ -8,16 +8,20 @@ using MyNotes.Domain.DTOs;
 using MyNotes.Infrastructure.Persistence;
 using System.Reflection.Metadata;
 using Microsoft.EntityFrameworkCore;
+using MyNotes.Application.Repositories.NoteLabels;
 
 namespace MyNotes.Application.Repositories.Notes
 {
     public class NoteRepository : INoteRepository
     {
         private readonly DatabaseContext _databaseContext;
+        private readonly ILabelRepository _labelRepository;
 
-        public NoteRepository(DatabaseContext databaseContext)
+        public NoteRepository(DatabaseContext databaseContext, ILabelRepository labelRepository)
         {
             _databaseContext = databaseContext;
+            _labelRepository=labelRepository;
+
         }
 
         public Note Create(Note note)
@@ -114,6 +118,7 @@ namespace MyNotes.Application.Repositories.Notes
             note.IsPinned = noteDTO.IsPinned;
             note.ReminderDate = noteDTO.ReminderDate;
             note.Images = noteDTO.Images;
+            note.Labels = noteDTO.Labels;
             SaveChanges();
             return note;
         }
@@ -155,6 +160,41 @@ namespace MyNotes.Application.Repositories.Notes
             }
             SaveChanges();
         }
+        //public bool AddLabel(Guid noteId, Guid labelId)
+        //{
+        //        var note = _databaseContext.Notes.FirstOrDefault(x => x.Id == noteId);
 
+        //    if (note == null)
+        //    {
+        //        return false;
+        //    }
+
+        //    var label =  _labelRepository.GetById(labelId);
+
+        //    if (label == null)
+        //    {
+        //        return false;
+        //    }
+
+        //    if (note.Labels.Any(l => l.Id == labelId))
+        //    {
+        //        // Label already exists for this note
+        //        return false;
+        //    }
+
+        //    note.Labels.Add(label);
+        //    _databaseContext.SaveChangesAsync();
+
+        //    return true;
+        //}
+        //public void DeleteLabel(Guid id, Label label)
+        //{
+        //    var note = GetById(id);
+        //    if (note != null)
+        //    {
+        //        note.Labels.Remove(label);
+        //    }
+        //    SaveChanges();
+        //}
     }
 }

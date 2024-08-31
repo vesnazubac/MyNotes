@@ -14,6 +14,7 @@ import { SharedModule } from '../../common/shared.module';
 import { NoteComponent } from '../note/note.component';
 import { ColorOption } from '../../models/color';
 import { ColorPickerDialogComponent } from '../color-picker-dialog/color-picker-dialog.component';
+import { LabelDialogComponent } from '../label-dialog/label-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -90,7 +91,8 @@ export class HomeComponent {
       IsPinned: !note.IsPinned,
       GroupId: note.GroupId,
       ReminderDate:note.ReminderDate,
-      Images:note.Images
+      Images:note.Images,
+      Labels:note.Labels
     };
     this.noteService.updateNote(note.Id, notePutDTO).subscribe(
       updatedNote => {
@@ -118,7 +120,7 @@ export class HomeComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe((result: { Title: any; Content: any; Color: any; IsPinned: any; GroupId: any; ReminderDate:any,Images:any }) => {
+    dialogRef.afterClosed().subscribe((result: { Title: any; Content: any; Color: any; IsPinned: any; GroupId: any; ReminderDate:any,Images:any,Labels:any }) => {
       if (result) {
         const notePutDTO: NotePutDTO = {
           Title: result.Title,
@@ -127,7 +129,8 @@ export class HomeComponent {
           IsPinned: result.IsPinned,
           GroupId: result.GroupId,
           ReminderDate:result.ReminderDate,
-          Images:result.Images
+          Images:result.Images,
+          Labels:result.Labels
         };
         this.noteService.updateNote(note.Id, notePutDTO).subscribe(
           updatedNote => {
@@ -217,7 +220,8 @@ export class HomeComponent {
           IsPinned: item.IsPinned,
           GroupId: item.GroupId,
           ReminderDate: item.ReminderDate,
-          Images:item.Images
+          Images:item.Images,
+          Labels:item.Labels
         };
         this.noteService.updateNote(item.Id, notePutDTO).subscribe(
           updatedNote => {
@@ -250,7 +254,8 @@ export class HomeComponent {
           IsPinned: item.IsPinned,
           GroupId: item.GroupId,
           ReminderDate:item.ReminderDate,
-          Images:item.Images
+          Images:item.Images,
+          Labels:item.Labels
         };
         this.noteService.updateNote(item.Id, notePutDTO).subscribe(
           updatedNote => {
@@ -334,7 +339,53 @@ export class HomeComponent {
       wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
   }
+  editLabelDialog(note: NoteGetDTO, event: Event): void {
+
+    this.dialog.open(LabelDialogComponent, {
+      width: '250px',
+      data: { noteId: note.Id }
+    }).afterClosed().subscribe(() => {
+      this.handleNoteSaved()
+    });
+  }
+  onRemoveLabel(labelToRemove: string,noteSel:any): void {
+    console.log('Label to remove:', labelToRemove);
+    console.log('Note ID:', noteSel.Id);
+
+    this.noteService.getAll().subscribe(notes => {
+        const noteToUpdate = notes.find(note => note.Id == noteSel.Id);
+
+        if (noteToUpdate) {
+            if (!noteToUpdate.Labels) {
+                noteToUpdate.Labels = [];
+            }
+
+            noteToUpdate.Labels = noteToUpdate.Labels.filter(label => label != labelToRemove);
+
+            const updatedNote: NotePutDTO = {
+                ...noteToUpdate,
+                Labels: noteToUpdate.Labels
+            };
+
+            this.noteService.updateNote(noteSel.Id, updatedNote).subscribe({
+                next: () => {
+                    console.log('Note updated successfully after removing the label');
+                    this.handleNoteSaved()
+                },
+                error: (err) => {
+                    console.error('Error updating note:', err);
+                }
+            });
+        } else {
+            console.error('Note not found');
+        }
+    }, error => {
+        console.error('Error fetching notes:', error);
+    });
 }
+
+}
+
 
 
 

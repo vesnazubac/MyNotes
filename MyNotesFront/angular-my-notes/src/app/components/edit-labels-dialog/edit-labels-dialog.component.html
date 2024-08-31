@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Edit labels</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Create new label</mat-label>
+    <input matInput [(ngModel)]="newLabelName" (keyup.enter)="createLabel()" placeholder="Enter label name">
+    <button mat-icon-button (click)="createLabel()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-list>
+    <mat-list-item *ngFor="let label of labels">
+      <mat-icon matListIcon class="labelIcon">label</mat-icon>
+      <span matLine>{{ label.Name }}</span>
+      <button mat-icon-button (click)="deleteLabel(label.Id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <!-- <button mat-button mat-dialog-close>Done</button> -->
+</div>

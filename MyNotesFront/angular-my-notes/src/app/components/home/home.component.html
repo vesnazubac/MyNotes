@@ -25,7 +25,14 @@
               <button class="carousel-control next" (click)="nextSlide(item,$event)">&#10095;</button>
             </div>
         </mat-card-content>
+        <div class="label-section">
+          <div *ngFor="let label of item.Labels" class="label-item">
+            <span class="label-name">{{ label }}</span>
+            <mat-icon class="label-remove" (click)="onRemoveLabel(label,item)">close</mat-icon>
+          </div>
+        </div>
         <mat-card-actions class="note-actions">
+          <mat-icon class="note-icon" (click)="editLabelDialog(item, $event)">edit_labels</mat-icon>
           <mat-icon class="note-icon" (click)="openFileDialog(item, $event)">photo</mat-icon>
           <mat-icon class="note-icon" (click)="toggleDateTimePicker(item, $event)">notification_important</mat-icon>
           <mat-icon class="note-icon" (click)="openColorPickerDialog(item, $event)">palette</mat-icon>
@@ -57,7 +64,14 @@
               <button class="carousel-control next" (click)="nextSlide(item,$event)">&#10095;</button>
             </div>
         </mat-card-content>
+        <div class="label-section">
+          <div *ngFor="let label of item.Labels" class="label-item">
+            <span class="label-name">{{label}}</span>
+            <mat-icon class="label-remove" (click)="onRemoveLabel(label,item)"  >close</mat-icon>
+          </div>
+        </div>
         <mat-card-actions class="note-actions">
+          <mat-icon class="note-icon" (click)="editLabelDialog(item, $event)">edit_labels</mat-icon>
           <mat-icon class="note-icon" (click)="openFileDialog(item, $event)">photo</mat-icon>
           <mat-icon class="note-icon" (click)="toggleDateTimePicker(item, $event)">notification_important</mat-icon>
           <mat-icon class="note-icon" (click)="openColorPickerDialog(item, $event)">palette</mat-icon>

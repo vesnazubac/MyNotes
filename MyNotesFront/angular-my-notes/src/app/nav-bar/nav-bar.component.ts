@@ -9,6 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
 import { SidebarService } from '../services/sidebar/sidebar.service';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { EditLabelsDialogComponent } from '../components/edit-labels-dialog/edit-labels-dialog.component';
 
 // @Injectable()
 @Component({
@@ -41,7 +43,7 @@ export class NavBarComponent {
   isSubmenuOpen = false;
   isDashboardSelected = false;
 
-  constructor(private router: Router, private sidebarService: SidebarService,private authService:AuthService) {}
+  constructor(private router: Router,private dialog:MatDialog, private sidebarService: SidebarService,private authService:AuthService) {}
 
   ngOnInit() {
     this.sidebarService.sidebarVisibility$.subscribe((isVisible) => {
@@ -72,5 +74,19 @@ export class NavBarComponent {
   }
   isLoggedIn(){
     return this.authService.isLoggedIn();
+  }
+
+  openEditLabelsDialog(): void {
+    const dialogRef = this.dialog.open(EditLabelsDialogComponent, {
+      width: '400px',
+      autoFocus: false,
+      disableClose: false
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
   }
 }

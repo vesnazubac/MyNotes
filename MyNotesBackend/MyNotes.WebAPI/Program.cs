@@ -9,6 +9,7 @@ using MyNotes.Application.Repositories.Users;
 using MyNotes.Application.Features.UserHandler;
 using MyNotes.WebAPI.Helpers;
 using MyNotes.Domain.Entities;
+using MyNotes.Application.Repositories.NoteLabels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +24,13 @@ var builder = WebApplication.CreateBuilder(args);
                     });
     builder.Services.AddScoped<INoteRepository, NoteRepository>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<ILabelRepository, LabelRepository>();
     builder.Services.AddScoped<NoteService>();
     builder.Services.AddHostedService<NotesBackgroundService>();
     builder.Services.AddScoped<UserService>();
-    builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+    builder.Services.AddScoped<LabelService>();
+
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
     builder.Services.AddHostedService<ReminderBackgroundService>();
     builder.Services.AddScoped<ReminderService>();
