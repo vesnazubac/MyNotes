@@ -89,7 +89,7 @@ export class ArchiveComponent {
       updatedNote => {
         console.log('Note archived:', updatedNote);
         this.handleNoteSaved();
-        this.showSnackBar("Note has been archived. You can find it in archive section")
+        this.showSnackBar("Note has been unarchived. You can find it in home section")
       },
       error => {
         console.error('Error archiving note:', error);

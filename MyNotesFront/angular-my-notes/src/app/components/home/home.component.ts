@@ -297,6 +297,7 @@ export class HomeComponent {
   saveNoteWithImage(item: NoteGetDTO) {
     this.noteService.updateNote(item.Id,item).subscribe(response => {
       console.log('Note updated with image:', response);
+      this.showSnackBar("Image added successfully")
       this.handleNoteSaved();
     });
   }

@@ -60,7 +60,7 @@ export class RegisterComponent {
         {
           next: (data: UserPostDTO) => {
             console.log("Uspesno registrovan :" , user)
-            this.router.navigate(['home'])
+            this.router.navigate(['login'])
           },
         }
       );

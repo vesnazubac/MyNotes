@@ -30,8 +30,6 @@ export class UserprofileComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password:new FormControl('', Validators.required),
     username:new FormControl('', Validators.required),
-
-
   })
   hide=true;
 
@@ -39,15 +37,12 @@ export class UserprofileComponent {
     private userService:UserService,private authService:AuthService,private router: Router, private snackBar:MatSnackBar) {}
 
   ngOnInit() {
-
     this.loggedInUserId=this.authService.getUserIdFromToken()
-
     if (this.loggedInUserId) {
       this.userService.getById(this.loggedInUserId).subscribe(
         (user: UserGetDTO) => {
           if (user) {
             console.log('User:', user);
-
             this.editAccountDataForm.get('name')?.setValue(user.FirstName);
             this.editAccountDataForm.get('surname')?.setValue(user.LastName);
             this.editAccountDataForm.get('phoneNumber')?.setValue(user.phoneNumber);
@@ -55,7 +50,6 @@ export class UserprofileComponent {
             this.editAccountDataForm.get('username')?.setValue(user.UserName);
             this.editAccountDataForm.get('password')?.setValue(user.Password);
             this.editAccountDataForm.get('email')?.setValue(user.Email);
-
           } else {
             console.error('User not found');
           }
