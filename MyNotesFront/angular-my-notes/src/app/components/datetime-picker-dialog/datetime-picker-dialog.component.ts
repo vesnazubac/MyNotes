@@ -38,7 +38,7 @@ export class DateTimePickerDialogComponent {
   saveDate(): void {
     const combinedDateTime = new Date(this.selectedDate);
     if (this.selectedHour !== undefined && this.selectedMinute !== undefined) {
-      combinedDateTime.setHours(this.selectedHour+2);
+      combinedDateTime.setHours(this.selectedHour+1);
       combinedDateTime.setMinutes(this.selectedMinute);
       combinedDateTime.setSeconds(0);
     }

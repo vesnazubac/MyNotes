@@ -145,7 +145,7 @@ namespace MyNotes.Application.Repositories.Notes
             var note = GetById(id);
             if (note != null)
             {
-               note.DeletedDate = DateTime.UtcNow; 
+               note.DeletedDate = DateTime.UtcNow.ToLocalTime(); 
                 note.IsDeleted = true;
             }
             SaveChanges();

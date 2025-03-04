@@ -1,4 +1,4 @@
-/* Define common styles for menu items */
+Define common styles for menu items
 .menu-item {
   color: #d4d4d4;
   text-decoration: none;
@@ -16,11 +16,12 @@
 
 .menu-item .menu-text {
   /* Optional: Add font-weight or other styles if needed */
+  color:#000000;
 }
 
 /* Sidebar styles */
 .sidebar {
-  background-color: gray;
+  background-color:white;
   width: 200px;
   padding: 20px;
   position: fixed;
@@ -42,7 +43,7 @@
 }
 
 .sidebar li a {
-  color: #d4d4d4;
+  color: black;
   text-decoration: none;
   display: flex;
   align-items: center;

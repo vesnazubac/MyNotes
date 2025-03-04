@@ -15,6 +15,8 @@ import { NoteComponent } from '../note/note.component';
 import { ColorOption } from '../../models/color';
 import { ColorPickerDialogComponent } from '../color-picker-dialog/color-picker-dialog.component';
 import { LabelDialogComponent } from '../label-dialog/label-dialog.component';
+import { NgZone } from '@angular/core';
+
 
 @Component({
   selector: 'app-home',
@@ -44,7 +46,7 @@ export class HomeComponent {
 
 
 
-  constructor( private authService:AuthService,private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
+  constructor( private ngZone:NgZone,private authService:AuthService,private snackBar: MatSnackBar,private noteService: NoteService,private dialog: MatDialog,private signalRService: SignalRService) {
 
   }
 
@@ -59,6 +61,24 @@ export class HomeComponent {
       });
     });
   }
+  // ngOnInit() {
+  //   this.loggedInUser = this.authService.getUserIdFromToken();
+  //   this.handleNoteSaved();
+  
+  //   // Sačekaj da se SignalR konekcija pokrene pre nego što registruješ event listener
+  //   this.signalRService.hubConnection.start().then(() => {
+  //     console.log("SignalR Connected!");
+  
+  //     this.signalRService.hubConnection.on('ReceiveReminder', (message: string) => {
+  //       this.snackBar.open(message, 'Close', {
+  //         duration: 8000,
+  //         horizontalPosition: 'right',
+  //         verticalPosition: 'bottom',
+  //       });
+  //     });
+  
+  //   }).catch(err => console.error("SignalR Connection Error: ", err));
+  // }
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.itemsNotPinned, event.previousIndex, event.currentIndex);
     moveItemInArray(this.itemsPinned, event.previousIndex, event.currentIndex);
@@ -237,6 +257,8 @@ export class HomeComponent {
       }
     });
   }
+ 
+  
   onDateSelected(event: any, item: any): void {
     const selectedDate = event.value;
     item.notificationDate = selectedDate;
